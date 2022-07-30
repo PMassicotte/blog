@@ -33,4 +33,4 @@ comments:
     repo: pmassicotte/r-blog
 
 execute:
-  freeze: true
+  freeze: auto

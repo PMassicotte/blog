@@ -1,0 +1,4 @@
+- source: project
+  netlify:
+    - id: ad15672e-4769-40a3-975a-9fa6b3442f4f
+      url: 'https://rainbow-kleicha-a4a3a4.netlify.app'

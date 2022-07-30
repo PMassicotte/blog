@@ -468,9 +468,9 @@ Session info
 <span></span>
 <span><span class="va" style="color: #111111;">res</span></span>
 <span><span class="co" style="color: #5E5E5E;">#&gt; Unit: milliseconds</span></span>
-<span><span class="co" style="color: #5E5E5E;">#&gt;             expr      min       lq    mean   median       uq      max neval</span></span>
-<span><span class="co" style="color: #5E5E5E;">#&gt;  map_df_read_csv 401.3365 420.9607 465.436 489.8834 499.2507 534.0176   100</span></span>
-<span><span class="co" style="color: #5E5E5E;">#&gt;         read_csv 149.1121 153.4229 166.603 157.2778 161.1995 240.0487   100</span></span>
+<span><span class="co" style="color: #5E5E5E;">#&gt;             expr      min       lq     mean   median       uq      max neval</span></span>
+<span><span class="co" style="color: #5E5E5E;">#&gt;  map_df_read_csv 413.3536 441.4230 480.7377 497.3756 502.5032 521.7361   100</span></span>
+<span><span class="co" style="color: #5E5E5E;">#&gt;         read_csv 148.1041 153.3014 163.3054 156.3136 161.2407 251.3683   100</span></span>
 <span></span>
 <span><span class="fu" style="color: #4758AB;">autoplot</span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">res</span><span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
 <div class="cell-output-display">
@@ -1649,16 +1649,16 @@ dttm (2): Start date, End date
 <div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;">files</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">file</span>, <span class="fl" style="color: #AD0000;">10</span><span class="op" style="color: #5E5E5E;">)</span></span>
 <span><span class="va" style="color: #111111;">files</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] "/tmp/Rtmp7S1Jku/201801_capitalbikeshare_tripdata.csv"
- [2] "/tmp/Rtmp7S1Jku/201801_capitalbikeshare_tripdata.csv"
- [3] "/tmp/Rtmp7S1Jku/201801_capitalbikeshare_tripdata.csv"
- [4] "/tmp/Rtmp7S1Jku/201801_capitalbikeshare_tripdata.csv"
- [5] "/tmp/Rtmp7S1Jku/201801_capitalbikeshare_tripdata.csv"
- [6] "/tmp/Rtmp7S1Jku/201801_capitalbikeshare_tripdata.csv"
- [7] "/tmp/Rtmp7S1Jku/201801_capitalbikeshare_tripdata.csv"
- [8] "/tmp/Rtmp7S1Jku/201801_capitalbikeshare_tripdata.csv"
- [9] "/tmp/Rtmp7S1Jku/201801_capitalbikeshare_tripdata.csv"
-[10] "/tmp/Rtmp7S1Jku/201801_capitalbikeshare_tripdata.csv"</code></pre>
+<pre><code> [1] "/tmp/RtmpMRMqo4/201801_capitalbikeshare_tripdata.csv"
+ [2] "/tmp/RtmpMRMqo4/201801_capitalbikeshare_tripdata.csv"
+ [3] "/tmp/RtmpMRMqo4/201801_capitalbikeshare_tripdata.csv"
+ [4] "/tmp/RtmpMRMqo4/201801_capitalbikeshare_tripdata.csv"
+ [5] "/tmp/RtmpMRMqo4/201801_capitalbikeshare_tripdata.csv"
+ [6] "/tmp/RtmpMRMqo4/201801_capitalbikeshare_tripdata.csv"
+ [7] "/tmp/RtmpMRMqo4/201801_capitalbikeshare_tripdata.csv"
+ [8] "/tmp/RtmpMRMqo4/201801_capitalbikeshare_tripdata.csv"
+ [9] "/tmp/RtmpMRMqo4/201801_capitalbikeshare_tripdata.csv"
+[10] "/tmp/RtmpMRMqo4/201801_capitalbikeshare_tripdata.csv"</code></pre>
 </div>
 </div>
 <p>I can now simply use this character vector with <code><a href="https://vroom.r-lib.org/reference/vroom.html">vroom()</a></code>. Note that I can also use the <code>.name_repair</code> argument to clean column names.</p>
