@@ -1,0 +1,59 @@
+---
+title: "About"
+image: profile.jpg
+comments: false
+about:
+  template: marquee
+  image-shape: round
+  image-width: 20em
+  
+  links:
+    - icon: twitter
+      text: Twitter
+      href: https://twitter.com/philmassicotte
+    - icon: github
+      text: Github
+      href: https://github.com/pmassicotte
+    - icon: stack-overflow
+      text: Stackoverflow
+      href: "users/5558188/philippe-massicotte"
+---
+
+Hi, my name is Philippe Massicotte. As a *numerical ecologist*, the [R statistical computing language](https://www.r-project.org/) is an important part of my daily workflow. I mainly use R for environmental modelling and data manipulation.
+
+<img src="/img/pmassicotte.jpg" alt="drawing" width="400"/>
+
+## Current research
+
+I am currently working as a research associate at the [Takuvik Joint International Laboratory](http://www.takuvik.ulaval.ca/) under the supervision of [Dr. Marcel Babin](http://www.takuvik.ulaval.ca/team/babin_marcel.php).
+
+**Some researches I am currently working on:**
+
+- Understand how surrounding landscapes of aquatic ecosystems determine the biogeocycling of dissolved organic matter (DOM).
+
+- Understand how DOM, as the main agent driving the optical properties of aquatic ecosystems, influences their functioning.
+
+- Quantify how the complex mosaic composed of ice, snow, leads, melt ponds and open water influence underwater light regime in aquatic ecosystems.
+
+- Influence of available irradiance under heterogeneous sea-ice conditions on phytoplankton primary production estimates.
+
+**I am always looking for collaborations.** Do not hesitate to contact me!
+
+## Scientific interests (no specific order)
+
+- Aquatic ecosystems (limnology & oceanography)
+
+- Dissolved organic matter (DOM) and carbon cycling
+
+- Aquatic optic (fluorescence, absorbance, remote sensing)
+
+- Mathematics
+
+- Numerical analyses/modelling (multivariate analyses, spatial analyses, system dynamic)
+
+- Scientific programming
+
+- Image analysis
+
+- Geomatic
+

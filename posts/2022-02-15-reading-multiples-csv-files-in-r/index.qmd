@@ -1,0 +1,117 @@
+---
+title: "Reading multiples CSV files using readr"
+author: "Philippe Massicotte"
+date: "2022-02-15"
+categories: [R, data manipulation]
+image: "images/img_marc_sendra_speed.jpg"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  cache = TRUE,
+  dpi = 600,
+  out.width = "100%",
+  fig.align = "center",
+  fig.width = 8,
+  fig.asp = 0.618, # 1 / phi
+  fig.show = "hold",
+  dev = "png",
+  message = FALSE,
+  warning = FALSE,
+  echo = TRUE
+)
+
+library(tidyverse)
+library(ggpmthemes)
+
+theme_set(theme_minimal(base_family = "Montserrat"))
+```
+
+If you are beginning in R, chances are that you have used `read.csv()` to import CSV files into R. While this function works perfectly fine, it can only read one file at a time. Hence, new R programmers often read multiple files successively and combine the data afterward. 
+
+```{r, eval = FALSE}
+
+# Read all the data files
+df1 <- read.csv("file1.csv")
+df2 <- read.csv("file2.csv")
+df3 <- read.csv("file3.csv")
+df4 <- read.csv("file4.csv")
+df5 <- read.csv("file5.csv")
+
+# Combine all the data frame together
+big_df <- rbind(df1, df2, df3, df4, df5)
+```
+
+Whereas this can work fine if you have only a few files, this can become tedious when the number of files to read increases. A better approach would be to use a list of files and read them at once. For quite a while, I have been using a combination of `map_df()` from the [purrr package](https://purrr.tidyverse.org/reference/map.html).
+
+```{r, eval = FALSE}
+# Create a vector of file names
+files <- c("file1.csv", "file2.csv", "file3.csv", "file4.csv", "file5.csv")
+
+# Read and combine all data files into a single data frame
+big_df <- map_df(files, read_csv)
+```
+
+In the release of [readr 2.0.0](https://www.tidyverse.org/blog/2021/07/readr-2-0-0/), the `read_csv()` function can directly take a list of files as input, eliminating the need to use the `mad_df()` function. Hence, we can now read multiples files as follow:
+
+```{r, eval = FALSE}
+# Read and combine all data files into a single data frame without using the
+# map_df function
+big_df <- read_csv(files)
+```
+
+[![Lights in the night](images/img_marc_sendra_speed.jpg)](https://unsplash.com/photos/-Vqn2WrfxTQ)
+
+In this short blog post, I wanted to benchmark the speed difference between `map_df(files, read_csv)` and `read_csv(files)`. To do it so let's first [generate some data files](https://www.tidyverse.org/blog/2021/07/readr-2-0-0/).
+
+```{r}
+library(nycflights13)
+
+purrr::iwalk(
+  split(flights, flights$carrier),
+  ~ {
+    .x$carrier[[1]]
+    data.table::fwrite(.x, glue::glue("/tmp/flights_{.y}.csv"))
+  }
+)
+
+files <- fs::dir_ls(path = "/tmp", glob = "*flights*csv")
+files
+```
+
+We can look at what the data look like.
+
+```{r}
+read_csv(files[[1]])
+```
+
+Now that data files have been successfully created, we can compare the two reading options.
+
+```{r}
+res <- microbenchmark::microbenchmark(
+  map_df_read_csv = map_df(files, read_csv, col_types = cols(carrier = col_character())),
+  read_csv = read_csv(files, col_types = cols(carrier = col_character())),
+  times = 100
+)
+
+res
+
+autoplot(res)
+```
+
+Using `read_csv()` directly seems to be much (~two times) faster than the `map_df(files, read_csv)` combination. 
+
+<details>
+  
+<summary>Session info</summary>
+
+```{r sessioninfo, echo = FALSE}
+## Reproducibility info
+options(width = 120)
+devtools::session_info()
+```
+
+</details>
+

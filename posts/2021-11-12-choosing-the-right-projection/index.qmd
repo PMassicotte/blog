@@ -1,0 +1,118 @@
+---
+title: "Choosing the right geographic projection with the crsuggest R package"
+author: "Philippe Massicotte"
+date: "2021-11-12"
+categories: [R, geospatial]
+image: "world.jpg"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  cache = TRUE,
+  dpi = 600,
+  out.width = "100%",
+  fig.align = "center",
+  fig.width = 8,
+  fig.asp = 0.618, # 1 / phi
+  fig.show = "hold",
+  dev = "png",
+  message = FALSE,
+  warning = FALSE,
+  echo = TRUE
+)
+
+library(tidyverse)
+library(ggpmthemes)
+
+theme_set(theme_light_modified(base_family = "Montserrat"))
+
+theme_update(
+  panel.border = element_blank(),
+  axis.ticks = element_blank()
+)
+```
+
+When creating maps, choosing an appropriate geographical projection is often a difficult task (at least for me). [There are plenty of projections to choose from](https://www.geo-projections.com/), and [none can be qualified as the best one](https://www.axismaps.com/guide/map-projections). It all depends on what you are trying to achieve. Websites like [the projection wizard website](https://projectionwizard.org/) offer a playground to experiment with different projections and how they look like depending on where you are looking at on the globe.
+
+![A medieval depiction of the Ecumene (1482, Johannes Schnitzer, engraver), constructed after the coordinates in Ptolemy's Geography and using his second map projection](world.jpg)
+
+<small>Image from: https://en.wikipedia.org/wiki/Map_projection</small>
+
+The goal of this blog post is not to go into details and consideration on how to choose *a good* projection (it is out of my expertise), but rather present a quick overview of the `crsuggest` [R package](https://github.com/walkerke/crsuggest) that can help to find a projection suited for the data to be displayed.
+
+```{r}
+library(rnaturalearth)
+library(sf)
+library(patchwork)
+
+library(crsuggest)
+```
+
+```{r}
+# Download the Greenland shapefile
+map <- ne_countries(country = "greenland", returnclass = "sf", scale = "medium")
+
+# Looks at the projection
+st_crs(map)$proj4string
+```
+
+We can see that WGS84 is used as the reference coordinate system. Plotting the shapefile immediately shows that the result is somewhat distorted.
+
+```{r}
+p1 <- ggplot() +
+  geom_sf(data = map)
+
+p1
+```
+
+Time to look at the `crsuggest` package. The function `suggest_crs()` takes a spatial dataset as inputs (here the `map` object) and return a list (*n = 10* by default) of suggested coordinate systems in a [tibble](https://tibble.tidyverse.org/).
+
+```{r}
+suggested_crs <- suggest_crs(map, limit = 3)
+suggested_crs
+```
+
+Let's make some plots using the suggested CRS.
+
+```{r}
+plot_map <- function(crs, map) {
+  ggplot() +
+    geom_sf(data = map) +
+    coord_sf(crs = as.numeric(crs)) +
+    labs(
+      title = paste("CRS:", crs)
+    )
+}
+
+maps <- lapply(suggested_crs$crs_code, plot_map, map = map)
+```
+
+We can see that the projected maps look more accurate than the original map.
+
+```{r}
+wrap_plots(maps, ncol = 3)
+```
+
+This is even more obvious when they are compared side by side.
+
+```{r, compare_crs}
+p2 <- ggplot() +
+  geom_sf(data = map) +
+  coord_sf(crs = 5922)
+
+p1 + p2
+```
+
+<details>
+  
+<summary>Session info</summary>
+
+```{r sessioninfo, echo = FALSE}
+## Reproducibility info
+options(width = 120)
+devtools::session_info()
+```
+
+</details>

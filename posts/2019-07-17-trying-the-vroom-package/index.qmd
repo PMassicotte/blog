@@ -1,0 +1,90 @@
+---
+title: "Trying the new R vroom Package"
+author: "Philippe Massicotte"
+date: "2019-07-17"
+categories: [R, packages]
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, dev = "svg", cache = TRUE)
+```
+
+Many R packages can be used to read plain rectangular data files. Among them, `readr` and `data.table` are quite popular options. Recently, the [vroom](https://github.com/r-lib/vroom) package have been published on CRAN by [Jim Hester](https://twitter.com/jimhester_?lang=en). While I do not know much about the technology behind the scene, Jim says:
+
+> But that’s impossible! How can it be so fast?
+>
+> vroom doesn’t stop to actually read all of your data, it simply indexes where each record is located so it can be read later. The vectors returned use the Altrep framework to lazily load the data on-demand when it is accessed, so you only pay for what you use. This lazy access is done automatically, so no changes to your R data-manipulation code are needed.
+
+Because I often have to read large data files, I decided to try this new promising package.
+
+```{r, message=FALSE}
+library(tidyverse)
+library(vroom)
+library(data.table)
+library(ggpmthemes)
+
+theme_set(theme_poppins(base_size = 14))
+```
+
+In the next sections, I will compare several methods to read a plain CSV file. The file I will be using contains bike commute data from [capital bike share](https://www.capitalbikeshare.com/system-data). The file contains roughly 170 000 observations and 9 variables.
+
+```{r}
+file <- curl::curl_download("https://s3.amazonaws.com/capitalbikeshare-data/201801-capitalbikeshare-tripdata.zip", destfile = tempfile(fileext = ".zip"))
+file <- unzip(file, exdir = tempdir())
+read_csv(file)
+```
+
+Because the `vroom()` function can use a vector of files, I will duplicate `file` 10 times.
+
+```{r}
+files <- rep(file, 10)
+files
+```
+
+I can now simply use this character vector with `vroom()`. Note that I can also use the `.name_repair` argument to clean column names.
+
+```{r, cache = TRUE}
+df <- vroom(files, .name_repair = ~janitor::make_clean_names(.))
+df
+```
+
+## Benchmark
+
+One advantage of `vroom` is its speed. In what follows, I will compare different methods to read the `files` vector that contains 10 files. I will also use the `furrr` package to use map in parallel.
+
+```{r benchmark1, message = FALSE, cache = TRUE, warning=FALSE}
+library(furrr)
+
+# How many cores to use
+plan(multiprocess(workers = availableCores() - 1))
+
+res <- microbenchmark::microbenchmark(
+  vroom(files),
+  map_df(files, read_csv),
+  map_df(files, fread),
+  future_map_dfr(files, vroom),
+  future_map_dfr(files, read_csv),
+  future_map_dfr(files, fread), 
+  times = 10
+)
+
+autoplot(res)
+```
+
+As we can see, the `vroom` package is the winner. It is even considerably faster than the versions using map in parallel, which surprises me! Please leave a message below if you have an explanation.
+
+## Using Altrep
+
+Another feature of the `vroom()` function is that we can decide which column types are using Altrep. Setting `altrep_opts = TRUE` will enable Altrep for all column types. As seen below, this increases further the speed of the `vroom()` function.
+
+```{r benchmark2, message = FALSE, cache = TRUE}
+res <- microbenchmark::microbenchmark(
+  vroom(files),
+  vroom(files, altrep_opts = TRUE),
+  times = 10
+)
+
+autoplot(res)
+```
+
+Based on these results, I think that `vroom` will become part of my daily workflow from now on.

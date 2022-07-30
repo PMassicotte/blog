@@ -1,0 +1,272 @@
+---
+title: "Extracting raster values using the stars R package"
+author: "Philippe Massicotte"
+date: "2021-03-06"
+categories: [R, geospatial]
+image: "preview.png"
+---
+
+## Introduction
+
+For a long time, I have been using the `raster` package to manipulate raster data in R. Slowly, I am trying to work my way out with the *new* `stars` package. In this post, I am exploring different ways to extract values from a raster at different geographic locations. For this exercise, I am using a Landsat 7 image that is provided within the `stars` package. Each pixel has a resolution of 30 meters.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  cache = TRUE,
+  dpi = 600,
+  out.width = "100%",
+  fig.align = "center",
+  fig.width = 8,
+  fig.asp = 0.618, # 1 / phi
+  fig.show = "hold",
+  dev = "png",
+  message = FALSE,
+  warning = FALSE,
+  echo = TRUE
+)
+```
+
+```{r, message=FALSE, cache=FALSE}
+library(tidyverse)
+library(sf)
+library(stars)
+library(ggpmthemes)
+
+theme_set(theme_maven())
+```
+
+```{r message=FALSE}
+# Create a palette for later
+pal <- as.character(paletteer::paletteer_d("RColorBrewer::Pastel2"))
+
+# Open the tif and extract the 1 band
+tif <- system.file("tif/L7_ETMs.tif", package = "stars")
+r <- read_stars(tif)[, , , 1]
+
+# What are the dimensions?
+st_dimensions(r)
+```
+
+This is what the original image looks like.
+
+```{r}
+plot(r, key.pos = NULL)
+```
+
+To better visualize the process of subsetting raster values, let's crop the image so we can see the pixels.
+
+```{r}
+st_bbox(r)
+
+r <- r %>%
+  st_crop(st_bbox(c(
+    xmin = 294000,
+    xmax = 294500,
+    ymin = 9110800,
+    ymax = 9111200
+  ), crs = st_crs(r)))
+
+plot(r, reset = FALSE, key.pos = NULL)
+```
+
+We can also display the value of each pixel by using `text_values = TRUE`. This is also where I am using the `pal` colour vector I created earlier.
+
+```{r}
+plot(r, text_values = TRUE, col = pal, key.pos = NULL)
+```
+
+## Sampling random locations
+
+Using this new raster, let's randomly sample four points.
+
+```{r}
+set.seed(123456)
+
+# Random sampling of 4 points
+pts <- st_sample(st_as_sfc(st_bbox(r)), 4)
+
+# Visualize them
+plot(r, text_values = TRUE, col = pal, key.pos = NULL, reset = FALSE)
+plot(
+  pts,
+  add = TRUE,
+  pch = 21,
+  cex = 2,
+  bg = alpha("red", 0.5),
+  col = alpha("red", 0.5)
+)
+```
+
+## Extracting raster values using the sampled points
+
+Extracting raster values at point locations can be done using the `st_extract()` function. As expected, four values have been extracted.
+
+```{r}
+pts_values <- st_extract(r, pts)
+pts_values
+```
+
+## Extracting raster values using buffers around the sampled points
+
+I found that extracting raster values using polygons was a bit more tedious (at least at this stage of my understanding of the `stars` package).
+
+### Generate buffers
+
+Let's generate buffers of 30 meters around each of the four sampled pixels.
+
+```{r}
+poly <- st_buffer(pts, dist = 30)
+
+class(poly)
+
+plot(r, text_values = TRUE, col = pal, key.pos = NULL, reset = FALSE)
+plot(st_sfc(poly), add = TRUE, border = "red", lwd = 2, col = NA)
+plot(
+  pts,
+  add = TRUE,
+  pch = 21,
+  cex = 2,
+  bg = alpha("red", 0.5),
+  col = alpha("red", 0.5)
+)
+```
+
+We can visualize which pixels fall within each buffer. Looking at the next figure, one can ask why there are not always the same number of pixels in each buffer. The reason is that the arc of the circle must pass through the center of each pixel to be included in the buffer.
+
+```{r}
+r[poly] %>% 
+  st_as_sf() %>% 
+  ggplot() +
+  geom_sf(aes(fill = factor(V1)), color = "#3c3c3c") +
+  geom_sf(data = st_sfc(poly), fill = NA, color = "blue") +
+  geom_sf(data = pts, color = "red", size = 2) +
+  geom_sf_text(aes(label = V1)) +
+  paletteer::scale_fill_paletteer_d("RColorBrewer::Pastel2") +
+  theme(
+    legend.position = "none"
+  )
+```
+
+### Extracting pixel values covered by the polygons
+
+Now that we have defined four buffers with a 30 meters radius, we could be tempted to re-use `st_extract()`.
+
+```{r, error=TRUE}
+st_extract(r, poly)
+```
+
+Surprisingly, we can not use `st_extract()` with polygons. One option is to use `aggregate()`. In our example, between three and four pixels are falling under each buffer. This is why we have to tell the `aggregate()` function how to summarize the values within each buffer with the `FUN` parameter.
+
+```{r}
+# Extract the average value per polygon
+x <- aggregate(r, poly, FUN = mean)
+st_as_sf(x)
+
+# Extract the minimum value per polygon
+x <- aggregate(r, poly, FUN = min)
+st_as_sf(x)
+
+# Extract the maximum value per polygon
+x <- aggregate(r, poly, FUN = max)
+st_as_sf(x)
+```
+
+### Overlapping polygons
+
+The method using the `aggregate()` function is largely based on [an answer I received on stackoverflow](https://stackoverflow.com/questions/66283846/how-to-extract-values-from-a-raster-using-polygons-with-the-r-stars-package). As specified by the user who answered my question, there is one catch.
+
+> Keep in mind that if there is overlap between polygons (unlike in this example) then each raster value is only "counted" once, in the first polygon it falls in (to comply with the ordinary behaviour of aggregate).
+
+To demonstrate it, we will increase the buffer radius to 90 meters. As seen in the next figure, two buffers are overlapping.
+
+```{r}
+# Create 90 meters radius buffers
+poly <- st_buffer(pts, dist = 90)
+
+plot(r, text_values = TRUE, col = pal, key.pos = NULL, reset = FALSE)
+plot(st_sfc(poly), add = TRUE, border = "red", lwd = 2, col = NA)
+plot(
+  pts_values,
+  add = TRUE,
+  pch = 21,
+  cex = 2,
+  bg = alpha("red", 0.5),
+  col = alpha("red", 0.5)
+)
+```
+
+Now let's calculate the average pixel value in each polygon.
+
+#### Using the `aggregate()` function
+
+As previously done with the smaller polygons, we can also use the `aggregate()` function.
+
+```{r}
+averaged_using_aggregate <- aggregate(r, poly, FUN = mean) %>% 
+  st_as_sf()
+
+averaged_using_aggregate
+```
+
+#### Using the `st_join()` function (manually)
+
+First, convert the polygons into a `sf` object and assign a unique id to each polygon.
+
+```{r}
+poly_sf <- poly %>% 
+  st_as_sf() %>% 
+  rowid_to_column(var = "poly_id")
+
+poly_sf
+```
+
+Convert the raster into a `sf` object.
+
+```{r}
+r_sf <- st_as_sf(r)
+
+r_sf
+```
+
+Join the raster and the polygons together and drop the pixels that were not matched to any buffer.
+
+```{r}
+df_sf <- st_join(r_sf, poly_sf) %>% 
+  drop_na(poly_id)
+```
+
+We can now visualize the pixels in each buffer.
+
+```{r, fig.height=10, fig.width=10}
+df_sf %>% 
+  ggplot(aes(color = factor(poly_id))) +
+  geom_sf(fill = NA, color = "black", size = 0.25) +
+  geom_sf(data = poly_sf, fill = NA) +
+  geom_sf_text(aes(label = V1), color = "#3c3c3c") +
+  scale_color_manual(
+    breaks = c(1, 2, 3, 4),
+    values = c("red", "blue", "yellow", "green")
+  ) +
+  facet_wrap(~poly_id)
+```
+
+Finally, we can calculate the average pixel values in each polygon.
+
+```{r}
+averaged_using_st_join <- df_sf %>% 
+  group_by(poly_id) %>% 
+  summarise(V1 = mean(V1), n = n()) 
+
+averaged_using_st_join
+```
+
+If we compare both the `aggregate()` and `st_join()` methods, we can see that there are differences.
+
+```{r}
+averaged_using_aggregate$V1
+averaged_using_st_join$V1
+```
+
+At this time of writing this, I can not find why I am getting different values. Please leave out a comment if you have an idea!

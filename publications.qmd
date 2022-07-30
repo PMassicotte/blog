@@ -1,0 +1,27 @@
+---
+title: "Publications"
+comments: false
+---
+
+```{r}
+#| results: hide
+#| echo: false
+#| warning: false
+#| message: false
+library(RefManageR)
+file <- "publications.bib"
+bib <- ReadBib(file, check = FALSE)
+BibOptions(
+  check.entries = FALSE, style = "markdown", cite.style = "authoryear",
+  bib.style = "numeric"
+)
+AutoCite(bib, author = "massicotte")
+```
+
+```{r}
+#| results = "asis",
+#| echo = FALSE,
+#| warning = FALSE,
+#| message = FALSE
+PrintBibliography(bib, .opts = list(check.entries = FALSE, sorting = "ydnt", max.names = 999, no.print.fields = c("url")))
+```
