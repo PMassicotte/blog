@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.36">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Philippe Massicotte">
+<meta name="dcterms.date" content="2022-02-15">
+<title>Welcome to my blog - Reading multiples CSV files using readr</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script><link rel="stylesheet" href="../../styles.css">
+</head>
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg navbar-dark "><div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Welcome to my blog</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+<li class="nav-item">
+    <a class="nav-link" href="../../about.html">About</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../publications.html">Publications</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../presentations.html">Presentations</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../workshops.html">Workshops and teaching</a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/pmassicotte"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/philmassicotte"><i class="bi bi-twitter" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="../../users/5558188/philippe-massicotte"><i class="bi bi-stack-overflow" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="../../index.xml"><i class="bi bi-rss" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+<div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav></header><!-- content --><header id="title-block-header" class="quarto-title-block default page-columns page-full"><div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Reading multiples CSV files using readr</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">R</div>
+                <div class="quarto-category">data manipulation</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Philippe Massicotte </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">February 15, 2022</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content"><p>If you are beginning in R, chances are that you have used <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code> to import CSV files into R. While this function works perfectly fine, it can only read one file at a time. Hence, new R programmers often read multiple files successively and combine the data afterward.</p>
+<div class="cell" data-layout-align="center" data-hash="index_cache/html/unnamed-chunk-1_1a2104a9eb4b96475162bbc1e9c05ffb">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<span><span class="co"># Read all the data files</span></span>
+<span><span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"file1.csv"</span><span class="op">)</span></span>
+<span><span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"file2.csv"</span><span class="op">)</span></span>
+<span><span class="va">df3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"file3.csv"</span><span class="op">)</span></span>
+<span><span class="va">df4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"file4.csv"</span><span class="op">)</span></span>
+<span><span class="va">df5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"file5.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Combine all the data frame together</span></span>
+<span><span class="va">big_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="va">df1</span>, <span class="va">df2</span>, <span class="va">df3</span>, <span class="va">df4</span>, <span class="va">df5</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Whereas this can work fine if you have only a few files, this can become tedious when the number of files to read increases. A better approach would be to use a list of files and read them at once. For quite a while, I have been using a combination of <code>map_df()</code> from the <a href="https://purrr.tidyverse.org/reference/map.html">purrr package</a>.</p>
+<div class="cell" data-layout-align="center" data-hash="index_cache/html/unnamed-chunk-2_ba1910c154c6e7a9cf0dd1c8e52d2fb7">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Create a vector of file names</span></span>
+<span><span class="va">files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"file1.csv"</span>, <span class="st">"file2.csv"</span>, <span class="st">"file3.csv"</span>, <span class="st">"file4.csv"</span>, <span class="st">"file5.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Read and combine all data files into a single data frame</span></span>
+<span><span class="va">big_df</span> <span class="op">&lt;-</span> <span class="fu">map_df</span><span class="op">(</span><span class="va">files</span>, <span class="va">read_csv</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In the release of <a href="https://www.tidyverse.org/blog/2021/07/readr-2-0-0/">readr 2.0.0</a>, the <code>read_csv()</code> function can directly take a list of files as input, eliminating the need to use the <code>mad_df()</code> function. Hence, we can now read multiples files as follow:</p>
+<div class="cell" data-layout-align="center" data-hash="index_cache/html/unnamed-chunk-3_9da16dee42fa58d4ec837f768106acf8">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Read and combine all data files into a single data frame without using the</span></span>
+<span><span class="co"># map_df function</span></span>
+<span><span class="va">big_df</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="va">files</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="https://unsplash.com/photos/-Vqn2WrfxTQ"><img src="images/img_marc_sendra_speed.jpg" class="img-fluid figure-img"></a></p>
+<p></p><figcaption class="figure-caption">Lights in the night</figcaption><p></p>
+</figure>
+</div>
+<p>In this short blog post, I wanted to benchmark the speed difference between <code>map_df(files, read_csv)</code> and <code>read_csv(files)</code>. To do it so let’s first <a href="https://www.tidyverse.org/blog/2021/07/readr-2-0-0/">generate some data files</a>.</p>
+<div class="cell" data-layout-align="center" data-hash="index_cache/html/unnamed-chunk-4_8614c5f7b6e6aa613a8d9243c1ae04e1">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/nycflights13">nycflights13</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/imap.html">iwalk</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/split.html">split</a></span><span class="op">(</span><span class="va">flights</span>, <span class="va">flights</span><span class="op">$</span><span class="va">carrier</span><span class="op">)</span>,</span>
+<span>  <span class="op">~</span> <span class="op">{</span></span>
+<span>    <span class="va">.x</span><span class="op">$</span><span class="va">carrier</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span>    <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fwrite.html">fwrite</a></span><span class="op">(</span><span class="va">.x</span>, <span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"/tmp/flights_{.y}.csv"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">files</span> <span class="op">&lt;-</span> <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/dir_ls.html">dir_ls</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"/tmp"</span>, glob <span class="op">=</span> <span class="st">"*flights*csv"</span><span class="op">)</span></span>
+<span><span class="va">files</span></span>
+<span><span class="co">#&gt; /tmp/flights_9E.csv /tmp/flights_AA.csv /tmp/flights_AS.csv /tmp/flights_B6.csv </span></span>
+<span><span class="co">#&gt; /tmp/flights_DL.csv /tmp/flights_EV.csv /tmp/flights_F9.csv /tmp/flights_FL.csv </span></span>
+<span><span class="co">#&gt; /tmp/flights_HA.csv /tmp/flights_MQ.csv /tmp/flights_OO.csv /tmp/flights_UA.csv </span></span>
+<span><span class="co">#&gt; /tmp/flights_US.csv /tmp/flights_VX.csv /tmp/flights_WN.csv /tmp/flights_YV.csv</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can look at what the data look like.</p>
+<div class="cell" data-layout-align="center" data-hash="index_cache/html/unnamed-chunk-5_9f9389f98464080ec85c1809a243bae0">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">read_csv</span><span class="op">(</span><span class="va">files</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 18,460 × 19</span></span>
+<span><span class="co">#&gt;     year month   day dep_time sched_de…¹ dep_d…² arr_t…³ sched…⁴ arr_d…⁵ carrier</span></span>
+<span><span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1  2013     1     1      810        810       0    1048    1037      11       9</span></span>
+<span><span class="co">#&gt;  2  2013     1     1     1451       1500      -9    1634    1636      -2       9</span></span>
+<span><span class="co">#&gt;  3  2013     1     1     1452       1455      -3    1637    1639      -2       9</span></span>
+<span><span class="co">#&gt;  4  2013     1     1     1454       1500      -6    1635    1636      -1       9</span></span>
+<span><span class="co">#&gt;  5  2013     1     1     1507       1515      -8    1651    1656      -5       9</span></span>
+<span><span class="co">#&gt;  6  2013     1     1     1530       1530       0    1650    1655      -5       9</span></span>
+<span><span class="co">#&gt;  7  2013     1     1     1546       1540       6    1753    1748       5       9</span></span>
+<span><span class="co">#&gt;  8  2013     1     1     1550       1550       0    1844    1831      13       9</span></span>
+<span><span class="co">#&gt;  9  2013     1     1     1552       1600      -8    1749    1757      -8       9</span></span>
+<span><span class="co">#&gt; 10  2013     1     1     1554       1600      -6    1701    1734     -33       9</span></span>
+<span><span class="co">#&gt; # … with 18,450 more rows, 9 more variables: flight &lt;dbl&gt;, tailnum &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;, and abbreviated variable names</span></span>
+<span><span class="co">#&gt; #   ¹​sched_dep_time, ²​dep_delay, ³​arr_time, ⁴​sched_arr_time, ⁵​arr_delay</span></span>
+<span><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows, and `colnames()` to see all variable names</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now that data files have been successfully created, we can compare the two reading options.</p>
+<div class="cell" data-layout-align="center" data-hash="index_cache/html/unnamed-chunk-6_5a65da08467a665b532ef218db3ffbaa">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span></span>
+<span>  map_df_read_csv <span class="op">=</span> <span class="fu">map_df</span><span class="op">(</span><span class="va">files</span>, <span class="va">read_csv</span>, col_types <span class="op">=</span> <span class="fu">cols</span><span class="op">(</span>carrier <span class="op">=</span> <span class="fu">col_character</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  read_csv <span class="op">=</span> <span class="fu">read_csv</span><span class="op">(</span><span class="va">files</span>, col_types <span class="op">=</span> <span class="fu">cols</span><span class="op">(</span>carrier <span class="op">=</span> <span class="fu">col_character</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  times <span class="op">=</span> <span class="fl">100</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">res</span></span>
+<span><span class="co">#&gt; Unit: milliseconds</span></span>
+<span><span class="co">#&gt;             expr      min       lq     mean   median       uq      max neval</span></span>
+<span><span class="co">#&gt;  map_df_read_csv 413.3536 441.4230 480.7377 497.3756 502.5032 521.7361   100</span></span>
+<span><span class="co">#&gt;         read_csv 148.1041 153.3014 163.3054 156.3136 161.2407 251.3683   100</span></span>
+<span></span>
+<span><span class="fu">autoplot</span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Using <code>read_csv()</code> directly seems to be much (~two times) faster than the <code>map_df(files, read_csv)</code> combination.</p>
+<details><summary>
+Session info
+</summary><div class="cell" data-layout-align="center" data-hash="index_cache/html/sessioninfo_507929d96331e7e94eeb3bad9a7b84e2">
+<pre><code>#&gt; ─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────
+#&gt;  setting  value
+#&gt;  version  R version 4.2.1 (2022-06-23)
+#&gt;  os       Ubuntu 22.04 LTS
+#&gt;  system   x86_64, linux-gnu
+#&gt;  ui       X11
+#&gt;  language en_CA:en
+#&gt;  collate  en_CA.UTF-8
+#&gt;  ctype    en_CA.UTF-8
+#&gt;  tz       America/Toronto
+#&gt;  date     2022-07-30
+#&gt;  pandoc   2.18 @ /usr/lib/rstudio/bin/quarto/bin/tools/ (via rmarkdown)
+#&gt; 
+#&gt; ─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────
+#&gt;  package        * version date (UTC) lib source
+#&gt;  assertthat       0.2.1   2019-03-21 [1] RSPM (R 4.2.0)
+#&gt;  backports        1.4.1   2021-12-13 [1] RSPM (R 4.2.0)
+#&gt;  bit              4.0.4   2020-08-04 [1] RSPM (R 4.2.0)
+#&gt;  bit64            4.0.5   2020-08-30 [1] RSPM (R 4.2.0)
+#&gt;  broom            1.0.0   2022-07-01 [1] RSPM (R 4.2.0)
+#&gt;  cachem           1.0.6   2021-08-19 [1] RSPM (R 4.2.0)
+#&gt;  callr            3.7.1   2022-07-13 [1] RSPM (R 4.2.0)
+#&gt;  cellranger       1.1.0   2016-07-27 [1] RSPM (R 4.2.0)
+#&gt;  cli              3.3.0   2022-04-25 [1] RSPM (R 4.2.0)
+#&gt;  codetools        0.2-18  2020-11-04 [2] CRAN (R 4.2.1)
+#&gt;  colorspace       2.0-3   2022-02-21 [1] RSPM (R 4.2.0)
+#&gt;  crayon           1.5.1   2022-03-26 [1] RSPM (R 4.2.0)
+#&gt;  data.table       1.14.2  2021-09-27 [1] RSPM (R 4.2.0)
+#&gt;  DBI              1.1.3   2022-06-18 [1] RSPM (R 4.2.0)
+#&gt;  dbplyr           2.2.1   2022-06-27 [1] RSPM (R 4.2.0)
+#&gt;  devtools         2.4.4   2022-07-20 [1] RSPM (R 4.2.0)
+#&gt;  digest           0.6.29  2021-12-01 [1] RSPM (R 4.2.0)
+#&gt;  dplyr          * 1.0.9   2022-04-28 [1] RSPM (R 4.2.0)
+#&gt;  ellipsis         0.3.2   2021-04-29 [1] RSPM (R 4.2.0)
+#&gt;  evaluate         0.15    2022-02-18 [1] RSPM (R 4.2.0)
+#&gt;  extrafont        0.18    2022-04-12 [1] RSPM (R 4.2.0)
+#&gt;  extrafontdb      1.0     2012-06-11 [1] RSPM (R 4.2.0)
+#&gt;  fansi            1.0.3   2022-03-24 [1] RSPM (R 4.2.0)
+#&gt;  farver           2.1.1   2022-07-06 [1] RSPM (R 4.2.0)
+#&gt;  fastmap          1.1.0   2021-01-25 [1] RSPM (R 4.2.0)
+#&gt;  forcats        * 0.5.1   2021-01-27 [1] RSPM (R 4.2.0)
+#&gt;  fs               1.5.2   2021-12-08 [1] RSPM (R 4.2.0)
+#&gt;  gargle           1.2.0   2021-07-02 [1] RSPM (R 4.2.0)
+#&gt;  generics         0.1.3   2022-07-05 [1] RSPM (R 4.2.0)
+#&gt;  ggplot2        * 3.3.6   2022-05-03 [1] RSPM (R 4.2.0)
+#&gt;  ggpmthemes     * 0.0.2   2022-07-29 [1] Github (pmassicotte/ggpmthemes@993d61e)
+#&gt;  glue             1.6.2   2022-02-24 [1] RSPM (R 4.2.0)
+#&gt;  googledrive      2.0.0   2021-07-08 [1] RSPM (R 4.2.0)
+#&gt;  googlesheets4    1.0.0   2021-07-21 [1] RSPM (R 4.2.0)
+#&gt;  gtable           0.3.0   2019-03-25 [1] RSPM (R 4.2.0)
+#&gt;  haven            2.5.0   2022-04-15 [1] RSPM (R 4.2.0)
+#&gt;  hms              1.1.1   2021-09-26 [1] RSPM (R 4.2.0)
+#&gt;  htmltools        0.5.3   2022-07-18 [1] RSPM (R 4.2.0)
+#&gt;  htmlwidgets      1.5.4   2021-09-08 [1] RSPM (R 4.2.0)
+#&gt;  httpuv           1.6.5   2022-01-05 [1] RSPM (R 4.2.0)
+#&gt;  httr             1.4.3   2022-05-04 [1] RSPM (R 4.2.0)
+#&gt;  jsonlite         1.8.0   2022-02-22 [1] RSPM (R 4.2.0)
+#&gt;  knitr            1.39    2022-04-26 [1] RSPM (R 4.2.0)
+#&gt;  later            1.3.0   2021-08-18 [1] CRAN (R 4.2.1)
+#&gt;  lifecycle        1.0.1   2021-09-24 [1] RSPM (R 4.2.0)
+#&gt;  lubridate        1.8.0   2021-10-07 [1] RSPM (R 4.2.0)
+#&gt;  magrittr         2.0.3   2022-03-30 [1] RSPM (R 4.2.0)
+#&gt;  memoise          2.0.1   2021-11-26 [1] RSPM (R 4.2.0)
+#&gt;  microbenchmark   1.4.9   2021-11-09 [1] CRAN (R 4.2.1)
+#&gt;  mime             0.12    2021-09-28 [1] RSPM (R 4.2.0)
+#&gt;  miniUI           0.1.1.1 2018-05-18 [1] RSPM (R 4.2.0)
+#&gt;  modelr           0.1.8   2020-05-19 [1] RSPM (R 4.2.0)
+#&gt;  munsell          0.5.0   2018-06-12 [1] RSPM (R 4.2.0)
+#&gt;  nycflights13   * 1.0.2   2021-04-12 [1] CRAN (R 4.2.1)
+#&gt;  pillar           1.8.0   2022-07-18 [1] RSPM (R 4.2.0)
+#&gt;  pkgbuild         1.3.1   2021-12-20 [1] RSPM (R 4.2.0)
+#&gt;  pkgconfig        2.0.3   2019-09-22 [1] RSPM (R 4.2.0)
+#&gt;  pkgload          1.3.0   2022-06-27 [1] RSPM (R 4.2.0)
+#&gt;  prettyunits      1.1.1   2020-01-24 [1] RSPM (R 4.2.0)
+#&gt;  processx         3.7.0   2022-07-07 [1] RSPM (R 4.2.0)
+#&gt;  profvis          0.3.7   2020-11-02 [1] RSPM (R 4.2.0)
+#&gt;  promises         1.2.0.1 2021-02-11 [1] RSPM (R 4.2.0)
+#&gt;  ps               1.7.1   2022-06-18 [1] RSPM (R 4.2.0)
+#&gt;  purrr          * 0.3.4   2020-04-17 [1] RSPM (R 4.2.0)
+#&gt;  R6               2.5.1   2021-08-19 [1] RSPM (R 4.2.0)
+#&gt;  Rcpp             1.0.9   2022-07-08 [1] RSPM (R 4.2.0)
+#&gt;  readr          * 2.1.2   2022-01-30 [1] RSPM (R 4.2.0)
+#&gt;  readxl           1.4.0   2022-03-28 [1] RSPM (R 4.2.0)
+#&gt;  remotes          2.4.2   2021-11-30 [1] CRAN (R 4.2.1)
+#&gt;  reprex           2.0.1   2021-08-05 [1] RSPM (R 4.2.0)
+#&gt;  rlang            1.0.4   2022-07-12 [1] RSPM (R 4.2.0)
+#&gt;  rmarkdown        2.14    2022-04-25 [1] RSPM (R 4.2.0)
+#&gt;  rspm             0.1.0.3 2022-07-27 [1] Github (Enchufa2/rspm@ba091ae)
+#&gt;  rstudioapi       0.13    2020-11-12 [1] RSPM (R 4.2.0)
+#&gt;  Rttf2pt1         1.3.10  2022-02-07 [1] RSPM (R 4.2.0)
+#&gt;  rvest            1.0.2   2021-10-16 [1] RSPM (R 4.2.0)
+#&gt;  scales           1.2.0   2022-04-13 [1] RSPM (R 4.2.0)
+#&gt;  sessioninfo      1.2.2   2021-12-06 [1] RSPM (R 4.2.0)
+#&gt;  shiny            1.7.2   2022-07-19 [1] RSPM (R 4.2.0)
+#&gt;  stringi          1.7.8   2022-07-11 [1] RSPM (R 4.2.0)
+#&gt;  stringr        * 1.4.0   2019-02-10 [1] RSPM (R 4.2.0)
+#&gt;  tibble         * 3.1.8   2022-07-22 [1] RSPM (R 4.2.0)
+#&gt;  tidyr          * 1.2.0   2022-02-01 [1] RSPM (R 4.2.0)
+#&gt;  tidyselect       1.1.2   2022-02-21 [1] RSPM (R 4.2.0)
+#&gt;  tidyverse      * 1.3.2   2022-07-18 [1] RSPM (R 4.2.0)
+#&gt;  tzdb             0.3.0   2022-03-28 [1] RSPM (R 4.2.0)
+#&gt;  urlchecker       1.0.1   2021-11-30 [1] RSPM (R 4.2.0)
+#&gt;  usethis          2.1.6   2022-05-25 [1] CRAN (R 4.2.1)
+#&gt;  utf8             1.2.2   2021-07-24 [1] RSPM (R 4.2.0)
+#&gt;  vctrs            0.4.1   2022-04-13 [1] RSPM (R 4.2.0)
+#&gt;  vroom            1.5.7   2021-11-30 [1] RSPM (R 4.2.0)
+#&gt;  withr            2.5.0   2022-03-03 [1] RSPM (R 4.2.0)
+#&gt;  xfun             0.31    2022-05-10 [1] RSPM (R 4.2.0)
+#&gt;  xml2             1.3.3   2021-11-30 [1] RSPM (R 4.2.0)
+#&gt;  xtable           1.8-4   2019-04-21 [1] CRAN (R 4.2.1)
+#&gt;  yaml             2.3.5   2022-02-21 [1] RSPM (R 4.2.0)
+#&gt; 
+#&gt;  [1] /home/filoche/R/x86_64-pc-linux-gnu-library/4.2
+#&gt;  [2] /opt/R/4.2.1/lib/R/library
+#&gt; 
+#&gt; ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</code></pre>
+</div>
+</details>
+
+
+</main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script><script src="https://utteranc.es/client.js" repo="pmassicotte/r-blog" issue-term="pathname" theme="github-light" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
