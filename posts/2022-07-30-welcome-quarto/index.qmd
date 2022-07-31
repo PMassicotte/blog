@@ -1,0 +1,10 @@
+---
+title: "Switching to Quarto"
+author: "Philippe Massicotte"
+date: "2022-07-30"
+categories: [R]
+# image: "images/fig_border_7_4.png"
+draft: true
+---
+
+> Quarto® is an open-source scientific and technical publishing system built on Pandoc
