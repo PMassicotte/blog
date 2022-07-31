@@ -2,7 +2,7 @@
 title: "Extracting raster values using the stars R package"
 author: "Philippe Massicotte"
 date: "2021-03-06"
-categories: [R, geospatial]
+categories: [R, Geospatial]
 image: "preview.png"
 ---
 

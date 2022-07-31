@@ -2,7 +2,7 @@
 title: "Switching to Quarto"
 author: "Philippe Massicotte"
 date: "2022-07-30"
-categories: [R]
+categories: [R, Quarto]
 # image: "images/fig_border_7_4.png"
 draft: true
 ---

@@ -2,7 +2,7 @@
 title: " Changing spatial resolution of a raster with terra"
 author: "Philippe Massicotte"
 date: "2022-04-28"
-categories: [R, geospatial]
+categories: [R, Geospatial]
 image: "images/usgs-nSOZqxCIEAs-unsplash.jpg"
 ---
 

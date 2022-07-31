@@ -2,7 +2,7 @@
 title: "Reading multiples CSV files using readr"
 author: "Philippe Massicotte"
 date: "2022-02-15"
-categories: [R, data manipulation]
+categories: [R, Data manipulation]
 image: "images/img_marc_sendra_speed.jpg"
 ---
 
