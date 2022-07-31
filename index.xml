@@ -6,15 +6,15 @@
       version="2.0">
 <channel>
 <title>Welcome to my blog</title>
-<link>https://www.pmassicotte.com/index.html</link>
-<atom:link href="https://www.pmassicotte.com/index.xml" rel="self" type="application/rss+xml"/>
+<link>pmassicotte.com ALIAS apex-loadbalancer.netlify.com/index.html</link>
+<atom:link href="pmassicotte.com ALIAS apex-loadbalancer.netlify.com/index.xml" rel="self" type="application/rss+xml"/>
 <description>Numerical ecologist | Data visualization | R enthousiast</description>
 <generator>quarto-1.0.36</generator>
 <lastBuildDate>Thu, 28 Apr 2022 04:00:00 GMT</lastBuildDate>
 <item>
   <title>Changing spatial resolution of a raster with terra</title>
   <dc:creator>Philippe Massicotte</dc:creator>
-  <link>https://www.pmassicotte.com/posts/2022-04-28-changing-spatial-resolution-of-a-raster-with-terra/index.html</link>
+  <link>pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2022-04-28-changing-spatial-resolution-of-a-raster-with-terra/index.html</link>
   <description><![CDATA[ <p>Lately, I was working on a project and I needed to change the spatial resolution of a GeoTIFF to match that of another one. After looking around, I posted <a href="https://stackoverflow.com/questions/72044284/how-to-change-a-raster-to-a-specific-spatial-resolution/72044772#72044772">a question on Stackoverflow</a>. After experimenting around, I decided to blog about my experience of changing the spatial resolution of GeoTIFF rasters.</p>
 <p>In this post, we will explore two ways to change the spatial resolution of a raster:</p>
 <ol type="1">
@@ -22,7 +22,7 @@
 <li>Resampling pixels from one geometry to another one.</li>
 </ol>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="https://www.pmassicotte.com/posts/2022-04-28-changing-spatial-resolution-of-a-raster-with-terra/images/usgs-nSOZqxCIEAs-unsplash.jpg" class="img-fluid figure-img" style="width:75.0%"></p>
+<figure class="figure"><p><img src="pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2022-04-28-changing-spatial-resolution-of-a-raster-with-terra/images/usgs-nSOZqxCIEAs-unsplash.jpg" class="img-fluid figure-img" style="width:75.0%"></p>
 <p></p><figcaption class="figure-caption">Shimmering blues and greens accentuate the textures of the Sierra de Velasco Mountains of northern Argentina. The urban area (pinkish circle) near the lower left part of the mountain range is La Rioja, the capital of the province of La Rioja. Follow the foothills to the upper right, where the city of San Fernando del Valle de Catamarca lies near extensive vineyards and fruit-growing areas (blue blocky shapes).</figcaption><p></p>
 </figure>
 </div>
@@ -65,7 +65,7 @@ Photo by <a href="https://unsplash.com/@usgs?utm_source=unsplash&amp;utm_medium=
 <div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;">plot_raster</span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">r16</span><span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="https://www.pmassicotte.com/posts/2022-04-28-changing-spatial-resolution-of-a-raster-with-terra/index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2022-04-28-changing-spatial-resolution-of-a-raster-with-terra/index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -89,7 +89,7 @@ Photo by <a href="https://unsplash.com/@usgs?utm_source=unsplash&amp;utm_medium=
 <span><span class="fu" style="color: #4758AB;">plot_raster</span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">r4</span><span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="https://www.pmassicotte.com/posts/2022-04-28-changing-spatial-resolution-of-a-raster-with-terra/index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2022-04-28-changing-spatial-resolution-of-a-raster-with-terra/index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -100,7 +100,7 @@ Photo by <a href="https://unsplash.com/@usgs?utm_source=unsplash&amp;utm_medium=
 <span><span class="fu" style="color: #4758AB;">plot_raster</span><span class="op" style="color: #5E5E5E;">(</span><span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/pkg/terra/man/aggregate.html">aggregate</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">r16</span>, fun <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"min"</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="https://www.pmassicotte.com/posts/2022-04-28-changing-spatial-resolution-of-a-raster-with-terra/index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2022-04-28-changing-spatial-resolution-of-a-raster-with-terra/index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -125,7 +125,7 @@ Photo by <a href="https://unsplash.com/@usgs?utm_source=unsplash&amp;utm_medium=
 <div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;">plot_raster</span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">r256</span><span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="https://www.pmassicotte.com/posts/2022-04-28-changing-spatial-resolution-of-a-raster-with-terra/index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2022-04-28-changing-spatial-resolution-of-a-raster-with-terra/index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -168,13 +168,13 @@ Photo by <a href="https://unsplash.com/@usgs?utm_source=unsplash&amp;utm_medium=
 <span><span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/graphics/mtext.html">mtext</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"Landsat-8 (30 meters)"</span>, side <span class="op" style="color: #5E5E5E;">=</span> <span class="fl" style="color: #AD0000;">3</span><span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="https://www.pmassicotte.com/posts/2022-04-28-changing-spatial-resolution-of-a-raster-with-terra/index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2022-04-28-changing-spatial-resolution-of-a-raster-with-terra/index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="https://www.pmassicotte.com/posts/2022-04-28-changing-spatial-resolution-of-a-raster-with-terra/index_files/figure-html/unnamed-chunk-9-2.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2022-04-28-changing-spatial-resolution-of-a-raster-with-terra/index_files/figure-html/unnamed-chunk-9-2.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -229,7 +229,7 @@ Photo by <a href="https://unsplash.com/@usgs?utm_source=unsplash&amp;utm_medium=
 <span><span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/graphics/mtext.html">mtext</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"Landsat-8 (resampled to 10 meters)"</span>, side <span class="op" style="color: #5E5E5E;">=</span> <span class="fl" style="color: #AD0000;">3</span><span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="https://www.pmassicotte.com/posts/2022-04-28-changing-spatial-resolution-of-a-raster-with-terra/index_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2022-04-28-changing-spatial-resolution-of-a-raster-with-terra/index_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -377,14 +377,14 @@ Session info
 </section></section> ]]></description>
   <category>R</category>
   <category>geospatial</category>
-  <guid>https://www.pmassicotte.com/posts/2022-04-28-changing-spatial-resolution-of-a-raster-with-terra/index.html</guid>
+  <guid>pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2022-04-28-changing-spatial-resolution-of-a-raster-with-terra/index.html</guid>
   <pubDate>Thu, 28 Apr 2022 04:00:00 GMT</pubDate>
-  <media:content url="https://www.pmassicotte.com/posts/2022-04-28-changing-spatial-resolution-of-a-raster-with-terra/images/usgs-nSOZqxCIEAs-unsplash.jpg" medium="image" type="image/jpeg"/>
+  <media:content url="pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2022-04-28-changing-spatial-resolution-of-a-raster-with-terra/images/usgs-nSOZqxCIEAs-unsplash.jpg" medium="image" type="image/jpeg"/>
 </item>
 <item>
   <title>Reading multiples CSV files using readr</title>
   <dc:creator>Philippe Massicotte</dc:creator>
-  <link>https://www.pmassicotte.com/posts/2022-02-15-reading-multiples-csv-files-in-r/index.html</link>
+  <link>pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2022-02-15-reading-multiples-csv-files-in-r/index.html</link>
   <description><![CDATA[ <p>If you are beginning in R, chances are that you have used <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code> to import CSV files into R. While this function works perfectly fine, it can only read one file at a time. Hence, new R programmers often read multiple files successively and combine the data afterward.</p>
 <div class="cell" data-layout-align="center" data-hash="index_cache/html/unnamed-chunk-1_1a2104a9eb4b96475162bbc1e9c05ffb">
 <div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
@@ -413,7 +413,7 @@ Session info
 <span><span class="va" style="color: #111111;">big_df</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="fu" style="color: #4758AB;">read_csv</span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">files</span><span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
 </div>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="https://unsplash.com/photos/-Vqn2WrfxTQ"><img src="https://www.pmassicotte.com/posts/2022-02-15-reading-multiples-csv-files-in-r/images/img_marc_sendra_speed.jpg" class="img-fluid figure-img"></a></p>
+<figure class="figure"><p><a href="https://unsplash.com/photos/-Vqn2WrfxTQ"><img src="pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2022-02-15-reading-multiples-csv-files-in-r/images/img_marc_sendra_speed.jpg" class="img-fluid figure-img"></a></p>
 <p></p><figcaption class="figure-caption">Lights in the night</figcaption><p></p>
 </figure>
 </div>
@@ -475,7 +475,7 @@ Session info
 <span><span class="fu" style="color: #4758AB;">autoplot</span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">res</span><span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="https://www.pmassicotte.com/posts/2022-02-15-reading-multiples-csv-files-in-r/index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2022-02-15-reading-multiples-csv-files-in-r/index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -607,17 +607,17 @@ Session info
  ]]></description>
   <category>R</category>
   <category>data manipulation</category>
-  <guid>https://www.pmassicotte.com/posts/2022-02-15-reading-multiples-csv-files-in-r/index.html</guid>
+  <guid>pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2022-02-15-reading-multiples-csv-files-in-r/index.html</guid>
   <pubDate>Tue, 15 Feb 2022 05:00:00 GMT</pubDate>
-  <media:content url="https://www.pmassicotte.com/posts/2022-02-15-reading-multiples-csv-files-in-r/images/img_marc_sendra_speed.jpg" medium="image" type="image/jpeg"/>
+  <media:content url="pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2022-02-15-reading-multiples-csv-files-in-r/images/img_marc_sendra_speed.jpg" medium="image" type="image/jpeg"/>
 </item>
 <item>
   <title>Choosing the right geographic projection with the crsuggest R package</title>
   <dc:creator>Philippe Massicotte</dc:creator>
-  <link>https://www.pmassicotte.com/posts/2021-11-12-choosing-the-right-projection/index.html</link>
+  <link>pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2021-11-12-choosing-the-right-projection/index.html</link>
   <description><![CDATA[ <p>When creating maps, choosing an appropriate geographical projection is often a difficult task (at least for me). <a href="https://www.geo-projections.com/">There are plenty of projections to choose from</a>, and <a href="https://www.axismaps.com/guide/map-projections">none can be qualified as the best one</a>. It all depends on what you are trying to achieve. Websites like <a href="https://projectionwizard.org/">the projection wizard website</a> offer a playground to experiment with different projections and how they look like depending on where you are looking at on the globe.</p>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="https://www.pmassicotte.com/posts/2021-11-12-choosing-the-right-projection/world.jpg" class="img-fluid figure-img"></p>
+<figure class="figure"><p><img src="pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2021-11-12-choosing-the-right-projection/world.jpg" class="img-fluid figure-img"></p>
 <p></p><figcaption class="figure-caption">A medieval depiction of the Ecumene (1482, Johannes Schnitzer, engraver), constructed after the coordinates in Ptolemy’s Geography and using his second map projection</figcaption><p></p>
 </figure>
 </div>
@@ -646,7 +646,7 @@ Session info
 <span><span class="va" style="color: #111111;">p1</span></span></code></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="https://www.pmassicotte.com/posts/2021-11-12-choosing-the-right-projection/index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2021-11-12-choosing-the-right-projection/index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -681,7 +681,7 @@ Session info
 <div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html">wrap_plots</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">maps</span>, ncol <span class="op" style="color: #5E5E5E;">=</span> <span class="fl" style="color: #AD0000;">3</span><span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="https://www.pmassicotte.com/posts/2021-11-12-choosing-the-right-projection/index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2021-11-12-choosing-the-right-projection/index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -695,7 +695,7 @@ Session info
 <span><span class="va" style="color: #111111;">p1</span> <span class="op" style="color: #5E5E5E;">+</span> <span class="va" style="color: #111111;">p2</span></span></code></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="https://www.pmassicotte.com/posts/2021-11-12-choosing-the-right-projection/index_files/figure-html/compare_crs-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2021-11-12-choosing-the-right-projection/index_files/figure-html/compare_crs-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -845,14 +845,14 @@ Session info
  ]]></description>
   <category>R</category>
   <category>geospatial</category>
-  <guid>https://www.pmassicotte.com/posts/2021-11-12-choosing-the-right-projection/index.html</guid>
+  <guid>pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2021-11-12-choosing-the-right-projection/index.html</guid>
   <pubDate>Fri, 12 Nov 2021 05:00:00 GMT</pubDate>
-  <media:content url="https://www.pmassicotte.com/posts/2021-11-12-choosing-the-right-projection/world.jpg" medium="image" type="image/jpeg"/>
+  <media:content url="pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2021-11-12-choosing-the-right-projection/world.jpg" medium="image" type="image/jpeg"/>
 </item>
 <item>
   <title>Extracting raster values using the stars R package</title>
   <dc:creator>Philippe Massicotte</dc:creator>
-  <link>https://www.pmassicotte.com/posts/2021-03-06-extracting-raster-values-using-polygons/index.html</link>
+  <link>pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2021-03-06-extracting-raster-values-using-polygons/index.html</link>
   <description><![CDATA[ <section id="introduction" class="level2"><h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>For a long time, I have been using the <code>raster</code> package to manipulate raster data in R. Slowly, I am trying to work my way out with the <em>new</em> <code>stars</code> package. In this post, I am exploring different ways to extract values from a raster at different geographic locations. For this exercise, I am using a Landsat 7 image that is provided within the <code>stars</code> package. Each pixel has a resolution of 30 meters.</p>
 <div class="cell" data-layout-align="center">
@@ -883,7 +883,7 @@ Session info
 <div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">r</span>, key.pos <span class="op" style="color: #5E5E5E;">=</span> <span class="cn" style="color: #8f5902;">NULL</span><span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="https://www.pmassicotte.com/posts/2021-03-06-extracting-raster-values-using-polygons/index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2021-03-06-extracting-raster-values-using-polygons/index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -905,7 +905,7 @@ Session info
 <span><span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">r</span>, reset <span class="op" style="color: #5E5E5E;">=</span> <span class="cn" style="color: #8f5902;">FALSE</span>, key.pos <span class="op" style="color: #5E5E5E;">=</span> <span class="cn" style="color: #8f5902;">NULL</span><span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="https://www.pmassicotte.com/posts/2021-03-06-extracting-raster-values-using-polygons/index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2021-03-06-extracting-raster-values-using-polygons/index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -915,7 +915,7 @@ Session info
 <div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">r</span>, text_values <span class="op" style="color: #5E5E5E;">=</span> <span class="cn" style="color: #8f5902;">TRUE</span>, col <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">pal</span>, key.pos <span class="op" style="color: #5E5E5E;">=</span> <span class="cn" style="color: #8f5902;">NULL</span><span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="https://www.pmassicotte.com/posts/2021-03-06-extracting-raster-values-using-polygons/index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2021-03-06-extracting-raster-values-using-polygons/index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -940,7 +940,7 @@ Session info
 <span><span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="https://www.pmassicotte.com/posts/2021-03-06-extracting-raster-values-using-polygons/index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2021-03-06-extracting-raster-values-using-polygons/index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -983,7 +983,7 @@ Session info
 <span><span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="https://www.pmassicotte.com/posts/2021-03-06-extracting-raster-values-using-polygons/index_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2021-03-06-extracting-raster-values-using-polygons/index_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1003,7 +1003,7 @@ Session info
 <span>  <span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="https://www.pmassicotte.com/posts/2021-03-06-extracting-raster-values-using-polygons/index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2021-03-06-extracting-raster-values-using-polygons/index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1090,7 +1090,7 @@ Session info
 <span><span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="https://www.pmassicotte.com/posts/2021-03-06-extracting-raster-values-using-polygons/index_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2021-03-06-extracting-raster-values-using-polygons/index_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1175,7 +1175,7 @@ Session info
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">~</span><span class="va" style="color: #111111;">poly_id</span><span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="https://www.pmassicotte.com/posts/2021-03-06-extracting-raster-values-using-polygons/index_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2021-03-06-extracting-raster-values-using-polygons/index_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1213,78 +1213,14 @@ Session info
 </section></section></section> ]]></description>
   <category>R</category>
   <category>geospatial</category>
-  <guid>https://www.pmassicotte.com/posts/2021-03-06-extracting-raster-values-using-polygons/index.html</guid>
+  <guid>pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2021-03-06-extracting-raster-values-using-polygons/index.html</guid>
   <pubDate>Sat, 06 Mar 2021 05:00:00 GMT</pubDate>
-  <media:content url="https://www.pmassicotte.com/posts/2021-03-06-extracting-raster-values-using-polygons/preview.png" medium="image" type="image/png" height="89" width="144"/>
-</item>
-<item>
-  <title>Open access journals around the World</title>
-  <dc:creator>Philippe Massicotte</dc:creator>
-  <link>https://www.pmassicotte.com/posts/2020-07-03-open-access-journals-around-the-world/index.html</link>
-  <description><![CDATA[ <p>It is easy to say that there is an <a href="https://www.timeshighereducation.com/news/would-be-heavyweights-the-rise-of-open-access-mega-journals">increasing interest in publishing in open access journals</a>. There are now more and more peer-reviewed open access journals where scientific research can be disseminated. That is why, as an academic, I recently decided to only review articles that are going to be published in open access journals. I will also strongly encourage the publication of my future articles in open access journals when I am the first author.</p>
-<section id="the-directory-of-open-access-journal-doaj" class="level2"><h2 class="anchored" data-anchor-id="the-directory-of-open-access-journal-doaj">The Directory of Open Access Journal (DOAJ)</h2>
-<div class="cell" data-layout-align="center" data-hash="index_cache/html/download_data_a9eca0a141e68d85b0e324da4fb7d2f3">
-
-</div>
-<p>I recently discovered that the <a href="https://doaj.org/">Directory of Open Access Journal</a> provides a curated list of high-quality open access journals. At this time, there are 18048 journals indexed in their database. I found out that I could use this source of information to help me to find appropriate open access journals for my future research articles. DOAJ provides a list of their indexed journals as well as the countries in which they are published. I was interested to explore this data to know which countries publish open access journals. The following graph shows the first 20 countries listed in DOAJ in which open access journals are published. I was quite surprised to see that Indonesia was the country that publishes the most open access journals.</p>
-<div class="cell" data-layout-align="center" data-hash="index_cache/html/open_journal_per_country_aeeed1285480e1c6cd191d0167b46f77">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="https://www.pmassicotte.com/posts/2020-07-03-open-access-journals-around-the-world/index_files/figure-html/open_journal_per_country-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-<blockquote class="blockquote">
-<p>Indonesia may be the world’s OA leader: the study found that 81% of ﻿20,000 journal articles published in 2017 with an Indonesia-affiliated author are available to read for free somewhere online, and 74% are published with open-access licences, meaning they could be legally redistributed (see ‘Open-access leaders’). <em>https://www.nature.com/articles/d41586-019-01536-5</em></p>
-</blockquote>
-<p>The number of open access journals in each country is presented in the following table.</p>
-<div class="cell" data-layout-align="center" data-hash="index_cache/html/open_journal_per_country_table_4bf9c8bd2a5b156e8ebcb8d36393316f">
-<div class="cell-output-display">
-
-<div id="htmlwidget-36fbd44715145484fe89" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-36fbd44715145484fe89">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"country_of_publisher":["Åland Islands","Albania","Algeria","Angola","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Bolivia, Plurinational State of","Bosnia and Herzegovina","Brazil","Bulgaria","Cameroon","Canada","Chile","China","Colombia","Congo, The Democratic Republic of the","Costa Rica","Côte d'Ivoire","Croatia","Cuba","Cyprus","Czechia","Denmark","Dominican Republic","Ecuador","Egypt","El Salvador","Estonia","Ethiopia","Finland","France","Gambia","Georgia","Germany","Ghana","Greece","Guadeloupe","Guam","Guatemala","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Iran, Islamic Republic of","Iraq","Ireland","Israel","Italy","Japan","Jordan","Kazakhstan","Kenya","Korea, Republic of","Kuwait","Kyrgyzstan","Latvia","Lebanon","Libya","Lithuania","Luxembourg","Malawi","Malaysia","Mali","Malta","Mexico","Moldova, Republic of","Mongolia","Montenegro","Morocco","Nepal","Netherlands","New Zealand","Nicaragua","Nigeria","North Macedonia","Norway","Oman","Pakistan","Palestine, State of","Panama","Paraguay","Peru","Philippines","Poland","Portugal","Puerto Rico","Qatar","Romania","Russian Federation","Rwanda","Saudi Arabia","Serbia","Singapore","Slovakia","Slovenia","South Africa","South Sudan","Spain","Sri Lanka","Sweden","Switzerland","Syrian Arab Republic","Taiwan, Province of China","Thailand","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Venezuela, Bolivarian Republic of","Viet Nam","Yemen","Zimbabwe"],"n":[1,4,25,4,348,8,127,53,1,1,1,22,1,21,53,8,38,1621,81,1,200,149,194,420,3,72,2,147,125,3,133,39,7,84,61,4,34,8,63,281,1,4,334,6,44,1,1,3,4,18,62,6,325,2001,695,79,17,3,480,75,1,19,6,160,1,3,12,2,5,101,2,1,91,1,2,203,38,6,9,28,25,381,20,11,17,15,120,7,104,1,5,25,120,20,777,154,4,12,364,545,1,18,211,38,50,64,125,1,930,20,47,531,11,34,29,1,5,418,1,1,408,9,1947,1036,32,2,35,11,6,1]},"columns":[{"accessor":"country_of_publisher","name":"Country","type":"character","filterable":true},{"accessor":"n","name":"Number of open journals","type":"numeric"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"6d5ae249fb74e580139a7c4b68fd47dc"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
-</div>
-</div>
-</section><section id="a-global-overview" class="level2"><h2 class="anchored" data-anchor-id="a-global-overview">A global overview</h2>
-<p>The next map shows a global overview of the number of published open access journals around the world.</p>
-<div class="cell" data-layout-align="center" data-hash="index_cache/html/country_sf_8e427c8cc85d9c176ed0debefc424f32">
-
-</div>
-<div class="cell" data-layout-align="center" data-hash="index_cache/html/make_plot_ff3ffe8144ce7aa968e953b3adc90c83">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="https://www.pmassicotte.com/posts/2020-07-03-open-access-journals-around-the-world/index_files/figure-html/make_plot-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</section><section id="the-big-five-publishers" class="level2"><h2 class="anchored" data-anchor-id="the-big-five-publishers">The big five publishers</h2>
-<p>According to a <a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0127502">paper published in 2015</a>, <em>Elsevier</em>, <em>Springer</em>, <em>Wiley</em>, <em>Taylor &amp; Francis Group</em> and <em>SAGE Publishing</em> are the main publishers that control more than half of the market of scientific. In the past few years, many universities and institutions have started to <a href="https://en.wikipedia.org/wiki/The_Cost_of_Knowledge">boycott these big publishers</a>. Using the DOAJ’s data, I was interested to see if how these publishers embraced the open access movement. Not too surprisingly, we can see a peak in the creation of open access journals between 2013 and 2015.</p>
-<div class="cell" data-layout-align="center" data-hash="index_cache/html/big_five_1_03eabd101faff7599575501aa062419f">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="https://www.pmassicotte.com/posts/2020-07-03-open-access-journals-around-the-world/index_files/figure-html/big_five_1-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell" data-layout-align="center" data-hash="index_cache/html/big_five_publishing_cost_33ccb255ee12911323a1bc1125d10a28">
-
-</div>
-<div class="cell" data-layout-align="center" data-hash="index_cache/html/plot_submission_fee_9455380f65918e9ed5dcc8daab8c6a4a">
-
-</div>
-
-
-</section> ]]></description>
-  <guid>https://www.pmassicotte.com/posts/2020-07-03-open-access-journals-around-the-world/index.html</guid>
-  <pubDate>Fri, 03 Jul 2020 04:00:00 GMT</pubDate>
+  <media:content url="pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2021-03-06-extracting-raster-values-using-polygons/preview.png" medium="image" type="image/png" height="89" width="144"/>
 </item>
 <item>
   <title>Removing borders around ggplot2 graphs</title>
   <dc:creator>Philippe Massicotte</dc:creator>
-  <link>https://www.pmassicotte.com/posts/2019-12-20-removing-borders-around-ggplot2-graphs/index.html</link>
+  <link>pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2019-12-20-removing-borders-around-ggplot2-graphs/index.html</link>
   <description><![CDATA[ <p>Recently I was participating in the <em>30DayMapChallenge</em> where people were invited to make a map based on a different daily theme for one whole month.</p>
 <blockquote class="twitter-tweet blockquote">
 <p lang="en" dir="ltr">
@@ -1321,7 +1257,7 @@ One question though: always wondering about your white space, do you not care an
 <span><span class="va" style="color: #111111;">p</span></span></code></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="https://www.pmassicotte.com/posts/2019-12-20-removing-borders-around-ggplot2-graphs/index_files/figure-html/map_ggplot2-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2019-12-20-removing-borders-around-ggplot2-graphs/index_files/figure-html/map_ggplot2-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1332,13 +1268,13 @@ One question though: always wondering about your white space, do you not care an
 <div class="cell" data-layout-align="center">
 
 </div>
-<p><img src="https://www.pmassicotte.com/posts/2019-12-20-removing-borders-around-ggplot2-graphs/images/fig_border_7_4.png" style="border:2px solid red;" width="800"></p>
+<p><img src="pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2019-12-20-removing-borders-around-ggplot2-graphs/images/fig_border_7_4.png" style="border:2px solid red;" width="800"></p>
 </section><section id="aspect-ratio-of-67" class="level3"><h3 class="anchored" data-anchor-id="aspect-ratio-of-67">Aspect ratio of 6/7</h3>
 <p>Choosing an aspect ratio of 6/7 creates white borders at the bottom and the top of the plot.</p>
 <div class="cell" data-layout-align="center">
 
 </div>
-<p><img src="https://www.pmassicotte.com/posts/2019-12-20-removing-borders-around-ggplot2-graphs/images/fig_border_6_7.png" style="border:2px solid red;" width="800"></p>
+<p><img src="pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2019-12-20-removing-borders-around-ggplot2-graphs/images/fig_border_6_7.png" style="border:2px solid red;" width="800"></p>
 <p>As it can be seen in the two figures above, there are two large white borders located either on the sides or above/below of the graph. It is because I have used <code>geom_sf()</code> which set automatically the aspect ratio of the plot to respect the chosen geographical coordinate system. Of course, I could play around with trials and errors to find the <em>best</em> <strong>width</strong> and <strong>hight</strong> to use to save my plot.</p>
 <p>But wait! <strong>There is a much better way to do it!</strong> :smirk: Actually, I found out there was a hidden gem in <code>knitr</code> that allows cropping (using either <em>pdfcrop</em> or <em>convert</em> functions) to remove borders around an image. In fact, this is the function that is used to automatically remove borders around images when knitting an R Markdown document in R (see the initial plot of this post without borders). The function <code>knitr::plot_crop(x)</code> (where <em>x</em> is the filename of the plot to be cropped) will trim any existing images on your hard drive.</p>
 <p>First, let’s create our plot in PDF format and use <code><a href="https://rdrr.io/pkg/knitr/man/plot_crop.html">knitr::plot_crop()</a></code> to remove the borders.</p>
@@ -1362,7 +1298,7 @@ One question though: always wondering about your white space, do you not care an
 <span><span class="va" style="color: #111111;">bitmap</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="fu" style="color: #4758AB;">pdftools</span><span class="fu" style="color: #4758AB;">::</span><span class="fu" style="color: #4758AB;"><a href="https://docs.ropensci.org/pdftools/reference/pdf_render_page.html">pdf_render_page</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">pdf_file</span>, dpi <span class="op" style="color: #5E5E5E;">=</span> <span class="fl" style="color: #AD0000;">600</span><span class="op" style="color: #5E5E5E;">)</span></span>
 <span><span class="fu" style="color: #4758AB;">png</span><span class="fu" style="color: #4758AB;">::</span><span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/pkg/png/man/writePNG.html">writePNG</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">bitmap</span>, <span class="va" style="color: #111111;">png_file</span><span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
 </div>
-<p><img src="https://www.pmassicotte.com/posts/2019-12-20-removing-borders-around-ggplot2-graphs/images/fig_border_cropped.png" style="border:2px solid red;" width="800"></p>
+<p><img src="pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2019-12-20-removing-borders-around-ggplot2-graphs/images/fig_border_cropped.png" style="border:2px solid red;" width="800"></p>
 <p>Bang! No more borders around our plot 👍</p>
 <details><summary>
 Session info
@@ -1499,14 +1435,14 @@ Session info
 </section></section> ]]></description>
   <category>R</category>
   <category>ggplot2</category>
-  <guid>https://www.pmassicotte.com/posts/2019-12-20-removing-borders-around-ggplot2-graphs/index.html</guid>
+  <guid>pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2019-12-20-removing-borders-around-ggplot2-graphs/index.html</guid>
   <pubDate>Fri, 20 Dec 2019 05:00:00 GMT</pubDate>
-  <media:content url="https://www.pmassicotte.com/posts/2019-12-20-removing-borders-around-ggplot2-graphs/images/fig_border_7_4.png" medium="image" type="image/png" height="82" width="144"/>
+  <media:content url="pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2019-12-20-removing-borders-around-ggplot2-graphs/images/fig_border_7_4.png" medium="image" type="image/png" height="82" width="144"/>
 </item>
 <item>
   <title>Visualizing the decrease of Artic sea ice extent</title>
   <dc:creator>Philippe Massicotte</dc:creator>
-  <link>https://www.pmassicotte.com/posts/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent/index.html</link>
+  <link>pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent/index.html</link>
   <description><![CDATA[ <div class="cell" data-layout-align="center">
 
 </div>
@@ -1520,7 +1456,7 @@ Session info
 </blockquote>
 <p>Thanks to the NSIDC, their data is <a href="ftp://sidads.colorado.edu/DATASETS/NOAA/G02135/">available for download</a>. For this post, I was interested in visualizing these scientific measurements.</p>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="https://www.pmassicotte.com/posts/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent/preview.jpg" class="img-fluid figure-img" alt="Icebirg floating in the Arctic" width="800"></p>
+<figure class="figure"><p><img src="pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent/preview.jpg" class="img-fluid figure-img" alt="Icebirg floating in the Arctic" width="800"></p>
 </figure>
 </div>
 <p>Photo by <a href="https://unsplash.com/@anniespratt?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Annie Spratt</a> on <a href="https://unsplash.com/s/photos/arctic?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></p>
@@ -1613,7 +1549,7 @@ Session info
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="https://www.pmassicotte.com/posts/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent/index_files/figure-html/unnamed-chunk-3-1.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent/index_files/figure-html/unnamed-chunk-3-1.svg" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1623,7 +1559,7 @@ Session info
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="https://www.pmassicotte.com/posts/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent/index_files/figure-html/unnamed-chunk-4-1.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent/index_files/figure-html/unnamed-chunk-4-1.svg" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1632,7 +1568,7 @@ Session info
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="https://www.pmassicotte.com/posts/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent/index_files/figure-html/unnamed-chunk-5-1.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent/index_files/figure-html/unnamed-chunk-5-1.svg" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1641,7 +1577,7 @@ Session info
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="https://www.pmassicotte.com/posts/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent/index_files/figure-html/unnamed-chunk-6-1.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent/index_files/figure-html/unnamed-chunk-6-1.svg" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1650,9 +1586,9 @@ Session info
 
 </section> ]]></description>
   <category>R</category>
-  <guid>https://www.pmassicotte.com/posts/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent/index.html</guid>
+  <guid>pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent/index.html</guid>
   <pubDate>Fri, 23 Aug 2019 04:00:00 GMT</pubDate>
-  <media:content url="https://www.pmassicotte.com/posts/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent/preview.jpg" medium="image" type="image/jpeg"/>
+  <media:content url="pmassicotte.com ALIAS apex-loadbalancer.netlify.com/posts/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent/preview.jpg" medium="image" type="image/jpeg"/>
 </item>
 </channel>
 </rss>

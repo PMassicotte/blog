@@ -1,1 +1,1 @@
-Sitemap: https://www.pmassicotte.com/sitemap.xml
+Sitemap: pmassicotte.com ALIAS apex-loadbalancer.netlify.com/sitemap.xml
