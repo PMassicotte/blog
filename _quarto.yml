@@ -2,16 +2,17 @@ project:
   type: website
 
 website:
+  page-navigation: true
   title: "Welcome to my blog"
   site-url: "https://www.pmassicotte.com"
   description: "Numerical ecologist | Data visualization | R enthousiast"
-  sharing: [twitter]
   navbar:
-    right:
-      - about.qmd
+    left:
       - publications.qmd
       - presentations.qmd
       - workshops.qmd
+      - about.qmd
+    right: 
       - icon: github
         href: https://github.com/pmassicotte
       - icon: twitter
