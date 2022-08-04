@@ -1,0 +1,20 @@
+/*-- scss:defaults --*/
+
+/* css styles */
+@import url('https://fonts.googleapis.com/css2?family=Oleo+Script&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;600&display=swap");
+
+pre > code.sourceCode {
+	white-space: pre;
+	font-family: JetBrains Mono;
+}
+
+.navbar-dark .navbar-brand {
+  font-family: "Oleo Script";
+  font-size: 2em;
+}
+
+#title-block-header h1 {
+  font-family: "Oleo Script";
+  font-size: 3em;
+}
