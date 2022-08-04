@@ -6,7 +6,7 @@ website:
   title: "Welcome to my blog"
   site-url: "https://www.pmassicotte.com"
   description: "Numerical ecologist | Data visualization | R enthousiast"
-  google-analytics: UA-142521801-1
+  google-analytics: UA-142521801
   cookie-consent: true
   twitter-card: true
   navbar:
