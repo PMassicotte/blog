@@ -8,6 +8,7 @@ website:
   description: "Numerical ecologist | Data visualization | R enthousiast"
   google-analytics: UA-142521801-1
   cookie-consent: true
+  twitter-card: true
   navbar:
     left:
       - publications.qmd
