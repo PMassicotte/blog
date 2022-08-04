@@ -9,6 +9,7 @@ comments: false
 #| warning: false
 #| message: false
 library(RefManageR)
+library(bibtex)
 file <- "publications.bib"
 bib <- ReadBib(file, check = FALSE)
 BibOptions(

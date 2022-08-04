@@ -143,6 +143,16 @@
       "Hash": "543776ae6848fde2f48ff3816d0628bc",
       "Requirements": []
     },
+    "bibtex": {
+      "Package": "bibtex",
+      "Version": "0.4.2.3",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "76c015d8a12da5047be8aa6bead07077",
+      "Requirements": [
+        "stringr"
+      ]
+    },
     "bit": {
       "Package": "bit",
       "Version": "4.0.4",
