@@ -26,7 +26,7 @@ website:
 format:
   html:
     theme: flatly
-    css: styles.scss
+    css: styles.css
     code-link: true
     highlight-style: ally
     mainfont: Montserrat
