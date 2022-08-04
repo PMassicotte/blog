@@ -7,6 +7,7 @@ website:
   site-url: "https://www.pmassicotte.com"
   description: "Numerical ecologist | Data visualization | R enthousiast"
   google-analytics: UA-142521801-1
+  cookie-consent: true
   navbar:
     left:
       - publications.qmd
