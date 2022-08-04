@@ -3,19 +3,18 @@ project:
 
 website:
   page-navigation: true
-  title: "Welcome to my blog"
+  title: "Philippe Massicotte"
   site-url: "https://www.pmassicotte.com"
   description: "Numerical ecologist | Data visualization | R enthousiast"
   google-analytics: UA-142521801
   cookie-consent: false
   twitter-card: true
   navbar:
-    left:
+    right: 
       - publications.qmd
       - presentations.qmd
       - workshops.qmd
       - about.qmd
-    right: 
       - icon: github
         href: https://github.com/pmassicotte
       - icon: twitter
