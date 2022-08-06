@@ -6,7 +6,7 @@ website:
   title: "Philippe Massicotte"
   site-url: "https://www.pmassicotte.com"
   description: "Numerical ecologist | Data visualization | R enthousiast"
-  google-analytics: UA-142521801
+  google-analytics: UA-142521801-1
   cookie-consent: false
   twitter-card: true
   navbar:
