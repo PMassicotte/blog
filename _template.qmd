@@ -10,7 +10,7 @@ image: "images/..."
 knitr::opts_chunk$set(
   comment = "#>",
   collapse = TRUE,
-  cache = TRUE,
+  cache = FALSE,
   dpi = 600,
   out.width = "100%",
   fig.align = "center",
