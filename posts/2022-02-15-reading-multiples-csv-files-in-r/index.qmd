@@ -4,7 +4,7 @@ author: "Philippe Massicotte"
 date: "2022-02-15"
 categories: [R, Data manipulation]
 twitter-card:
-  image: "img/preview.jpg"
+  image: "img/preview.png"
 ---
 
 ```{r setup, include=FALSE}
@@ -49,7 +49,7 @@ big_df <- read_csv(files)
 
 In this short blog post, I wanted to benchmark the speed difference between `map_df(files, read_csv)` and `read_csv(files)`. To do it so let's first [generate some data files](https://www.tidyverse.org/blog/2021/07/readr-2-0-0/).
 
-![](img/preview.jpg)
+![](img/preview.png)
 
 Photo by <a href="https://unsplash.com/@marcsm?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Marc Sendra Martorell</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 

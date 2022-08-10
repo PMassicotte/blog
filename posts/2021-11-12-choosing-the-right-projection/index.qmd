@@ -4,7 +4,7 @@ author: "Philippe Massicotte"
 date: "2021-11-12"
 categories: [R, Geospatial]
 twitter-card:
-  image: "img/preview.jpg"
+  image: "img/preview.png"
 ---
 
 ```{r setup, include=FALSE}
@@ -21,7 +21,7 @@ theme_update(
 
 When creating maps, choosing an appropriate geographical projection is often a difficult task (at least for me). [There are plenty of projections to choose from](https://www.geo-projections.com/), and [none can be qualified as the best one](https://www.axismaps.com/guide/map-projections). It all depends on what you are trying to achieve. Websites like [the projection wizard website](https://projectionwizard.org/) offer a playground to experiment with different projections and how they look like depending on where you are looking at on the globe.
 
-![A medieval depiction of the Ecumene (1482, Johannes Schnitzer, engraver), constructed after the coordinates in Ptolemy's Geography and using his second map projection](img/preview.jpg)
+![A medieval depiction of the Ecumene (1482, Johannes Schnitzer, engraver), constructed after the coordinates in Ptolemy's Geography and using his second map projection](img/preview.png)
 
 <small>Image from: https://en.wikipedia.org/wiki/Map_projection</small>
 

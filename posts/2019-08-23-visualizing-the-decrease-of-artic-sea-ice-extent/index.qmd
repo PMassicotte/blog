@@ -59,7 +59,7 @@ It is well known that the Arctic sea ice extent is decreasing at an increasing p
 
 Thanks to the NSIDC, their data is [available for download](ftp://sidads.colorado.edu/DATASETS/NOAA/G02135/). For this post, I was interested in visualizing these scientific measurements.
 
-![](preview.jpg){fig-alt="Icebirg floating in the Arctic" fig-align="center" width="800"}
+![](img/preview.png){fig-alt="Icebirg floating in the Arctic" fig-align="center" width="800"}
 
 Photo by <a href="https://unsplash.com/@anniespratt?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Annie Spratt</a> on <a href="https://unsplash.com/s/photos/arctic?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 
