@@ -3,7 +3,8 @@ title: " Changing spatial resolution of a raster with terra"
 author: "Philippe Massicotte"
 date: "2022-04-28"
 categories: [R, Geospatial]
-image: "img/preview.jpg"
+twitter-card:
+  image: "img/preview.jpg"
 ---
 
 Lately, I was working on a project and I needed to change the spatial resolution of a GeoTIFF to match that of another one. After looking around, I posted [a question on Stackoverflow](https://stackoverflow.com/questions/72044284/how-to-change-a-raster-to-a-specific-spatial-resolution/72044772#72044772). After experimenting around, I decided to blog about my experience of changing the spatial resolution of GeoTIFF rasters.
