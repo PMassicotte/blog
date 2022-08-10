@@ -3,7 +3,9 @@ title: "title"
 author: "Philippe Massicotte"
 date: "2022-02-15"
 categories: [R, ...]
-image: "img/..."
+# The preview file needs to be named preview.png
+# https://quarto.org/docs/websites/website-tools.html#preview-images
+image: "img/preview.png" 
 editor_options: 
   chunk_output_type: console
 ---

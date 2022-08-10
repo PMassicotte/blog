@@ -9,6 +9,7 @@ website:
   google-analytics: UA-142521801-1
   cookie-consent: false
   twitter-card: true
+  open-graph: true
   navbar:
     right: 
       - publications.qmd
