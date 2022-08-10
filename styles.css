@@ -19,3 +19,23 @@ pre > code.sourceCode {
   font-family: "Oleo Script";
   font-size: 2em;
 }
+
+code {
+  font-size: 90%;
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 600;
+  color: #3e85ce;
+  background-color: #ebf5ff;
+  border-radius: 8px;
+  padding: 0 4px 1px;
+}
+
+p code:not(.sourceCode), li code:not(.sourceCode) {
+  font-size: 90%;
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 600;
+  color: #3e85ce;
+  background-color: #ebf5ff;
+  border-radius: 8px;
+  padding: 0 4px 1px;
+}

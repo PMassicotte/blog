@@ -9,7 +9,8 @@ website:
   google-analytics: UA-142521801-1
   cookie-consent: false
   twitter-card: true
-  open-graph: true
+  open-graph:
+    site-name: "Just another R blog (Philippe Massicotte)"
   navbar:
     right: 
       - publications.qmd
@@ -26,10 +27,12 @@ website:
         href: index.xml
 format:
   html:
-    theme: flatly
+    theme: 
+      light: flatly
+      dark: darkly
     css: styles.css
     code-link: true
-    highlight-style: ally
+    highlight-style: arrow
     mainfont: Montserrat
     fig-dpi: 600
     fig-align: center
