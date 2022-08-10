@@ -33,7 +33,7 @@ format:
 
 comments:
   utterances:
-    repo: pmassicotte/r-blog
+    repo: pmassicotte/PMassicotte.github.io
 
 execute:
   freeze: auto
