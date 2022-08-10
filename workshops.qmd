@@ -4,40 +4,34 @@ subtitle: Presentations of my workshops
 comments: false
 ---
 
-## Sentinel North: introduction to ggplot2
+[Sentinel North: introduction to ggplot2]{.section-header}
 
 Introduction to `ggplot2` visualization given at the [Sentinel North](https://sentinellenord.ulaval.ca/en) community.
 
-![Sentinel North logo](logos/sn_logo.png){alt="Sentinel North logo" fig-align="center" width="800"}
+![](logos/sn_logo.png){fig-alt="Logo of Sentinel North" fig-align="center" width="500"}
 
 [Introdution to ggplot2](https://pmassicotte.github.io/sentinel_north_data_visualization_ggplot2_workshop/#1)
 
-------------------------------------------------------------------------
-
-## Québec-Océan Training Workshop
+[Québec-Océan Training Workshop]{.section-header}
 
 The yearly Québec-Océan Training Workshop on data management and archiving aims at providing advices on good data managment practices. The workshop is given every year by 5-6 trainers.
 
-![Logo of Quebec-Ocean](logos/quebec_ocean_logo.png){alt="Logo of Quebec-Ocean" fig-align="center" width="500"}
+![](logos/quebec_ocean_logo.png){alt="Logo of Quebec-Ocean" fig-align="center" width="500"}
 
 [Québec-Océan Training Workshop: Data Management and Archiving](https://pmassicotte.github.io/quebec_ocean_data_archive)
 
-------------------------------------------------------------------------
-
-## IVADO Datatrek: introduction to ggplot2
+[IVADO Datatrek: introduction to ggplot2]{.section-header}
 
 Introduction to `ggplot2` R package given at the [IVADO](https://ivado.ca/) 100 days of Data.trek.
 
-![Logo of 100 days data trek](logos/ivado_datatrek.jpg){alt="Logo of 100 days data trek" fig-align="center" width="400"}
+![](logos/ivado_datatrek.jpg){alt="Logo of 100 days data trek" fig-align="center" width="400"}
 
 [Introdution to ggplot2](https://pmassicotte.github.io/ivado_ggplot2_workshop_2022/)
 
-------------------------------------------------------------------------
-
-## R à Québec
+[R à Québec]{.section-header}
 
 Présentation sur la programmation fonctionnelle avec R lors du symposium R à Québec 2019.
 
-![Logo of r Québec 2019](logos/raquebec_2019.png){alt="Logo of r Québec 2019" fig-align="center" width="400"}
+![](logos/raquebec_2019.png){alt="Logo of r Québec 2019" fig-align="center" width="400"}
 
 [Programmation fonctionnelle avec R](https://pmassicotte.github.io/rquebec2019/)

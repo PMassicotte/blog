@@ -39,3 +39,10 @@ p code:not(.sourceCode), li code:not(.sourceCode) {
   border-radius: 8px;
   padding: 0 4px 1px;
 }
+
+.section-header {
+  font-size: 1.35em;
+  font-family: "Montserrat";
+  font-style: italic;
+  font-weight: bold;
+}
