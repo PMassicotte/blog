@@ -3,8 +3,7 @@ title: "Reading multiples CSV files using readr"
 author: "Philippe Massicotte"
 date: "2022-02-15"
 categories: [R, Data manipulation]
-twitter-card:
-  image: "img/preview.png"
+image: "img/preview.png"
 ---
 
 ```{r setup, include=FALSE}

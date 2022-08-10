@@ -46,7 +46,7 @@ comments:
     repo: pmassicotte/PMassicotte.github.io
 
 execute:
-  freeze: false
+  freeze: true
   message: false
   warning: false
   echo: true

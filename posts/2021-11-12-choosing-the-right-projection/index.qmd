@@ -3,8 +3,7 @@ title: "Choosing the right geographic projection with the crsuggest R package"
 author: "Philippe Massicotte"
 date: "2021-11-12"
 categories: [R, Geospatial]
-twitter-card:
-  image: "img/preview.png"
+image: "img/preview.png"
 ---
 
 ```{r setup, include=FALSE}
