@@ -3,7 +3,8 @@ title: Removing borders around ggplot2 graphs
 author: Philippe Massicotte
 date: '2019-12-20'
 categories: [R, ggplot2]
-image: "img/fig_border_7_4.png"
+twitter-card:
+  image: "img/preview.png"
 ---
 
 ```{r setup, include=FALSE}
