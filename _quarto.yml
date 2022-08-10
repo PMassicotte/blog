@@ -30,6 +30,16 @@ format:
     code-link: true
     highlight-style: ally
     mainfont: Montserrat
+    fig-dpi: 600
+    fig-align: center
+    fig-width: 8
+    fig-asp: 0.618 # 1 / pi
+    fig-format: png
+
+knitr:
+  opts_chunk: 
+    collapse: true
+    comment: "#>" 
 
 comments:
   utterances:
@@ -37,3 +47,6 @@ comments:
 
 execute:
   freeze: auto
+  message: false
+  warning: false
+  echo: true

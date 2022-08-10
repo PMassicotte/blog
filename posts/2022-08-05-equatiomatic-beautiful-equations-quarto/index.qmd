@@ -3,32 +3,14 @@ title: "Beautiful equations in R Markdown and Quarto"
 author: "Philippe Massicotte"
 date: "2022-08-05"
 categories: [R, Package discovery]
-image: "images/preview.jpg"
+image: "img/preview.jpg"
 editor_options: 
   chunk_output_type: console
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(
-  comment = "#>",
-  collapse = TRUE,
-  cache = FALSE,
-  dpi = 600,
-  out.width = "100%",
-  fig.align = "center",
-  fig.width = 8,
-  fig.asp = 0.618, # 1 / phi
-  fig.show = "hold",
-  dev = "png",
-  message = FALSE,
-  warning = FALSE,
-  echo = TRUE
-)
-```
-
 When writing dynamic documents in R (either R Markdown or Quarto), it can be useful to display model equations. I recently discovered [equatiomatic](https://datalorax.github.io/equatiomatic/), a very nice package that can do the job.
 
-![](images/preview.jpg){fig-align="center"}
+![](img/preview.jpg){fig-align="center"}
 
 Photo by <a href="https://unsplash.com/@artturijalli?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Artturi Jalli</a> on <a href="https://unsplash.com/s/photos/equation?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 

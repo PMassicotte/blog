@@ -3,26 +3,10 @@ title: "Visualizing the decrease of Artic sea ice extent"
 author: "Philippe Massicotte"
 date: "2019-08-23"
 categories: [R]
-image: "preview.jpg"
+image: "img/preview.jpg"
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(
-  comment = "#>",
-  collapse = TRUE,
-  cache = FALSE,
-  dpi = 600,
-  out.width = "100%",
-  fig.align = "center",
-  fig.width = 8,
-  fig.asp = 0.618, # 1 / phi
-  fig.show = "hold",
-  dev = "svg",
-  message = FALSE,
-  warning = FALSE,
-  echo = FALSE
-)
-
 library(tidyverse)
 library(ggpmthemes)
 library(glue)

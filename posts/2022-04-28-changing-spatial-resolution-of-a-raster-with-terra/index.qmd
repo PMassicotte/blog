@@ -3,26 +3,8 @@ title: " Changing spatial resolution of a raster with terra"
 author: "Philippe Massicotte"
 date: "2022-04-28"
 categories: [R, Geospatial]
-image: "images/usgs-nSOZqxCIEAs-unsplash.jpg"
+image: "img/preview.jpg"
 ---
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(
-  comment = "#>",
-  collapse = TRUE,
-  cache = FALSE,
-  dpi = 600,
-  out.width = "100%",
-  fig.align = "center",
-  fig.width = 8,
-  fig.asp = 0.618, # 1 / phi
-  fig.show = "hold",
-  dev = "png",
-  message = FALSE,
-  warning = FALSE,
-  echo = TRUE
-)
-```
 
 Lately, I was working on a project and I needed to change the spatial resolution of a GeoTIFF to match that of another one. After looking around, I posted [a question on Stackoverflow](https://stackoverflow.com/questions/72044284/how-to-change-a-raster-to-a-specific-spatial-resolution/72044772#72044772). After experimenting around, I decided to blog about my experience of changing the spatial resolution of GeoTIFF rasters.
 
@@ -31,7 +13,7 @@ In this post, we will explore two ways to change the spatial resolution of a ras
 1. Aggregating/disaggregating pixels.
 2. Resampling pixels from one geometry to another one.
 
-![Shimmering blues and greens accentuate the textures of the Sierra de Velasco Mountains of northern Argentina. The urban area (pinkish circle) near the lower left part of the mountain range is La Rioja, the capital of the province of La Rioja. Follow the foothills to the upper right, where the city of San Fernando del Valle de Catamarca lies near extensive vineyards and fruit-growing areas (blue blocky shapes).](images/usgs-nSOZqxCIEAs-unsplash.jpg){width=75%}
+![Shimmering blues and greens accentuate the textures of the Sierra de Velasco Mountains of northern Argentina. The urban area (pinkish circle) near the lower left part of the mountain range is La Rioja, the capital of the province of La Rioja. Follow the foothills to the upper right, where the city of San Fernando del Valle de Catamarca lies near extensive vineyards and fruit-growing areas (blue blocky shapes).](img/preview.jpg){width=75%}
 <center>Photo by <a href="https://unsplash.com/@usgs?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">USGS</a> on <a href="https://unsplash.com/s/photos/landsat?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></center>
 
 ## Aggregating a raster

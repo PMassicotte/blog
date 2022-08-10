@@ -1,0 +1,29 @@
+---
+title: "title"
+author: "Philippe Massicotte"
+date: "2022-02-15"
+categories: [R, ...]
+image: "img/..."
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(ggpmthemes)
+
+theme_set(theme_minimal(base_family = "Montserrat"))
+```
+
+<details>
+  
+<summary>Session info</summary>
+
+```{r sessioninfo, echo = FALSE}
+## Reproducibility info
+options(width = 120)
+devtools::session_info()
+```
+
+</details>
+

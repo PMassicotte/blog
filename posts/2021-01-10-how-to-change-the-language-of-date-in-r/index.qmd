@@ -6,22 +6,6 @@ categories: [R, R tips]
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(
-  comment = "#>",
-  collapse = TRUE,
-  cache = FALSE,
-  dpi = 600,
-  out.width = "100%",
-  fig.align = "center",
-  fig.width = 8,
-  fig.asp = 0.618, # 1 / phi
-  fig.show = "hold",
-  dev = "png",
-  message = FALSE,
-  warning = FALSE,
-  echo = TRUE
-)
-
 library(tidyverse)
 library(ggpmthemes)
 
@@ -54,7 +38,7 @@ My Linux system is configured in English, the dates are also displayed in Englis
 sudo nano /etc/locale.gen
 ```
 
-![My locale.gen configuration file.](images/locale_gen.png)
+![My locale.gen configuration file.](img/locale_gen.png)
 
 In this file, I un-commented the `fr_CA.UTF-8 UTF-8` line. Once done, save the file. Then, we have to regenerate the localization files using the `locale-gen` function.
 

@@ -3,26 +3,10 @@ title: Removing borders around ggplot2 graphs
 author: Philippe Massicotte
 date: '2019-12-20'
 categories: [R, ggplot2]
-image: "images/fig_border_7_4.png"
+image: "img/fig_border_7_4.png"
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(
-  comment = "#>",
-  collapse = TRUE,
-  cache = FALSE,
-  dpi = 600,
-  out.width = "100%",
-  fig.align = "center",
-  fig.width = 8,
-  fig.asp = 0.618, # 1 / phi
-  fig.show = "hold",
-  dev = "png",
-  message = FALSE,
-  warning = FALSE,
-  echo = FALSE
-)
-
 library(tidyverse)
 library(ggpmthemes)
 library(sf)
@@ -69,7 +53,7 @@ When it comes time to save my plots, I usually use the PDF format file unless th
 Choosing an aspect ratio of 7/4 creates white borders on the sides of the plot.
 
 ```{r map_ggplot2_with_border_7_4, eval=TRUE}
-file <- "images/fig_border_7_4.png"
+file <- "img/fig_border_7_4.png"
 
 ggsave(
   file,
@@ -82,14 +66,14 @@ ggsave(
 )
 ```
 
-<img src="images/fig_border_7_4.png" style="border:2px solid red;" width="800"/>
+<img src="img/fig_border_7_4.png" style="border:2px solid red;" width="800"/>
 
 ### Aspect ratio of 6/7
 
 Choosing an aspect ratio of 6/7 creates white borders at the bottom and the top of the plot.
 
 ```{r map_ggplot2_with_border_6_7, eval=TRUE}
-file <- "images/fig_border_6_7.png"
+file <- "img/fig_border_6_7.png"
 
 ggsave(
   file,
@@ -102,7 +86,7 @@ ggsave(
 )
 ```
 
-<img src="images/fig_border_6_7.png" style="border:2px solid red;" width="800"/>
+<img src="img/fig_border_6_7.png" style="border:2px solid red;" width="800"/>
 
 As it can be seen in the two figures above, there are two large white borders located either on the sides or above/below of the graph. It is because I have used `geom_sf()` which set automatically the aspect ratio of the plot to respect the chosen geographical coordinate system. Of course, I could play around with trials and errors to find the *best* **width** and **hight** to use to save my plot.
 
@@ -111,7 +95,7 @@ But wait! **There is a much better way to do it!** :smirk: Actually, I found out
 First, let's create our plot in PDF format and use `knitr::plot_crop()` to remove the borders.
 
 ```{r crop_pdf, echo = TRUE}
-pdf_file <- "images/fig_border.pdf"
+pdf_file <- "img/fig_border.pdf"
 
 ggsave(
   pdf_file,
@@ -127,13 +111,13 @@ knitr::plot_crop(pdf_file)
 At this point, the borders have been removed from the original PDF. But what if you want to export this PDF into a bitmap image? This can be achieved using a combination of `pdftools::pdf_render_page()` and `png::writePNG()`. `pdftools::pdf_render_page()` will take the filename of a PDF file and render into a raw bitmap array whereas `png::writePNG()` will actually save the bitmap into a file.
 
 ```{r, echo = TRUE}
-png_file <- "images/fig_border_cropped.png"
+png_file <- "img/fig_border_cropped.png"
 
 bitmap <- pdftools::pdf_render_page(pdf_file, dpi = 600)
 png::writePNG(bitmap, png_file)
 ```
 
-<img src="images/fig_border_cropped.png" style="border:2px solid red;" width="800"/>
+<img src="img/fig_border_cropped.png" style="border:2px solid red;" width="800"/>
 
 Bang! No more borders around our plot 👍
 

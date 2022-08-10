@@ -3,26 +3,10 @@ title: "Choosing the right geographic projection with the crsuggest R package"
 author: "Philippe Massicotte"
 date: "2021-11-12"
 categories: [R, Geospatial]
-image: "world.jpg"
+image: "img/preview.jpg"
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(
-  comment = "#>",
-  collapse = TRUE,
-  cache = TRUE,
-  dpi = 600,
-  out.width = "100%",
-  fig.align = "center",
-  fig.width = 8,
-  fig.asp = 0.618, # 1 / phi
-  fig.show = "hold",
-  dev = "png",
-  message = FALSE,
-  warning = FALSE,
-  echo = TRUE
-)
-
 library(tidyverse)
 library(ggpmthemes)
 
@@ -36,7 +20,7 @@ theme_update(
 
 When creating maps, choosing an appropriate geographical projection is often a difficult task (at least for me). [There are plenty of projections to choose from](https://www.geo-projections.com/), and [none can be qualified as the best one](https://www.axismaps.com/guide/map-projections). It all depends on what you are trying to achieve. Websites like [the projection wizard website](https://projectionwizard.org/) offer a playground to experiment with different projections and how they look like depending on where you are looking at on the globe.
 
-![A medieval depiction of the Ecumene (1482, Johannes Schnitzer, engraver), constructed after the coordinates in Ptolemy's Geography and using his second map projection](world.jpg)
+![A medieval depiction of the Ecumene (1482, Johannes Schnitzer, engraver), constructed after the coordinates in Ptolemy's Geography and using his second map projection](img/preview.jpg)
 
 <small>Image from: https://en.wikipedia.org/wiki/Map_projection</small>
 
