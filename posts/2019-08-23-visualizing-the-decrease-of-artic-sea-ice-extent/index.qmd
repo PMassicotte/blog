@@ -3,7 +3,7 @@ title: "Visualizing the decrease of Artic sea ice extent"
 author: "Philippe Massicotte"
 date: "2019-08-23"
 categories: [R]
-image: "img/preview.jpg"
+image: "img/preview.png"
 ---
 
 ```{r setup, include=FALSE}
