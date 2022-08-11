@@ -36,11 +36,9 @@ r <- rast(
 r
 ```
 
-Fortunately, I found [this post](https://rstudio-pubs-static.s3.amazonaws.com/271229_1e3acab94bc8470f8e8154bef5cc0a5a.html) by [Michael Sumner](https://twitter.com/mdsumner) which guided me on how to manipulate this data. What we have to do is to set the extent and the proper projection after the file is read. This can be done using the `ext()` and `crs()` function from the `terra` package.
+Fortunately, I found [this post](https://rstudio-pubs-static.s3.amazonaws.com/271229_1e3acab94bc8470f8e8154bef5cc0a5a.html) by [Michael Sumner](https://twitter.com/mdsumner) which guided me on how to manipulate this data. What we have to do is to set the extent and the proper projection after the file is read. This can be done using the `ext()` and `crs()` function from the `terra` package. Based on the [documentation](https://polarwatch.noaa.gov/erddap/info/nsidcCDRice_nh_grid/index.html), we can manually set the proper values.
 
 ```{r set-extent}
-# Where do we get this information?
-
 # Set the extent
 ext(r) <- ext(-3837500, 3762500, -5362500, 5837500)
 
