@@ -4,6 +4,7 @@ author: "Philippe Massicotte"
 date: "2022-02-15"
 categories: [R, ...]
 # The preview file needs to be named preview.png
+# mogrify -format png preview.jpg
 # https://quarto.org/docs/websites/website-tools.html#preview-images
 image: "img/preview.png" 
 editor_options: 
@@ -16,6 +17,8 @@ library(ggpmthemes)
 
 theme_set(theme_minimal(base_family = "Montserrat"))
 ```
+
+![](img/preview.png){fig-align="center"}
 
 <details>
   

@@ -1,0 +1,101 @@
+---
+title: "How to read AMSR2 sea ice data with terra"
+author: "Philippe Massicotte"
+date: "2022-08-11"
+categories: [R, Geospatial]
+# https://quarto.org/docs/websites/website-tools.html#preview-images
+image: "img/preview.png" 
+editor_options: 
+  chunk_output_type: console
+---
+
+Today I was trying to read [AMSR2](https://www.ospo.noaa.gov/Products/atmosphere/gpds/about_amsr2.html) sea ice [data](ftp://ftp-projects.cen.uni-hamburg.de/seaice/AMSR2/3.125km). I was surprised to discover that the files do not include coordinates or projection information. Data and coordinates are contained in different files! Maybe to save some disk space ⁉️ The sea ice data is (for example) in a file named **Arc_20201010_res3.125_pyres.nc.gz** whereas the coordinates are included in a file name **LongitudeLatitudeGrid_3.125km_Arctic.nc**. Furthermore, I found that the provided coordinates are provided in long/lat format whereas the gridded data are projected 😠
+
+![](img/preview.png){fig-align="center"}
+
+Photo by <a href="https://unsplash.com/@willianjusten?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Willian Justen de Vasconcellos</a> on <a href="https://unsplash.com/s/photos/arctic?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+
+If I read the data directly, one can see that there are no coordinates or projection information.
+
+```{r setup}
+#| echo: false
+knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
+```
+
+```{r read-data}
+library(terra)
+library(ggplot2)
+library(tidyterra)
+
+r <- rast(
+  "/vsigzip//vsicurl/ftp://ftp-projects.cen.uni-hamburg.de/seaice/AMSR2/3.125km/Arc_20201010_res3.125_pyres.nc.gz",
+  "sea_ice_concentration"
+)
+
+# No projection information
+r
+```
+
+Fortunately, I found [this post](https://rstudio-pubs-static.s3.amazonaws.com/271229_1e3acab94bc8470f8e8154bef5cc0a5a.html) by [Michael Sumner](https://twitter.com/mdsumner) which guided me on how to manipulate this data. What we have to do is to set the extent and the proper projection after the file is read. This can be done using the `ext()` and `crs()` function from the `terra` package.
+
+```{r set-extent}
+# Where do we get this information?
+
+# Set the extent
+ext(r) <- ext(-3837500, 3762500, -5362500, 5837500)
+
+# Set the polar stereographic projection
+crs(r) <- "EPSG:3411"
+```
+
+Now, if we take a look at the raster, we can see that it is correctly projected and has a resolution of 3.125 km as [expected](ftp://ftp-projects.cen.uni-hamburg.de/seaice/AMSR2/README.txt) ✌️
+
+```{r raster-info}
+r
+```
+
+Finally, visualize the raster.
+
+```{r sic-plot}
+#| fig-height: 4
+#| out-width: 45%
+#| fig-align: center
+#| crop: true
+
+# Set values of 0 to NA
+NAflag(r) <- 0
+
+ggplot() +
+  geom_spatraster(data = r / 100) +
+  scale_fill_viridis_c(
+    na.value = "transparent",
+    labels = scales::label_percent(),
+    breaks = scales::breaks_pretty(n = 6),
+    guide = guide_colorbar(
+      title.position = "top",
+      title.hjust = 0.5,
+      barwidth = unit(5, "cm"),
+      barheight = unit(0.2, "cm")
+    )
+  ) +
+  labs(
+    fill = "Sea ice concentration"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "top",
+    panel.grid = element_line(size = 0.25)
+  )
+```
+
+<details>
+
+<summary>Session info</summary>
+
+```{r sessioninfo, echo = FALSE}
+## Reproducibility info
+options(width = 120)
+devtools::session_info(info = "packages", )
+```
+
+</details>
