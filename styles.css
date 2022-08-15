@@ -46,3 +46,7 @@ p code:not(.sourceCode), li code:not(.sourceCode) {
   font-style: italic;
   font-weight: bold;
 }
+
+.panel-caption, .figure-caption, figcaption {
+	text-align: center;
+}

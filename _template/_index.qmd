@@ -11,14 +11,15 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r setup, include=FALSE}
+```{r setup}
+#| include: false
 library(tidyverse)
 library(ggpmthemes)
 
 theme_set(theme_minimal(base_family = "Montserrat"))
 ```
 
-![](img/preview.png){fig-align="center"}
+![Let's crop something! Photo by <a href="https://unsplash.com/@rozetsky?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Ant Rozetsky</a> on <a href="https://unsplash.com/s/photos/crop?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>](img/preview.png){fig-alt="Close up on a grain field" fig-align="center"}
 
 <details>
   

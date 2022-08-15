@@ -39,11 +39,12 @@ format:
     fig-width: 8
     fig-asp: 0.618 # 1 / pi
     fig-format: png
+    
 
 knitr:
   opts_chunk: 
     collapse: true
-    comment: "#>" 
+    comment: "#>"
 
 comments:
   utterances:
