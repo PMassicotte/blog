@@ -51,7 +51,7 @@ comments:
     repo: pmassicotte/PMassicotte.github.io
 
 execute:
-  freeze: true
+  freeze: auto
   message: false
   warning: false
   echo: true
