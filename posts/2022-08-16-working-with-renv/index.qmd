@@ -1,0 +1,51 @@
+---
+title: "Uptating Ubuntu packages crashed my renv R project"
+author: "Philippe Massicotte"
+date: "2022-08-16"
+categories: [R, R tips]
+# https://quarto.org/docs/websites/website-tools.html#preview-images
+image: "img/preview.png" 
+editor_options: 
+  chunk_output_type: console
+---
+
+I am using `renv` quite a lot. Recently, I had to return to an older project that was using this package to manage package dependencies. When I tried to load `tidyverse`, I got the following message:
+
+``` r
+> library(tidyverse)
+Error: package or namespace load failed for ‘tidyverse’ in dyn.load(file, DLLpath = DLLpath, ...):
+  unable to load shared object '/home/xxx/.local/share/renv/cache/v5/R-4.2/x86_64-pc-linux-gnu/stringi/1.7.6/bba431031d30789535745a9627ac9271/stringi/libs/stringi.so':
+  libicui18n.so.66: cannot open shared object file: No such file or directory
+```
+
+This [means](https://github.com/rstudio/renv/issues/309) that `stringi` v1.7.6 (a dependency for the `tidyverse`) was originally compiled with a certain version of `libicui18n`, and that after a system update/upgrade on my Ubuntu computer, this file no longer exists. One solution to fix this is to rebuild the `stringi` package using the new version of `libicui18n` installed on your computer. To do so, you can use `renv::install(package_name@version)` to specify a specific version of an R package to be installed/compiled.
+
+```{r}
+#| eval: false
+renv::install(
+  "stringi@1.7.6",
+  rebuild = TRUE,
+  repos = "https://cran.rstudio.com/"
+)
+```
+
+`stringi@1.7.6` means to install version 1.7.6 of the package, the same version that was included in the `renv.lock` file. After this operation, you should be able to do `library(tidyverse)` without problems.
+
+If for whatever reason you have to change to a specific version of an R package, you can use `renv::record()` to modify the `renv.lock` file:
+
+```{r}
+#| eval: false
+renv::record("stringi@1.7.8")
+```
+
+<details>
+
+<summary>Session info</summary>
+
+```{r sessioninfo, echo = FALSE}
+## Reproducibility info
+options(width = 120)
+devtools::session_info()
+```
+
+</details>
