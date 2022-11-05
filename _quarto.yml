@@ -21,6 +21,8 @@ website:
         href: https://github.com/pmassicotte
       - icon: twitter
         href: https://twitter.com/philmassicotte
+      - icon: mastodon
+        href: https://fosstodon.org/@philmassicotte
       - icon: stack-overflow
         href: "users/5558188/philippe-massicotte"
       - icon: rss
