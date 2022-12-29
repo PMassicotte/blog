@@ -2,7 +2,7 @@
 title: "Hanukkah of data 2022"
 author: "Philippe Massicotte"
 date: "2022-12-28"
-categories: [R, ...]
+categories: [R, Puzzles]
 # The preview file needs to be named preview.png
 # mogrify -format png preview.jpg
 # https://quarto.org/docs/websites/website-tools.html#preview-images
