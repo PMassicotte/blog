@@ -1,0 +1,51 @@
+---
+title: "title"
+author: "Philippe Massicotte"
+date: "2022-10-27"
+categories: [R, ...]
+# The preview file needs to be named preview.png
+# mogrify -format png preview.jpg
+# https://quarto.org/docs/websites/website-tools.html#preview-images
+image: "img/preview.png" 
+editor_options: 
+  chunk_output_type: console
+draft: true
+---
+
+```{r setup}
+#| include: false
+library(tidyverse)
+library(ggpmthemes)
+
+theme_set(theme_minimal(base_family = "Montserrat"))
+```
+
+I am often facing the situation where students come to my office with *spatial* data in a plain csv file they want to place on an existing grid. Working in the Arctic, such grid is often the MODIS mapped grid.
+
+
+```{r}
+#| label: create-raster-template
+library(terra)
+
+
+rast()
+
+```
+
+
+![Photo by <a href="https://unsplash.com/@b3ckstage?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Rehan Syed</a> on <a href="https://unsplash.com/s/photos/grid?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>](img/preview.png){fig-alt="Close up on a grain field" fig-align="center"}
+
+Check the code used for Inge.
+
+<details>
+  
+<summary>Session info</summary>
+
+```{r sessioninfo, echo = FALSE}
+## Reproducibility info
+options(width = 120)
+devtools::session_info()
+```
+
+</details>
+

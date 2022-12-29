@@ -11,7 +11,8 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r setup}
+```{r}
+#| label: setup
 #| include: false
 library(tidyverse)
 library(ggpmthemes)

@@ -1,0 +1,374 @@
+---
+title: "Hanukkah of data 2022"
+author: "Philippe Massicotte"
+date: "2022-12-28"
+categories: [R, ...]
+# The preview file needs to be named preview.png
+# mogrify -format png preview.jpg
+# https://quarto.org/docs/websites/website-tools.html#preview-images
+image: "img/preview.png" 
+editor_options: 
+  chunk_output_type: console
+format: 
+  html: 
+    df-print: paged
+    toc: true
+---
+
+```{r}
+#| label: setup
+#| include: false
+library(tidyverse)
+library(ggpmthemes)
+
+theme_set(theme_minimal(base_family = "Montserrat"))
+```
+
+## Hanukkah of data 2022
+
+If you are looking for some data science challenges, don't look anymore, [Hanukkah of Data](https://hanukkah.bluebird.sh/5783/) is there for you. You can think of it as similar to [Advent of Code](https://adventofcode.com/) but tailored toward data-oriented puzzles with *only* eight challenges. In this blog post, I will try to solve all the puzzles using R.
+
+![<a href="https://hanukkah.bluebird.sh/5783/">Hanukkah of data 2022 </a>](img/preview.png){fig-alt="Close up on a grain field" fig-align="center"}
+
+## Getting the data
+
+The first step of the challenge is to [get the data](https://hanukkah.bluebird.sh/5783/0/). The trick is that the data is contained in a password-protected zip file. The very first challenge is to find the password of the zip file. You have to find out the Hebrew year that corresponds to 2017-01-01. To do so, I simply used [this website](https://www.hebcal.com/converter?gd=1&gm=1&gy=2017&g2h=1) and found out that the password was 5777. With this information, let us download the compressed file and unzip it into a temporary folder.
+
+```{r}
+#| label: downloading-data
+url <- "https://hanukkah.bluebird.sh/5783/noahs-csv.zip"
+
+td <- tempdir()
+tf <- tempfile(tmpdir = td, fileext = ".zip")
+
+curl::curl_download(url, destfile = tf)
+
+system(command = paste0("unzip -o -P 5777 ", tf, " -d ", td))
+```
+
+If we look at all the unzipped files, we can see it consists in four CSV files that we can import in R.
+
+```{r}
+#| label: read-data
+files <- fs::dir_ls(td, glob = "*.csv")
+
+files
+
+customers <- read_csv(files[str_detect(files, "noahs-customers.csv")])
+orders_items <- read_csv(files[str_detect(files, "noahs-orders_items.csv")])
+orders <- read_csv(files[str_detect(files, "noahs-orders.csv")])
+products <- read_csv(files[str_detect(files, "noahs-products.csv")])
+```
+
+After exploring the data, I have found out that there is one duplicated customer in `noahs-customers.csv`. Specifically, `customerid` should uniquely identify each customer. Let's remove this duplicated entry (more about that later).
+
+```{r}
+#| label: remove-duplicated-customers
+customers |>
+  janitor::get_dupes()
+
+customers <- customers |>
+  distinct(customerid, .keep_all = TRUE)
+```
+
+## Explore the data
+
+To explore the relationships across the different tables, I am using the [{dm}](https://dm.cynkra.com/index.html) R package. This was the first time using this package and it looks interesting if you work with relational databases. Let's create a `dm` object using the `dm()` function with the four data frame we have.
+
+```{r}
+# install.packages("dm")
+# install.packages("DiagrammeR")
+library(dm)
+
+noahs_dm <- dm(customers, orders_items, orders, products)
+
+noahs_dm
+```
+
+Then, we can specify the primary key of each table using the `dm_add_pk()` function. 
+
+```{r}
+noahs_dm <- noahs_dm |>
+  dm_add_pk(customers, customerid) |>
+  dm_add_pk(orders, orderid) |>
+  dm_add_pk(products, sku)
+
+noahs_dm
+```
+
+One condition to set up a primary key is that it must be unique. The `enum_pk_candidates()` function can be used to scan all values in a table and will determine if any variable is suitable to be used as a primary key. As we can see below, `customerid` in `noahs-customers.csv` is duplicated twice in the data. This is why I used the `distinct()` function earlier to remove the duplicated entry.
+
+```{r}
+#| label: duplicated-pk
+read_csv(files[str_detect(files, "noahs-customers.csv")]) |>
+  enum_pk_candidates() |>
+  gt::gt()
+```
+
+We can now use the `dm_add_fk()` function to specify the foreign keys in each table. Basically, `dm_add_fk(orders_items, sku, products)` means that the `sky` variable/key is used to link the `orders_items` and `products` tables together.
+
+```{r}
+noahs_dm <- noahs_dm |>
+  dm_add_fk(orders_items, sku, products) |>
+  dm_add_fk(orders_items, orderid, orders) |>
+  dm_add_fk(orders, customerid, customers)
+
+noahs_dm
+```
+
+Finally, we can visualize all the relationships with `dm_draw()`.
+
+```{r}
+noahs_dm |>
+  dm_draw()
+```
+
+I am not going to use more of `dm` for the rest of this post, but I am sure there is a lot more to cover.
+
+## Puzzle 1: beehive
+
+For this first puzzle, we have to find the phone number that matches the customer's last name. The first step consists in extracting customers' last names and filtering out to keep those with only 10 characters (the length of the phone numbers).
+
+```{r}
+#| label: puzzle1-a
+df <- customers |>
+  select(name, phone) |>
+  mutate(last_name = str_match(name, "\\s{1}(\\S+)$")[, 2]) |>
+  mutate(last_name_n = nchar(last_name)) |>
+  filter(last_name_n == 10)
+
+df
+```
+
+Then, I am creating a lookup table that matches letters to the numbers of a phone. With that, I convert each letter of the last name into a string and filter to keep the phone number that is equal to the last name.
+
+```{r}
+#| label: puzzle1-b
+phone_lut <- c(
+  "a" = 2,
+  "b" = 2,
+  "c" = 2,
+  "d" = 3,
+  "e" = 3,
+  "f" = 3,
+  "g" = 4,
+  "h" = 4,
+  "i" = 4,
+  "j" = 5,
+  "k" = 5,
+  "l" = 5,
+  "m" = 6,
+  "n" = 6,
+  "o" = 6,
+  "p" = 7,
+  "q" = 7,
+  "r" = 7,
+  "s" = 7,
+  "t" = 8,
+  "u" = 8,
+  "v" = 8,
+  "w" = 9,
+  "x" = 9,
+  "y" = 9,
+  "z" = 9
+)
+
+df |>
+  mutate(phone = str_remove_all(phone, "-")) |>
+  mutate(
+    number =
+      map_chr(str_split(tolower(last_name), ""), 
+      \(x) paste0(phone_lut[x], collapse = ""))
+  ) |>
+  filter(phone == number)
+```
+
+## Puzzle 2: snail
+
+The first step is to extract customer initials and only keep "JD".
+
+```{r}
+#| label: puzzle2-a
+
+customers_initials <- customers  |>
+  mutate(initials = gsub("[a-z]", "", name), .after = name) |>
+  mutate(initials = str_remove_all(initials, " ")) |>
+  filter(initials == "JD")
+
+customers_initials
+```
+
+Now we can search for the customer who made *Rug Cleaner* orders in 2017.
+
+```{r}
+#| label: puzzle2-b
+
+customers_initials |>
+  left_join(orders) |>
+  filter(lubridate::year(ordered) == 2017) |>
+  left_join(orders_items) |>
+  left_join(products) |>
+  filter(str_detect(desc, regex("Rug Cleaner", ignore_case = TRUE))) |>
+  add_count(customerid) |>
+  filter(n > 1) |>
+  distinct(name, phone)
+```
+
+## Puzzle 3: spider
+
+We search for someone Aries born in the year of the Dog. After Googling around, I managed to get the corresponding years. Hence, the first step was to find out customers born in those years. The catch here is that we can not only look at the years for finding the possible candidates because Aries time is only between March 21st and April 19th. We also know that this person was also living in the same neighbourhood as Jeremy (the previous owner of the rug). It was just a matter of filtering out customers living in the same area.
+
+```{r}
+#| label: puzzle3-a
+
+jeremy <- customers |>
+  filter(name == "Jeremy Davis")
+
+customers |>
+  filter(
+    lubridate::year(birthdate) %in% 
+    c(1922, 1934, 1946, 1958, 1970, 1982, 1994, 2006, 2018, 2030),
+    between(format(birthdate, "%m%d"), "0321", "0419")
+  ) |>
+  filter(citystatezip == jeremy$citystatezip) |>
+  distinct(name, phone)
+```
+
+## Puzzle 4: owl
+
+For this puzzle, we have to find the woman who buys from bakeries daily before 5 am.
+
+```{r}
+#| label: puzzle4-a
+
+products |>
+  filter(str_starts(sku, "BKY")) |>
+  left_join(orders_items) |>
+  left_join(orders) |>
+  filter(lubridate::hour(ordered) < 5) |>
+  left_join(customers) |>
+  count(customerid, name, phone, sort = TRUE) |>
+  slice(1)
+```
+
+## Puzzle 5: koala
+
+We are told that the next owner lives in the Queen's village and also *regularly* buys food for his/her older cats.
+
+```{r}
+#| label: puzzle5-a
+
+customers |>
+  filter(str_detect(citystatezip, regex("queens village", ignore_case = TRUE))) |>
+  left_join(orders) |>
+  left_join(orders_items) |>
+  left_join(products) |>
+  filter(str_detect(desc, regex("senior cat", ignore_case = TRUE))) |>
+  group_by(name, phone) |>
+  summarise(n = n_distinct(orderid), .groups = "drop") |>
+  slice_max(n, n = 1)
+```
+
+## Puzzle 6: squirrel
+
+Here, we have to find the person who only bought items that were on discount. First, calculate the total paid price and the total wholesale cost.
+
+```{r}
+#| label: puzzle6-a
+
+purchases <- orders_items |>
+  left_join(orders) |>
+  left_join(products) |>
+  group_by(orderid) |>
+  summarise(
+    across(c(unit_price, wholesale_cost), 
+    .fns = list("tot" = \(x) sum(qty * x)))
+  ) |>
+  left_join(orders) |>
+  left_join(customers)
+```
+
+Now we can find customers who only buy when everything is on sale (i.e, when the total paid is lower than the total wholesale cost).
+
+```{r}
+#| label: puzzle6-b
+purchases |>
+  group_by(customerid) |>
+  filter(all(unit_price_tot < wholesale_cost_tot)) |>
+  add_count(customerid) |>
+  filter(n > 1) |>
+  distinct(customerid, name, phone)
+```
+
+
+## Puzzle 7: toucan
+
+This puzzle was for me the most challenging. I had to think for a while before starting to implement the solution. The key ideas to solve this problem are:
+
+1. Extract the colour from the item description.
+2. Find the person who bought the same item as Emily a moment after her, but with a different colour.
+
+```{r}
+#| label: puzzle7-a
+
+colored_products <- products |>
+  extract(desc,
+    into = c("desc", "color"), "([^()\\n]+)(?:(?:\\()(\\w*)(?:\\)))?"
+  ) |>
+  mutate(desc = str_squish(desc)) |>
+  mutate(color = na_if(color, "")) |>
+  drop_na(color)
+  
+colored_products
+```
+
+Based on this list, we have to find the date on which Emily made purchases and for which the same item was bought in at least two colours.
+
+```{r}
+#| label: puzzle7-b
+colored_products |>
+  left_join(orders_items) |>
+  left_join(orders) |>
+  left_join(customers) |>
+  group_by(date = as.Date(ordered), desc) |>
+  filter(length(unique(color)) > 1 & any(customerid == 8342)) |>
+  ungroup() |>
+  distinct(desc, color, name, color, phone, ordered) |>
+  arrange(ordered) 
+```
+
+Looking at the time of purchase, we can find that Jonathan Adams also bought an Electric Machine with a different colour just a few seconds after Emily.
+
+## Puzzle 8: snake
+
+For this puzzle, we have to find the customer who is collecting the most different items sold by Noah's.
+
+```{r}
+#| label: puzzle8-a
+
+products |>
+  filter(str_detect(desc, "Noah's")) |>
+  left_join(orders_items) |>
+  left_join(orders) |>
+  group_by(customerid) |>
+  summarise(n = n_distinct(desc)) |>
+  slice_max(n, n = 1) |>
+  left_join(customers) |>
+  select(name, phone)
+```
+
+## Conclusions
+
+These quick data challenges were quite fun to solve. It [looks like](https://www.visidata.org/blog/2022/hanukkah-of-data-wrap-up/) that more puzzles will be added in the future, so keep an eye open if you are interested.
+
+<details>
+  
+<summary>Session info</summary>
+
+```{r sessioninfo, echo = FALSE}
+## Reproducibility info
+options(width = 120)
+devtools::session_info()
+```
+
+</details>
