@@ -20,9 +20,17 @@ AutoCite(bib, author = "massicotte")
 ```
 
 ```{r}
-#| results = "asis",
-#| echo = FALSE,
-#| warning = FALSE,
-#| message = FALSE
-PrintBibliography(bib, .opts = list(check.entries = FALSE, sorting = "ydnt", max.names = 999, no.print.fields = c("url")))
+#| results: asis
+#| echo: false
+#| warning: false
+#| message: false
+PrintBibliography(
+  bib, 
+  .opts = list(
+    check.entries = FALSE, 
+    sorting = "ydnt", 
+    max.names = 999, 
+    no.print.fields = c("url")
+  )
+)
 ```
