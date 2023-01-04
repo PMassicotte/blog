@@ -34,7 +34,7 @@ res$data |>
   mutate(authors = map_chr(creators, ~ toString(paste(.$firstName, .$lastName)))) |>
   filter(authors != "") |>
   mutate(year = str_match(date, "\\d{4}")) |>
-  mutate(row = glue("**{title}**<br><br>{authors}, *{publicationTitle}*, ({year}), <https://doi.org/{DOI}>")) |>
+  mutate(row = glue("<p style='color:#2C3E50; font-size:1em; font-style: italic; font-weight: bold; font-family: Poppins'>{title}</p><p style='color:#616D7E; font-size:0.85em; font-family: Poppins'>{authors}, {publicationTitle}, ({year}) <a href = https://doi.org/{DOI}>View article</a></p>")) |>
   select(row) |>
   gt() |>
   fmt_markdown(everything()) |>
@@ -42,5 +42,17 @@ res$data |>
   tab_options(
     data_row.padding = px(20),
     column_labels.hidden = TRUE
-  )
+  ) |>
+  tab_style(
+    style = cell_borders(
+      sides = c("top", "bottom"),
+      color = "#2C3E50",
+      weight = px(3.5),
+      style = "solid"
+    ),
+    locations = cells_body(
+      columns = everything(),
+      rows = everything()
+    )
+  ) 
 ```
