@@ -5,6 +5,8 @@ execute:
   freeze: false
 ---
 
+This is the list of my academic publications. If you can not find the associated PDF, please contact me. I will glady send it to you!
+
 ```{r}
 #| echo: false
 #| warning: false
