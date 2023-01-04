@@ -19,7 +19,7 @@ jobs:
           r-version: "4.2.0"
 
       - name: Install System Dependencies
-        run: sudo apt-get install -y gdal-bin libgdal-dev libpoppler-dev libpoppler-cpp-dev libudunits2-dev
+        run: sudo apt-get install -y gdal-bin libgdal-dev libpoppler-dev  libpoppler-cpp-dev libudunits2-dev libglpk-dev
 
       - name: Install R Dependencies
         uses: r-lib/actions/setup-renv@v2
