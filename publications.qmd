@@ -47,7 +47,7 @@ res$data |>
     style = cell_borders(
       sides = c("top", "bottom"),
       color = "#2C3E50",
-      weight = px(3.5),
+      weight = px(2),
       style = "solid"
     ),
     locations = cells_body(
