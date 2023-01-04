@@ -10,6 +10,7 @@ execute:
 #| warning: false
 #| message: false
 #| eval: true
+
 library(tidyverse)
 library(httr2)
 library(gt)
@@ -17,7 +18,7 @@ library(glue)
 
 key <- Sys.getenv("ZOTERO_KEY")
 
-res2 <- request("https://api.zotero.org/users/5837870/publications/items/") |>
+res <- request("https://api.zotero.org/users/5837870/publications/items/") |>
   req_headers(
     "Zotero-API-Version" = "3",
     "Zotero-API-Key" = key,
@@ -28,13 +29,13 @@ res2 <- request("https://api.zotero.org/users/5837870/publications/items/") |>
   resp_body_json(simplifyVector = TRUE) |>
   as_tibble()
 
-res2$data |>
+res$data |>
   as_tibble() |>
   mutate(authors = map_chr(creators, ~ toString(paste(.$firstName, .$lastName)))) |>
   filter(authors != "") |>
   mutate(year = str_match(date, "\\d{4}")) |>
-  mutate(u = glue("**{title}**<br>{authors}, *{publicationTitle}*, ({year}), <https://doi.org/{DOI}>")) |>
-  select(u) |>
+  mutate(row = glue("**{title}**<br><br>{authors}, *{publicationTitle}*, ({year}), <https://doi.org/{DOI}>")) |>
+  select(row) |>
   gt() |>
   fmt_markdown(everything()) |>
   cols_align(align = "left") |>
