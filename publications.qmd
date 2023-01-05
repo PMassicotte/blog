@@ -5,7 +5,9 @@ execute:
   freeze: false
 ---
 
-This is the list of my academic publications. If you can not find the associated PDF, please contact me. I will glady send it to you!
+::: {.callout-note}
+This is the list of my academic publications. I try as much as possible to publish in open access journals. However, if you can not find the associated PDF, please contact me. I will glady send it to you!
+:::
 
 ```{r}
 #| echo: false
@@ -36,7 +38,12 @@ res$data |>
   mutate(authors = map_chr(creators, ~ toString(paste(.$firstName, .$lastName)))) |>
   filter(authors != "") |>
   mutate(year = str_match(date, "\\d{4}")) |>
-  mutate(row = glue("<p style='color:#2C3E50; font-size:1em; font-style: italic; font-weight: bold; font-family: Poppins'>{title}</p><p style='color:#616D7E; font-size:0.85em; font-family: Poppins'>{authors}, {publicationTitle}, ({year}) <a href = https://doi.org/{DOI}>View article</a></p>")) |>
+  mutate(across(where(is.character), \(x) replace_na(x, ""))) |>
+  mutate(DOI = case_when(
+    DOI == "" ~ "",
+    TRUE ~ "<a href = https://doi.org/{DOI}>View article</a>"
+  )) |>
+  mutate(row = glue("<p style='color:#2C3E50; font-size:1em; font-style: italic; font-weight: bold; font-family: Poppins'>{title}</p><p style='color:#616D7E; font-size:0.85em; font-family: Poppins'>{authors}, <em>{publicationTitle}</em> ({year}) {DOI}</p>")) |>
   select(row) |>
   gt() |>
   fmt_markdown(everything()) |>
@@ -56,5 +63,6 @@ res$data |>
       columns = everything(),
       rows = everything()
     )
-  ) 
+  )  |>
+  opt_table_outline(style = "none")
 ```

@@ -6,7 +6,7 @@ comments: false
 
 ## 2020
 
-[NetColor steering commity meeting (Ottawa, Canada)]{.section-header}
+[NetColor steering committee meeting (Ottawa, Canada)]{.section-header}
 
 - [Takuvik primary production model for the Arctic.](https://pmassicotte.github.io/netcolor_2020_ottawa/#1)
 
@@ -23,7 +23,7 @@ Presentations given at the Green Edge legacy meeting.
 
 [Green Edge side meeting]{.section-header}
 
-- [Green Edge side meeting in Italia after the Gorodn conference](https://pmassicotte.github.io/greenedge2019/)
+- [Green Edge side meeting in Italia after the Gordon conference](https://pmassicotte.github.io/greenedge2019/)
 
 [Numerical ecology]{.section-header}
 
