@@ -33,7 +33,7 @@ res <- request("https://api.zotero.org/users/5837870/publications/items/") |>
   resp_body_json(simplifyVector = TRUE) |>
   as_tibble()
 
-res$data |>
+dat <- res$data |>
   as_tibble() |>
   mutate(authors = map_chr(creators, ~ toString(paste(.$firstName, .$lastName)))) |>
   filter(authors != "") |>
@@ -44,7 +44,9 @@ res$data |>
     TRUE ~ "<a href = https://doi.org/{DOI}>View article</a>"
   )) |>
   mutate(row = glue("<p style='color:#2C3E50; font-size:1em; font-style: italic; font-weight: bold; font-family: Poppins'>{title}</p><p style='color:#616D7E; font-size:0.85em; font-family: Poppins'>{authors}, <em>{publicationTitle}</em> ({year}) {DOI}</p>")) |>
-  select(row) |>
+  select(row)
+
+dat |>
   gt() |>
   fmt_markdown(everything()) |>
   cols_align(align = "left") |>
@@ -63,6 +65,6 @@ res$data |>
       columns = everything(),
       rows = everything()
     )
-  )  |>
+  ) |>
   opt_table_outline(style = "none")
 ```
