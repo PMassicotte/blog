@@ -4,6 +4,10 @@ subtitle: Presentations of my workshops
 comments: false
 ---
 
+[Efficient data manipulation with R]{.section-header}
+
+[Efficient data manipulation with R](https://pmassicotte.github.io/efficient_data_manipulation_with_r/)
+
 [Sentinel North: introduction to ggplot2]{.section-header}
 
 Introduction to `ggplot2` visualization given at the [Sentinel North](https://sentinellenord.ulaval.ca/en) community.
