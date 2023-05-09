@@ -41,7 +41,7 @@ dat <- res$data |>
   mutate(across(where(is.character), \(x) replace_na(x, ""))) |>
   mutate(DOI = case_when(
     DOI == "" ~ "",
-    TRUE ~ "<a href = https://doi.org/{DOI}>View article</a>"
+    TRUE ~ glue("<a href = https://doi.org/{DOI}>View article</a>")
   )) |>
   mutate(row = glue("<p style='color:#2C3E50; font-size:1em; font-style: italic; font-weight: bold; font-family: Poppins'>{title}</p><p style='color:#616D7E; font-size:0.85em; font-family: Poppins'>{authors}, <em>{publicationTitle}</em> ({year}) {DOI}</p>")) |>
   select(row)
