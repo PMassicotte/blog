@@ -2,6 +2,9 @@ project:
   type: website
 
 website:
+  comments:
+    utterances:
+      repo: pmassicotte/PMassicotte.github.io
   page-navigation: true
   title: "Philippe Massicotte"
   site-url: "https://www.pmassicotte.com"
@@ -47,10 +50,6 @@ knitr:
   opts_chunk: 
     collapse: true
     comment: "#>"
-
-comments:
-  utterances:
-    repo: pmassicotte/PMassicotte.github.io
 
 execute:
   freeze: auto
