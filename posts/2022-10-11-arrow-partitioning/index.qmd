@@ -57,8 +57,7 @@ ds <- ds |>
   ) |>
   filter(str_detect(birth_year, "\\d{4}")) |>
   mutate(birth_year = as.integer(birth_year)) |> 
-  mutate(user_age = lubridate::year(Sys.Date()) - birth_year) |>
-  na.omit(birth_year)
+  mutate(user_age = lubridate::year(Sys.Date()) - birth_year) 
 
 ds |>
   head() |>
