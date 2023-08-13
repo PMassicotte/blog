@@ -1,4 +1,4 @@
-on:
+  on:
   push:
 
 name: Quarto Publish

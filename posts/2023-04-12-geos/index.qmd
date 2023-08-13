@@ -1,0 +1,150 @@
+---
+title: "Speeding up spatial manipulation with geos"
+author:
+  - name: Philippe Massicotte 
+    url: https://example.com/norajones
+    affiliation: Spacely Sprockets
+    affiliation-url: https://example.com/spacelysprokets
+citation: true
+date: "2023-06-03"
+categories: [R, Geospatial]
+# The preview file needs to be named preview.png
+# mogrify -format png preview.jpg
+# https://quarto.org/docs/websites/website-tools.html#preview-images
+image: "img/preview.png" 
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| label: setup
+#| include: false
+library(tidyverse)
+library(ggpmthemes)
+
+theme_set(theme_minimal(base_family = "Montserrat"))
+```
+
+<!-- ![Let's crop something! Photo by <a href="https://unsplash.com/@rozetsky?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Ant Rozetsky</a> on <a href="https://unsplash.com/s/photos/crop?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>](img/preview.png){fig-alt="Close up on a grain field" fig-align="center"} -->
+
+As the volume of spatial data continues to increase, it becomes more important than ever to use the right tools to manage, analyze, and visualize geospatial data effectively. I have been using the `sf` [package](https://r-spatial.github.io/sf/) for most of my vector operations. While this is working fine most of the time, I came up in a situation where I needed to determine how many points were intersecting a polygon which can be simply done with the `sf::st_intersects()` function. 
+
+The problem I had, however, was that I needed to work with a rather large dataset containing approximately 3.5 millions of points and the `sf::st_intersects()` function was taking way too long to do the operation. This is why I started to explore different approaches that could speed up the process. In this blog post, we will rapidly explore the `geos` [package](https://github.com/paleolimbot/geos/) to work with (large) spatial. The `geos` package provides bindings to the GEOS (Geometry Engine - Open Source) library. GEOS is a C++ library that provides functions for performing advanced spatial operations, such as geometry creation, transformation, validation, and analysis.
+
+- First approach was to use the `sf` library. However it took way to long to execute.
+- Then, I came across the `geos` [package](https://github.com/paleolimbot/geos/) which I found to be much much faster.
+
+## Making up some data
+
+For this example, I will generate random points and see those that fall over the land using the world map.
+
+```{r}
+library(geos)
+library(rnaturalearth)
+library(geosphere)
+library(sf)
+sf_use_s2(FALSE)
+
+map <- ne_countries(returnclass = "sf", scale = "medium") |>
+  st_make_valid()
+
+ggplot() +
+  geom_sf(data = map)
+```
+
+Now, we can generate 
+
+```{r}
+
+bbox <- st_bbox(map)
+
+n <- 1e3
+lon <- runif(n, bbox[1], bbox[3])
+lat <- runif(n, bbox[2], bbox[4])
+
+pts <- st_as_sf(
+  as.data.frame(cbind(lon, lat)),
+  coords = c("lon", "lat"), crs = 4326
+)
+
+head(pts)
+
+ggplot() +
+  geom_sf(data = pts, size = 0.2) +
+  geom_sf(data = map, alpha = 0.5, fill = "red")
+
+```
+
+- We can create a geometry column using the `geos_make_point()` function.
+
+```{r}
+pts_geos <- pts |>
+  as_geos_geometry()
+
+head(pts_geos)
+
+map_geos <- as_geos_geometry(map)
+
+```
+
+```{r}
+#| label: benchmark
+
+microbenchmark::microbenchmark(
+  res_sf <- st_intersects(pts, map),
+  res_geos <- geos_contains_matrix(map_geos, pts_geos),
+  times = 1
+)
+
+sum(lengths(res_sf) > 0)
+
+length(unlist(res_geos))
+
+```
+
+```{r}
+p <- ggplot() +
+  geom_sf(data = map, size = 0.25) +
+  geom_sf(data = st_as_sf(pts_geos), size = 0.25) +
+  coord_sf(
+    xlim = c(-180, 0),
+    ylim = c(40, 90),
+    default_crs = TRUE
+  )
+
+p
+
+map_geos <- as_geos_geometry(map)
+res <- unlist(res_geos)
+
+# This gives the index of the points over the polygon
+head(res)
+
+length(res)
+
+pts_over <- pts |>
+  slice(res) |>
+  st_as_sf()
+
+p +
+  geom_sf(data = pts_over, color = "red") +
+  coord_sf(
+    xlim = c(-180, 0),
+    ylim = c(40, 90),
+    default_crs = TRUE
+  )
+
+```
+
+<details>
+  
+<summary>Session info</summary>
+
+```{r sessioninfo, echo = FALSE}
+## Reproducibility info
+options(width = 120)
+devtools::session_info()
+```
+
+</details>
+
