@@ -19,7 +19,9 @@ library(ggpmthemes)
 theme_set(theme_minimal(base_family = "montserrat"))
 ```
 
+
 It has been a while since I posted something! But today I wanted to quickly experiment and create a map where I could separate/explode the spatial geometries. Let's first download the polygon data for Canada.
+
 
 ```{r}
 library(sf)
@@ -29,13 +31,17 @@ canada <- rnaturalearth::ne_states(country = "canada", returnclass = "sf") |>
   st_make_valid()
 ```
 
+
 As we can see, there are three different regions.
+
 
 ```{r}
 canada |>
   distinct(region)
 ```
+
 These regions can be visualized using `ggplot2` and `sf`.
+
 
 ```{r}
 # Get a good CRS for Canada
@@ -49,29 +55,35 @@ canada |>
   geom_sf()
 ```
 
+
 With this following code, we can find the centroid of each region and shift the centers of the new polygons.
+
 ```{r}
 canada_exploded <- canada |>
   group_by(region) |>
   mutate(region_centroid = st_centroid(st_union(geometry))) |>
   ungroup() |>
-  mutate(geometry = (geometry - region_centroid) * 0.9 + region_centroid)
+  mutate(geometry = (geometry - region_centroid) * 0.9 + region_centroid) 
 
 st_crs(canada_exploded)
 ```
 
+
 As seen above, for a reason I do not know, we have lost the CRS after the operation, so I have to set it back before visualizing it.
 
+
 ```{r}
-canada_exploded <- canada_exploded |>
+canada_exploded  <- canada_exploded |>
   st_set_crs(5931)
 
 canada_exploded |>
-  ggplot(aes(fill = region)) +
+  ggplot(aes(fill = region)) + 
   geom_sf()
 ```
 
+
 Bonus: if we want to get a little bit more fancy, we can add shadows with `ggfx`:
+
 
 ```{r}
 #| classes: preview-image
@@ -80,19 +92,21 @@ library(ggfx)
 canada_exploded |>
   ggplot(aes(fill = region)) +
   with_shadow(
-    geom_sf(),
+    geom_sf(), 
     sigma = 5,
     x_offset = 20,
     y_offset = 20
   ) +
-  theme(
-    legend.position = "none"
+    theme(
+      legend.position = "none"
   )
 ```
+
 
 <details>
   
 <summary>Session info</summary>
+
 
 ```{r sessioninfo, echo = FALSE}
 ## Reproducibility info
@@ -100,5 +114,7 @@ options(width = 120)
 devtools::session_info()
 ```
 
+
 </details>
+
 
