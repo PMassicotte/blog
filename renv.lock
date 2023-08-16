@@ -1054,6 +1054,22 @@
       ],
       "Hash": "a06503f54e227f79b45a72df2946a2d2"
     },
+    "ggfx": {
+      "Package": "ggfx",
+      "Version": "1.0.1",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Requirements": [
+        "ggplot2",
+        "grDevices",
+        "grid",
+        "gtable",
+        "magick",
+        "ragg",
+        "rlang"
+      ],
+      "Hash": "28e2279cfb45e2ddf321c2b36ec5d6e8"
+    },
     "ggplot2": {
       "Package": "ggplot2",
       "Version": "3.4.2",
@@ -1716,6 +1732,18 @@
       ],
       "Hash": "9804362cc0267990ac61a85edeca73ed"
     },
+    "magick": {
+      "Package": "magick",
+      "Version": "2.7.5",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Requirements": [
+        "Rcpp",
+        "curl",
+        "magrittr"
+      ],
+      "Hash": "26ff8efba0dcc7b1bc8f970df1c38cc9"
+    },
     "magrittr": {
       "Package": "magrittr",
       "Version": "2.0.3",
@@ -2376,10 +2404,12 @@
     "renv": {
       "Package": "renv",
       "Version": "1.0.1",
-      "OS_type": null,
-      "NeedsCompilation": "no",
+      "Source": "Repository",
       "Repository": "RSPM",
-      "Source": "Repository"
+      "Requirements": [
+        "utils"
+      ],
+      "Hash": "6523639dd021b32c3199a41cbe6db340"
     },
     "reprex": {
       "Package": "reprex",
