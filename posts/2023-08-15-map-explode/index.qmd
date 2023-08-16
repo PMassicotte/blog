@@ -1,14 +1,14 @@
 ---
-title: "Separating/exploding features with R"
+title: "Separating/exploding spatial features with R"
 author: "Philippe Massicotte"
 date: "2023-08-15"
 categories: [R, rspatial, Geospatial]
 # the preview file needs to be named preview.png
 # mogrify -format png preview.jpg
 # https://quarto.org/docs/websites/website-tools.html#preview-images
-image: "img/preview-1.png" 
 editor_options: 
   chunk_output_type: console
+citation: true
 ---
 
 ```{r}
@@ -73,8 +73,8 @@ canada_exploded |>
 
 Bonus: if we want to get a little bit more fancy, we can add shadows with `ggfx`:
 
-```{r, fig.path = "img/"}
-#| label: preview
+```{r}
+#| classes: preview-image
 library(ggfx)
 
 canada_exploded |>

@@ -9,6 +9,7 @@ categories: [R, ...]
 image: "img/preview.png" 
 editor_options: 
   chunk_output_type: console
+citation: true
 ---
 
 ```{r}
