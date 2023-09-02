@@ -44,6 +44,7 @@ library(geos)
 library(rnaturalearth)
 library(geosphere)
 library(sf)
+library(ggplot2)
 sf_use_s2(FALSE)
 
 map <- ne_countries(returnclass = "sf", scale = "medium") |>
@@ -124,7 +125,7 @@ head(res)
 length(res)
 
 pts_over <- pts |>
-  slice(res) |>
+  dplyr::slice(res) |>
   st_as_sf()
 
 p +
