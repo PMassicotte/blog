@@ -335,11 +335,11 @@ dbDisconnect(conn, disconnect = TRUE)
 
 ## Ressources
 
-- https://duckdb.org/docs/extensions/spatial
-- https://duckdb.org/2023/04/28/spatial.html
-- https://tech.marksblogg.com/duckdb-gis-spatial-extension.html
-- https://youtu.be/ZX5FdqzGT1E
-- https://youtu.be/ljzpm3Mrw-I?list=PLIYcNkSjh-0ztvwoAp3GeW8HNSUSk_q3K
+- <https://duckdb.org/docs/extensions/spatial>
+- <https://duckdb.org/2023/04/28/spatial.html>
+- <https://tech.marksblogg.com/duckdb-gis-spatial-extension.html>
+- <https://youtu.be/ZX5FdqzGT1E>
+- <https://youtu.be/ljzpm3Mrw-I?list=PLIYcNkSjh-0ztvwoAp3GeW8HNSUSk_q3K>
 
 
 <details>
