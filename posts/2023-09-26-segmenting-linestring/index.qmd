@@ -48,7 +48,6 @@ Just for fun, let's visualize it.
 path |>
   ggplot() +
   geom_sf()
-
 ```
 Now is the fun part I discovered. You can use the `density` argument of the `st_line_sample()` function to convert a LINESTRING into points of equal distances, let's say 50 kilometres. Note that the new geometry is MULTIPOINT.
 
@@ -70,7 +69,6 @@ pts |>
   st_as_sf() |>
   mutate(dist = st_distance(x, lag(x), by_element = TRUE))
 ```
-
 
 <details>
   
