@@ -1,0 +1,87 @@
+---
+title: "Segmenting linestring into points of equal distance"
+author: "Philippe Massicotte"
+date: "2023-09-26"
+categories: [R, sf, geospatial, rspatial]
+# The preview file needs to be named preview.png
+# mogrify -format png preview.jpg
+# https://quarto.org/docs/websites/website-tools.html#preview-images
+image: "img/preview.png" 
+editor_options: 
+  chunk_output_type: console
+citation: true
+---
+
+```{r}
+#| label: setup
+#| include: false
+library(tidyverse)
+library(ggpmthemes)
+
+theme_set(theme_minimal(base_family = "Montserrat"))
+```
+
+This will be a quick one, but I thought it was worth sharing (at least for future me). I was recently trying to segment a line into points of equal distances. I must say that I spent too much time with the `st_segmentize()` function. I found that I would simply achieve this using `st_line_sample()`. Let me show you how.
+
+![When your brain is super well synchronized with your camera’s retadator.](img/preview.png){width=85%}
+
+<center>Photo by <a href="https://unsplash.com/@arizonanthony?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Anthony Cantin</a> on <a href="https://unsplash.com/photos/HtM6I5_jR6o?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></center>
+
+First, I will read a KML file containing the path of the [CCGS Amundsen](https://amundsenscience.com/). I will then transform the data into a polar projection.
+
+```{r}
+library(sf)
+sf_use_s2(TRUE)
+
+path <- st_read("https://data.amundsen.ulaval.ca/NAV_Amundsen.kml") |>
+  st_transform(3413)
+
+# We can see that the path is a linestring
+path
+
+st_length(path)
+```
+
+Just for fun, let's visualize it.
+
+```{r}
+path |>
+  ggplot() +
+  geom_sf()
+
+```
+Now is the fun part I discovered. You can use the `density` argument of the `st_line_sample()` function to convert a LINESTRING into points of equal distances, let's say 50 kilometres. Note that the new geometry is MULTIPOINT.
+
+```{r}
+pts <- st_line_sample(path, density = units::as_units(50,"km")) 
+
+pts
+
+pts |>
+  ggplot() +
+  geom_sf()
+```
+
+We can verify that we have roughly 50 km between each point.
+
+```{r}
+pts |>
+  st_cast("POINT") |>
+  st_as_sf() |>
+  mutate(dist = st_distance(x, lag(x), by_element = TRUE))
+```
+
+
+<details>
+  
+<summary>Session info</summary>
+
+```{r sessioninfo, echo = FALSE}
+## Reproducibility info
+options(width = 120)
+devtools::session_info()
+```
+
+</details>
+
+
