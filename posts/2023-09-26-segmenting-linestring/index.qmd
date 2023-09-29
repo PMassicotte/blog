@@ -12,9 +12,17 @@ editor_options:
 citation: true
 ---
 
+
+```{r}
+#| label: renv
+#| include: false
+renv::use(lockfile = "renv.lock")
+```
+
 ```{r}
 #| label: setup
 #| include: false
+
 library(tidyverse)
 library(ggpmthemes)
 
