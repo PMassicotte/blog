@@ -87,7 +87,13 @@ pts |>
 options(width = 120)
 devtools::session_info()
 ```
-
 </details>
 
+<details>
 
+<summary>renv.lock file</summary>
+
+```{.json include="renv.lock"}
+```
+
+</details>

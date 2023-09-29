@@ -56,3 +56,6 @@ execute:
   message: false
   warning: false
   echo: true
+
+filters:
+  - include-code-files
