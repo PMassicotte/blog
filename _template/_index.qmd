@@ -1,13 +1,13 @@
 ---
-title: "title"
-author: "Philippe Massicotte"
-date: "2022-02-15"
+title: 'title'
+author: 'Philippe Massicotte'
+date: '2022-02-15'
 categories: [R, ...]
 # The preview file needs to be named preview.png
 # mogrify -format png preview.jpg
 # https://quarto.org/docs/websites/website-tools.html#preview-images
-image: "img/preview.png" 
-editor_options: 
+image: 'img/preview.png'
+editor_options:
   chunk_output_type: console
 citation: true
 ---
@@ -15,6 +15,7 @@ citation: true
 ```{r}
 #| label: renv
 #| include: false
+# https://www.joelnitta.com/posts/2024-01-11_using_renv_with_blog/
 renv::use(lockfile = "renv.lock")
 ```
 
@@ -38,6 +39,7 @@ theme_set(theme_minimal(base_family = "Montserrat"))
 options(width = 120)
 devtools::session_info()
 ```
+
 </details>
 
 <details>
@@ -45,6 +47,7 @@ devtools::session_info()
 <summary>renv.lock file</summary>
 
 ```{.json include="renv.lock"}
+
 ```
 
 </details>
