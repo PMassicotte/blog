@@ -9,13 +9,13 @@ website:
   title: "Philippe Massicotte"
   site-url: "https://www.pmassicotte.com"
   description: "Numerical ecologist | Data visualization | R enthousiast"
-  google-analytics: UA-142521801-1
+  google-analytics: G-435364062
   cookie-consent: false
   twitter-card: true
   open-graph:
     site-name: "Just another R blog (Philippe Massicotte)"
   navbar:
-    right: 
+    right:
       - publications.qmd
       - presentations.qmd
       - workshops.qmd
@@ -32,7 +32,7 @@ website:
         href: index.xml
 format:
   html:
-    theme: 
+    theme:
       light: flatly
       dark: darkly
     css: styles.css
@@ -44,10 +44,9 @@ format:
     fig-width: 8
     fig-asp: 0.618 # 1 / pi
     fig-format: png
-    
 
 knitr:
-  opts_chunk: 
+  opts_chunk:
     collapse: true
     comment: "#>"
 
