@@ -1,0 +1,220 @@
+---
+title: 'When duckdb meets dplyr!'
+author: 'Philippe Massicotte'
+date: '2024-05-01'
+categories: [R, DuckDB, dplyr, duckplyr, S3, Parquet]
+# The preview file needs to be named preview.png
+# mogrify -format png preview.jpg
+# https://quarto.org/docs/websites/website-tools.html#preview-images
+image: 'img/preview.png'
+editor_options:
+  chunk_output_type: console
+citation: true
+---
+
+```{r}
+#| label: renv
+#| include: false
+# https://www.joelnitta.com/posts/2024-01-11_using_renv_with_blog/
+renv::use(lockfile = "renv.lock")
+```
+
+## Introduction
+
+I like [DuckDB](https://duckdb.org/) &#x1F986;. I am excited to see that it is [now possible](https://duckdb.org/2024/04/02/duckplyr.html) to use it with `dplyr` using the fantastic `duckplyr` [package](https://duckdblabs.github.io/duckplyr/) which gives us another way to bridge `dplyr` with DuckDB.
+
+[![When duckdb meets dplyr! Photo by DuckDB](https://duckdb.org/images/blog/duckplyr/duckplyr.png)](https://duckdb.org/2024/04/02/duckplyr.html){fig-alt="Hex logos of dplyr and duckdb" fig-align="center"}
+
+In this short post, I will show you how to use `duckplyr` to query a public dataset of flights stored in a Parquet file on an S3 bucket. I will use the `duckplyr_df_from_parquet()` function to read the data and then use `dplyr` verbs to summarize the data.
+
+First, let's install the `duckplyr` package and load the necessary libraries.
+
+```{r}
+#| label: install
+#| include: true
+#| eval: false
+install.packages("duckplyr")
+```
+
+```{r}
+#| label: setup
+#| include: true
+library(dplyr)
+library(duckplyr)
+library(duckdb)
+
+options(duckdb.materialize_message = FALSE)
+```
+
+In order we need to follow these steps:
+
+1. Create a connection to a DuckDB database.
+2. Load the `httpfs` extension.
+3. Set the S3 region and endpoint to access the data.
+
+```{r}
+#| label: connection
+con <- duckplyr:::get_default_duckdb_connection()
+
+DBI::dbSendQuery(con, "INSTALL httpfs; LOAD httpfs;")
+DBI::dbSendQuery(
+  con,
+  "SET s3_region='auto';SET s3_endpoint='s3.valeria.science';"
+)
+```
+
+::: {.callout-note}
+Note the use of the triple colon (`:::`) to access the internal function.
+:::
+
+Now, we can read the data from the Parquet file stored on the S3 bucket with the `duckplyr_df_from_parquet()` function. We can also specify the class of the output data frame with `class = class(tibble())`. In this case, I will use a `tibble`.
+
+```{r}
+#| label: read_data
+flights <- duckplyr_df_from_parquet(
+  "s3://public/flights.parquet",
+  class = class(tibble())
+)
+
+flights
+```
+
+From what I understand, all the data is pulled into the memory. This could be a problem if the data is too large. What we can do is to summarize the data to know how many rows are in the data.
+
+```{r}
+#| label: nrow
+duckplyr_df_from_parquet(
+  "s3://public/flights.parquet",
+  class = class(tibble())
+) |>
+  nrow()
+```
+
+Or even have a `glimpse()` of the data.
+
+```{r}
+#| label: glimpse
+duckplyr_df_from_parquet(
+  "s3://public/flights.parquet",
+  class = class(tibble())
+) |>
+  glimpse()
+```
+
+Now, let's summarize the data by `carrier`.
+
+```{r}
+#| label: summary
+flights |>
+  summarise(mean_dep_delay = mean(dep_delay), .by = "carrier")
+
+duckplyr_df_from_parquet(
+  "s3://public/flights.parquet",
+  class = class(tibble())
+) |>
+  summarise(mean_dep_delay = mean(dep_delay), .by = "carrier")
+```
+
+## Scaling Up: Analyzing a larger dataset
+
+Let's try with a much larger dataset. I will use the NYC taxi data from 2019. The data is partitioned by month and stored in Parquet partitioning. But before we need to change the endpoint.
+
+```{r}
+#| label: change_endpoint
+DBI::dbSendQuery(
+  con,
+  "SET s3_region='auto';SET s3_endpoint='';"
+)
+
+duckplyr_df_from_file(
+  "s3://duckplyr-demo-taxi-data/taxi-data-2019-partitioned/*/*.parquet",
+  "read_parquet",
+  options = list(hive_partitioning = TRUE),
+  class = class(tibble())
+) |>
+  count()
+```
+
+Impressive, isn't it? With DuckDB, analyzing over 80 million rows of data is a so fast &#128512;.
+
+::: {.callout-warning}
+Unless you have a lot of memory, do not run the code below (i.e. without the `count()` function). It will load the entire dataset in memory!
+
+```{r}
+#| label: read_data_large
+#| eval: false
+duckplyr_df_from_file(
+  "s3://duckplyr-demo-taxi-data/taxi-data-2019-partitioned/*/*.parquet",
+  "read_parquet",
+  options = list(hive_partitioning = TRUE),
+  class = class(tibble())
+)
+```
+
+:::
+
+## Performance Benchmarking
+
+How long it took to count the rows? Let's find out &#8986;.
+
+```{r}
+#| label: benchmark
+system.time({
+  duckplyr_df_from_file(
+    "s3://duckplyr-demo-taxi-data/taxi-data-2019-partitioned/*/*.parquet",
+    "read_parquet",
+    options = list(hive_partitioning = TRUE),
+    class = class(tibble())
+  ) |>
+    count()
+})
+```
+
+It took **less than 3 seconds** to count the rows. This is impressive!
+
+To wrap up, let's do an actual analysis. We will calculate the median tip percentage by the number of passengers in the taxi.
+
+```{r}
+#| label: analysis
+duckplyr_df_from_file(
+  "s3://duckplyr-demo-taxi-data/taxi-data-2019-partitioned/*/*.parquet",
+  "read_parquet",
+  options = list(hive_partitioning = TRUE),
+  class = class(tibble())
+) |>
+  filter(total_amount > 0) |>
+  filter(!is.na(passenger_count)) |>
+  mutate(tip_pct = 100 * tip_amount / total_amount) |>
+  summarise(
+    avg_tip_pct = median(tip_pct),
+    n = n(),
+    .by = passenger_count
+  ) |>
+  arrange(desc(passenger_count))
+```
+
+## Conclusion
+
+By integrating DuckDB with `dplyr` via `duckplyr`, we unlock a powerful toolset for data analysis. Whether it's exploring small datasets or crunching numbers in massive datasets, DuckDB's efficiency and dplyr's versatility make for a winning combination.
+
+<details>
+  
+<summary>Session info</summary>
+
+```{r sessioninfo, echo = FALSE}
+#| label: sessioninfo
+options(width = 120)
+devtools::session_info()
+```
+
+</details>
+
+<details>
+
+<summary>renv.lock file</summary>
+
+```{.json include="renv.lock"}
+
+```
+
+</details>
