@@ -288,6 +288,11 @@
       ],
       "Hash": "dd2b9319ee0656c8acf45c7f40c59de7"
     },
+    "purrr": {
+      "Package": "purrr",
+      "Version": "1.0.2",
+      "Source": "Repository"
+    },
     "quarto": {
       "Package": "quarto",
       "Version": "1.4",
