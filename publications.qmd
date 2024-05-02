@@ -1,7 +1,7 @@
 ---
-title: "Publications"
+title: 'Publications'
 comments: false
-execute: 
+execute:
   freeze: false
 ---
 
@@ -15,7 +15,7 @@ This is the list of my academic publications. I try as much as possible to publi
 #| message: false
 #| eval: true
 
-library(tidyverse)
+library(dplyr)
 library(httr2)
 library(gt)
 library(glue)

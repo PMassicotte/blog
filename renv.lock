@@ -95,6 +95,11 @@
       ],
       "Hash": "698ece7ba5a4fa4559e3d537e7ec3d31"
     },
+    "dplyr": {
+      "Package": "dplyr",
+      "Version": "1.1.4",
+      "Source": "Repository"
+    },
     "evaluate": {
       "Package": "evaluate",
       "Version": "0.23",
@@ -139,13 +144,12 @@
     "glue": {
       "Package": "glue",
       "Version": "1.7.0",
-      "Source": "Repository",
-      "Repository": "https://packagemanager.rstudio.com/cran/__linux__/jammy/latest",
-      "Requirements": [
-        "R",
-        "methods"
-      ],
-      "Hash": "e0b3a53876554bd45879e596cdb10a52"
+      "Source": "Repository"
+    },
+    "gt": {
+      "Package": "gt",
+      "Version": "0.10.1",
+      "Source": "Repository"
     },
     "highr": {
       "Package": "highr",
@@ -173,6 +177,11 @@
         "utils"
       ],
       "Hash": "81d371a9cc60640e74e4ab6ac46dcedc"
+    },
+    "httr2": {
+      "Package": "httr2",
+      "Version": "1.0.1",
+      "Source": "Repository"
     },
     "jquerylib": {
       "Package": "jquerylib",
