@@ -11,10 +11,10 @@ image: 'img/preview.png'
 #| include: false
 # https://www.joelnitta.com/posts/2024-01-11_using_renv_with_blog/
 
+renv::use(lockfile = "renv.lock")
+
 library(quarto)
 library(styler)
-
-renv::use(lockfile = "renv.lock")
 ```
 
 ## Introduction

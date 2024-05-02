@@ -20,6 +20,7 @@ library(httr2)
 library(gt)
 library(glue)
 library(purrr)
+library(stringr)
 
 key <- Sys.getenv("ZOTERO_KEY")
 
@@ -39,7 +40,7 @@ dat <- res$data |>
   mutate(authors = map_chr(creators, ~ toString(paste(.$firstName, .$lastName)))) |>
   filter(authors != "") |>
   mutate(year = str_match(date, "\\d{4}")) |>
-  mutate(across(where(is.character), \(x) replace_na(x, ""))) |>
+  mutate(across(where(is.character), \(x) ifelse(is.na(x), "", x))) |>
   mutate(DOI = case_when(
     DOI == "" ~ "",
     TRUE ~ glue("<a href = https://doi.org/{DOI}>View article</a>")

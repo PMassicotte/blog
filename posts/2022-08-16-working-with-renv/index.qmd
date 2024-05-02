@@ -14,10 +14,10 @@ editor_options:
 #| include: false
 # https://www.joelnitta.com/posts/2024-01-11_using_renv_with_blog/
 
+renv::use(lockfile = "renv.lock")
+
 library(quarto)
 library(styler)
-
-renv::use(lockfile = "renv.lock")
 ```
 
 I am using `renv` quite a lot. Recently, I had to return to an older project that was using this package to manage package dependencies. When I tried to load `tidyverse`, I got the following message:

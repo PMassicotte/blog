@@ -388,6 +388,11 @@
       ],
       "Hash": "d53dbfddf695303ea4ad66f86e99b95d"
     },
+    "stringr": {
+      "Package": "stringr",
+      "Version": "1.5.1",
+      "Source": "Repository"
+    },
     "tinytex": {
       "Package": "tinytex",
       "Version": "0.50",

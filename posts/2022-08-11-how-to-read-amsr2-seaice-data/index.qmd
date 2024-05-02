@@ -14,10 +14,10 @@ editor_options:
 #| include: false
 # https://www.joelnitta.com/posts/2024-01-11_using_renv_with_blog/
 
+renv::use(lockfile = "renv.lock")
+
 library(quarto)
 library(styler)
-
-renv::use(lockfile = "renv.lock")
 ```
 
 Today I was trying to read [AMSR2](https://www.ospo.noaa.gov/Products/atmosphere/gpds/about_amsr2.html) sea ice [data](ftp://ftp-projects.cen.uni-hamburg.de/seaice/AMSR2/3.125km). I was surprised to discover that the files do not include coordinates or projection information. Data and coordinates are contained in different files! Maybe to save some disk space ⁉️ The sea ice data is (for example) in a file named **Arc_20201010_res3.125_pyres.nc.gz** whereas the coordinates are included in a file name **LongitudeLatitudeGrid_3.125km_Arctic.nc**. Furthermore, I found that the provided coordinates are provided in long/lat format whereas the gridded data are projected 😠

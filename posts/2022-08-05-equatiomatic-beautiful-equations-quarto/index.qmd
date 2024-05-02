@@ -13,10 +13,10 @@ editor_options:
 #| include: false
 # https://www.joelnitta.com/posts/2024-01-11_using_renv_with_blog/
 
+renv::use(lockfile = "renv.lock")
+
 library(quarto)
 library(styler)
-
-renv::use(lockfile = "renv.lock")
 ```
 
 When writing dynamic documents in R (either R Markdown or Quarto), it can be useful to display model equations. I recently discovered [equatiomatic](https://datalorax.github.io/equatiomatic/), a very nice package that can do the job.
