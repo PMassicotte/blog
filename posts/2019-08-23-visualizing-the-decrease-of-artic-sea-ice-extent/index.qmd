@@ -1,17 +1,23 @@
 ---
-title: "Visualizing the decrease of Artic sea ice extent"
-author: "Philippe Massicotte"
-date: "2019-08-23"
+title: 'Visualizing the decrease of Artic sea ice extent'
+author: 'Philippe Massicotte'
+date: '2019-08-23'
 categories: [R]
-image: "img/preview.png"
+image: 'img/preview.png'
 ---
+
+```{r}
+#| label: renv
+#| include: false
+# https://www.joelnitta.com/posts/2024-01-11_using_renv_with_blog/
+renv::use(lockfile = "renv.lock")
+```
 
 ```{r setup, include=FALSE}
 library(tidyverse)
 library(ggpmthemes)
 library(glue)
 library(ggforce)
-library(tidyverse)
 library(curl)
 library(patchwork)
 
@@ -23,15 +29,13 @@ theme_set(theme_exo())
 theme_update(
   rect = element_rect(fill = "#173f50"),
   text = element_text(colour = "white"),
-    axis.text  = element_text(colour = "white"),
-    axis.ticks = element_line(colour = "white")
+  axis.text = element_text(colour = "white"),
+  axis.ticks = element_line(colour = "white")
 )
 ```
 
 ```{r download_seaice_extent}
 file <- "ftp://sidads.colorado.edu/DATASETS/NOAA/G02135/north/daily/data/N_seaice_extent_daily_v3.0.csv"
-
-# file <- "ftp://sidads.colorado.edu/DATASETS/NOAA/G02135/south/daily/data/S_seaice_extent_daily_v3.0.csv"
 
 raw_data <- curl_fetch_memory(file)
 sea_ice_extent <- rawToChar(raw_data$content)
@@ -66,8 +70,8 @@ Photo by <a href="https://unsplash.com/@anniespratt?utm_source=unsplash&utm_medi
 
 The data consist of four variables:
 
--   `Year`, `Month`, `Day`: Period of the measurements.
--   `Extent`: Sea ice extent in millions km^2^.
+- `Year`, `Month`, `Day`: Period of the measurements.
+- `Extent`: Sea ice extent in millions km^2^.
 
 ```{r}
 sea_ice_extent %>%
@@ -133,7 +137,7 @@ ice_trend <- sea_ice_extent %>%
   nest() %>%
   mutate(mod = map(data, ~ lm(extent ~ year, data = .))) %>%
   mutate(slope = map_dbl(mod, c(1, 2))) %>%
-  mutate(r2 = map2_dbl(mod, data, modelr::rsquare)) %>% 
+  mutate(r2 = map2_dbl(mod, data, modelr::rsquare)) %>%
   ungroup()
 
 ice_trend %>%

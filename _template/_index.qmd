@@ -16,7 +16,19 @@ citation: true
 #| label: renv
 #| include: false
 # https://www.joelnitta.com/posts/2024-01-11_using_renv_with_blog/
+
+library(quarto)
+library(styler)
+
 renv::use(lockfile = "renv.lock")
+```
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(ggpmthemes)
+library(sf)
+
+theme_set(theme_exo())
 ```
 
 ```{r}

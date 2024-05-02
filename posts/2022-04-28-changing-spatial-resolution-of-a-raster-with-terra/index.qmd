@@ -1,10 +1,21 @@
 ---
-title: " Changing spatial resolution of a raster with terra"
-author: "Philippe Massicotte"
-date: "2022-04-28"
+title: ' Changing spatial resolution of a raster with terra'
+author: 'Philippe Massicotte'
+date: '2022-04-28'
 categories: [R, Geospatial]
-image: "img/preview.png"
+image: 'img/preview.png'
 ---
+
+```{r}
+#| label: renv
+#| include: false
+# https://www.joelnitta.com/posts/2024-01-11_using_renv_with_blog/
+
+library(quarto)
+library(styler)
+
+renv::use(lockfile = "renv.lock")
+```
 
 Lately, I was working on a project and I needed to change the spatial resolution of a GeoTIFF to match that of another one. After looking around, I posted [a question on Stackoverflow](https://stackoverflow.com/questions/72044284/how-to-change-a-raster-to-a-specific-spatial-resolution/72044772#72044772). After experimenting around, I decided to blog about my experience of changing the spatial resolution of GeoTIFF rasters.
 
@@ -14,6 +25,7 @@ In this post, we will explore two ways to change the spatial resolution of a ras
 2. Resampling pixels from one geometry to another one.
 
 ![Shimmering blues and greens accentuate the textures of the Sierra de Velasco Mountains of northern Argentina. The urban area (pinkish circle) near the lower left part of the mountain range is La Rioja, the capital of the province of La Rioja. Follow the foothills to the upper right, where the city of San Fernando del Valle de Catamarca lies near extensive vineyards and fruit-growing areas (blue blocky shapes).](img/preview.png){width=75%}
+
 <center>Photo by <a href="https://unsplash.com/@usgs?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">USGS</a> on <a href="https://unsplash.com/s/photos/landsat?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></center>
 
 ## Aggregating a raster
@@ -44,7 +56,7 @@ r16 <- rast(m)
 r16
 ```
 
-Using `plot_raster()`, we can display the value of each pixel within the raster. 
+Using `plot_raster()`, we can display the value of each pixel within the raster.
 
 ```{r}
 plot_raster(r16)
@@ -61,7 +73,7 @@ r4
 plot_raster(r4)
 ```
 
-What happened is that, by default, the `aggregate()` function is using the `mean()` function to summarize the pixel values. Hence, the upper left pixel has a value of 3.5 which correspond to the average of 4 pixels `(1 + 5 + 2 + 6) / 4 = 3.5`. As mentioned previously, one can use any function that returns a single value such as the `min()` function. 
+What happened is that, by default, the `aggregate()` function is using the `mean()` function to summarize the pixel values. Hence, the upper left pixel has a value of 3.5 which correspond to the average of 4 pixels `(1 + 5 + 2 + 6) / 4 = 3.5`. As mentioned previously, one can use any function that returns a single value such as the `min()` function.
 
 ```{r}
 # Aggregate using the min() function
@@ -86,7 +98,6 @@ plot_raster(r256)
 ## Resampling
 
 Resampling is the process of transferring the values from a raster into another raster that does not have the same geometry (i.e. cell size). This is often the case when working with remote-sensing products that are derived from sources with different spatial resolutions. For the following examples, I will use data from Sentinel-2 (10 meters resolution) and Landsat-8 (30 meters resolution). Both scenes are from the same area and [https://www.gisagmaps.com/l8-s2-comparison-and-download/](taken 15 minutes apart). Raster files can be downloaded on [https://www.gisagmaps.com/l8-s2-comparison-and-download/L8_S2_080415_Comparison.zip](www.gisagmaps.com). Images contain the top of atmosphere (TOA) reflectance and we will use the RGB bands.
-
 
 ```{r}
 s2 <- rast(fs::dir_ls("data/L8_S2_080415_Comparison/S2_080415_TOA"))
@@ -149,11 +160,11 @@ Now, we can perform raster operations.
 l8_resampled - s2
 ```
 
-### UPDATE:  `r Sys.Date()`
+### UPDATE: `r Sys.Date()`
 
 [Michael Sumner](https://twitter.com/mdsumner) on Twitter pointed out that the same resampling operation could be done using `project()`.
 
-<blockquote class="twitter-tweet"><p lang="en" dir="ltr">project(l8, s2, method = &quot;&quot;) uses the warper, resample() is a subset<br><br>bilinear is default method, gdal calls it -r resample, default there is &quot;near&quot;</p>&mdash; Michael Sumner (@mdsumner) <a href="https://twitter.com/mdsumner/status/1529101265279795200?ref_src=twsrc%5Etfw">May 24, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">project(l8, s2, method = &quot;&quot;) uses the warper, resample() is a subset<br><br>bilinear is default method, gdal calls it -r resample, default there is &quot;near&quot;</p>&mdash; Michael Sumner (@mdsumner) <a href="https://twitter.com/mdsumner/status/1529101265279795200?ref_src=twsrc%5Etfw">May 24, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 Let's try resampling `l8` onto the same grid as `s2`.
 

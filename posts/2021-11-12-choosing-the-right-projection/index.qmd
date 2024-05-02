@@ -1,10 +1,21 @@
 ---
-title: "Choosing the right geographic projection with the crsuggest R package"
-author: "Philippe Massicotte"
-date: "2021-11-12"
+title: 'Choosing the right geographic projection with the crsuggest R package'
+author: 'Philippe Massicotte'
+date: '2021-11-12'
 categories: [R, Geospatial]
-image: "img/preview.png"
+image: 'img/preview.png'
 ---
+
+```{r}
+#| label: renv
+#| include: false
+# https://www.joelnitta.com/posts/2024-01-11_using_renv_with_blog/
+
+library(quarto)
+library(styler)
+
+renv::use(lockfile = "renv.lock")
+```
 
 ```{r setup, include=FALSE}
 library(tidyverse)
@@ -24,13 +35,13 @@ When creating maps, choosing an appropriate geographical projection is often a d
 
 <small>Image from: https://en.wikipedia.org/wiki/Map_projection</small>
 
-The goal of this blog post is not to go into details and consideration on how to choose *a good* projection (it is out of my expertise), but rather present a quick overview of the `crsuggest` [R package](https://github.com/walkerke/crsuggest) that can help to find a projection suited for the data to be displayed.
+The goal of this blog post is not to go into details and consideration on how to choose _a good_ projection (it is out of my expertise), but rather present a quick overview of the `crsuggest` [R package](https://github.com/walkerke/crsuggest) that can help to find a projection suited for the data to be displayed.
 
 ```{r}
 library(rnaturalearth)
+library(rnaturalearthdata)
 library(sf)
 library(patchwork)
-
 library(crsuggest)
 ```
 
@@ -51,7 +62,7 @@ p1 <- ggplot() +
 p1
 ```
 
-Time to look at the `crsuggest` package. The function `suggest_crs()` takes a spatial dataset as inputs (here the `map` object) and return a list (*n = 10* by default) of suggested coordinate systems in a [tibble](https://tibble.tidyverse.org/).
+Time to look at the `crsuggest` package. The function `suggest_crs()` takes a spatial dataset as inputs (here the `map` object) and return a list (_n = 10_ by default) of suggested coordinate systems in a [tibble](https://tibble.tidyverse.org/).
 
 ```{r}
 suggested_crs <- suggest_crs(map, limit = 3)

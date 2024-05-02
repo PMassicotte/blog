@@ -1,9 +1,20 @@
 ---
-title: "How to change the language of dates in R"
-author: "Philippe Massicotte"
-date: "2021-01-10"
-categories: [R, R tips] 
+title: 'How to change the language of dates in R'
+author: 'Philippe Massicotte'
+date: '2021-01-10'
+categories: [R, R tips]
 ---
+
+```{r}
+#| label: renv
+#| include: false
+# https://www.joelnitta.com/posts/2024-01-11_using_renv_with_blog/
+
+library(quarto)
+library(styler)
+
+renv::use(lockfile = "renv.lock")
+```
 
 ```{r setup, include=FALSE}
 library(tidyverse)
@@ -24,7 +35,7 @@ df <- tibble(
 
 df
 
-p <- df %>% 
+p <- df %>%
   ggplot(aes(x = x, y = y)) +
   geom_point() +
   scale_x_date(date_breaks = "6 weeks", date_labels = "%B-%d")
@@ -34,7 +45,7 @@ p
 
 My Linux system is configured in English, the dates are also displayed in English in the above graphic. If we want to use another language, we first have to edit the `/etc/locale.gen` file and un-comment the line(s) for the language(s) we want to use. For this particular example, I wanted to display the dates in French.
 
-``` {.bash}
+```{.bash}
 sudo nano /etc/locale.gen
 ```
 
@@ -42,7 +53,7 @@ sudo nano /etc/locale.gen
 
 In this file, I un-commented the `fr_CA.UTF-8 UTF-8` line. Once done, save the file. Then, we have to regenerate the localization files using the `locale-gen` function.
 
-``` {.bash}
+```{.bash}
 sudo locale-gen fr_CA.UTF-8
 ```
 

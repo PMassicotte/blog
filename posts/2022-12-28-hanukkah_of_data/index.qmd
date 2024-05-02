@@ -1,32 +1,46 @@
 ---
-title: "Hanukkah of data 2022"
-author: "Philippe Massicotte"
-date: "2022-12-28"
+title: 'Hanukkah of data 2022'
+author: 'Philippe Massicotte'
+date: '2022-12-28'
 categories: [R, Puzzles]
 # The preview file needs to be named preview.png
 # mogrify -format png preview.jpg
 # https://quarto.org/docs/websites/website-tools.html#preview-images
-image: "img/preview.png" 
-editor_options: 
+image: 'img/preview.png'
+editor_options:
   chunk_output_type: console
-format: 
-  html: 
+format:
+  html:
     df-print: paged
     toc: true
 ---
+
+```{r}
+#| label: renv
+#| include: false
+# https://www.joelnitta.com/posts/2024-01-11_using_renv_with_blog/
+
+library(quarto)
+library(styler)
+
+renv::use(lockfile = "renv.lock")
+```
 
 ```{r}
 #| label: setup
 #| include: false
 library(tidyverse)
 library(ggpmthemes)
+library(dm)
+library(DiagrammeR)
+library(visNetwork)
 
 theme_set(theme_minimal(base_family = "Montserrat"))
 ```
 
 ## Hanukkah of data 2022
 
-If you are looking for some data science challenges, don't look anymore, [Hanukkah of Data](https://hanukkah.bluebird.sh/5783/) is there for you. You can think of it as similar to [Advent of Code](https://adventofcode.com/) but tailored toward data-oriented puzzles with *only* eight challenges. In this blog post, I will try to solve all the puzzles using R.
+If you are looking for some data science challenges, don't look anymore, [Hanukkah of Data](https://hanukkah.bluebird.sh/5783/) is there for you. You can think of it as similar to [Advent of Code](https://adventofcode.com/) but tailored toward data-oriented puzzles with _only_ eight challenges. In this blog post, I will try to solve all the puzzles using R.
 
 ![<a href="https://hanukkah.bluebird.sh/5783/">Hanukkah of data 2022 </a>](img/preview.png){fig-alt="Close up on a grain field" fig-align="center"}
 
@@ -85,7 +99,7 @@ noahs_dm <- dm(customers, orders_items, orders, products)
 noahs_dm
 ```
 
-Then, we can specify the primary key of each table using the `dm_add_pk()` function. 
+Then, we can specify the primary key of each table using the `dm_add_pk()` function.
 
 ```{r}
 noahs_dm <- noahs_dm |>
@@ -177,8 +191,10 @@ df |>
   mutate(phone = str_remove_all(phone, "-")) |>
   mutate(
     number =
-      map_chr(str_split(tolower(last_name), ""), 
-      \(x) paste0(phone_lut[x], collapse = ""))
+      map_chr(
+        str_split(tolower(last_name), ""),
+        \(x) paste0(phone_lut[x], collapse = "")
+      )
   ) |>
   filter(phone == number)
 ```
@@ -190,7 +206,7 @@ The first step is to extract customer initials and only keep "JD".
 ```{r}
 #| label: puzzle2-a
 
-customers_initials <- customers  |>
+customers_initials <- customers |>
   mutate(initials = gsub("[a-z]", "", name), .after = name) |>
   mutate(initials = str_remove_all(initials, " ")) |>
   filter(initials == "JD")
@@ -198,7 +214,7 @@ customers_initials <- customers  |>
 customers_initials
 ```
 
-Now we can search for the customer who made *Rug Cleaner* orders in 2017.
+Now we can search for the customer who made _Rug Cleaner_ orders in 2017.
 
 ```{r}
 #| label: puzzle2-b
@@ -226,8 +242,8 @@ jeremy <- customers |>
 
 customers |>
   filter(
-    lubridate::year(birthdate) %in% 
-    c(1922, 1934, 1946, 1958, 1970, 1982, 1994, 2006, 2018, 2030),
+    lubridate::year(birthdate) %in%
+      c(1922, 1934, 1946, 1958, 1970, 1982, 1994, 2006, 2018, 2030),
     between(format(birthdate, "%m%d"), "0321", "0419")
   ) |>
   filter(citystatezip == jeremy$citystatezip) |>
@@ -253,7 +269,7 @@ products |>
 
 ## Puzzle 5: koala
 
-We are told that the next owner lives in the Queen's village and also *regularly* buys food for his/her older cats.
+We are told that the next owner lives in the Queen's village and also _regularly_ buys food for his/her older cats.
 
 ```{r}
 #| label: puzzle5-a
@@ -281,8 +297,9 @@ purchases <- orders_items |>
   left_join(products) |>
   group_by(orderid) |>
   summarise(
-    across(c(unit_price, wholesale_cost), 
-    .fns = list("tot" = \(x) sum(qty * x)))
+    across(c(unit_price, wholesale_cost),
+      .fns = list("tot" = \(x) sum(qty * x))
+    )
   ) |>
   left_join(orders) |>
   left_join(customers)
@@ -299,7 +316,6 @@ purchases |>
   filter(n > 1) |>
   distinct(customerid, name, phone)
 ```
-
 
 ## Puzzle 7: toucan
 
@@ -318,7 +334,7 @@ colored_products <- products |>
   mutate(desc = str_squish(desc)) |>
   mutate(color = na_if(color, "")) |>
   drop_na(color)
-  
+
 colored_products
 ```
 
@@ -334,7 +350,7 @@ colored_products |>
   filter(length(unique(color)) > 1 & any(customerid == 8342)) |>
   ungroup() |>
   distinct(desc, color, name, color, phone, ordered) |>
-  arrange(ordered) 
+  arrange(ordered)
 ```
 
 Looking at the time of purchase, we can find that Jonathan Adams also bought an Electric Machine with a different colour just a few seconds after Emily.

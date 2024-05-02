@@ -1,21 +1,25 @@
 ---
-title: "Segmenting linestring into points of equal distance"
-author: "Philippe Massicotte"
-date: "2023-09-26"
+title: 'Segmenting linestring into points of equal distance'
+author: 'Philippe Massicotte'
+date: '2023-09-26'
 categories: [R, sf, geospatial, rspatial]
 # The preview file needs to be named preview.png
 # mogrify -format png preview.jpg
 # https://quarto.org/docs/websites/website-tools.html#preview-images
-image: "img/preview.png" 
-editor_options: 
+image: 'img/preview.png'
+editor_options:
   chunk_output_type: console
 citation: true
 ---
 
-
 ```{r}
 #| label: renv
 #| include: false
+# https://www.joelnitta.com/posts/2024-01-11_using_renv_with_blog/
+
+library(quarto)
+library(styler)
+
 renv::use(lockfile = "renv.lock")
 ```
 
@@ -57,10 +61,11 @@ path |>
   ggplot() +
   geom_sf()
 ```
+
 Now is the fun part I discovered. You can use the `density` argument of the `st_line_sample()` function to convert a LINESTRING into points of equal distances, let's say 50 kilometres. Note that the new geometry is MULTIPOINT.
 
 ```{r}
-pts <- st_line_sample(path, density = units::as_units(50,"km")) 
+pts <- st_line_sample(path, density = units::as_units(50, "km"))
 
 pts
 
@@ -87,6 +92,7 @@ pts |>
 options(width = 120)
 devtools::session_info()
 ```
+
 </details>
 
 <details>
@@ -94,6 +100,7 @@ devtools::session_info()
 <summary>renv.lock file</summary>
 
 ```{.json include="renv.lock"}
+
 ```
 
 </details>

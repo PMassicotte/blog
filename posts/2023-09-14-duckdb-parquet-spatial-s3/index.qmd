@@ -1,17 +1,28 @@
 ---
-title: "Unlocking Cloud Data: A Step-by-Step Guide to Reading and Transforming Spatial Data with DuckDB"
-author: "Philippe Massicotte"
-date: "2023-09-14"
+title: 'Unlocking Cloud Data: A Step-by-Step Guide to Reading and Transforming Spatial Data with DuckDB'
+author: 'Philippe Massicotte'
+date: '2023-09-14'
 categories: [R, Geospatial, DuckDB, Spatial, Simple Features, Parquet]
 
 # The preview file needs to be named preview.png
 # mogrify -format png preview.jpg
 # https://quarto.org/docs/websites/website-tools.html#preview-images
-image: "https://repository-images.githubusercontent.com/138754790/fdc92700-357b-11eb-9761-54b3c051137c" 
-editor_options: 
+image: 'https://repository-images.githubusercontent.com/138754790/fdc92700-357b-11eb-9761-54b3c051137c'
+editor_options:
   chunk_output_type: console
 citation: true
 ---
+
+```{r}
+#| label: renv
+#| include: false
+# https://www.joelnitta.com/posts/2024-01-11_using_renv_with_blog/
+
+library(quarto)
+library(styler)
+
+renv::use(lockfile = "renv.lock")
+```
 
 ```{r}
 #| label: setup
@@ -36,12 +47,11 @@ query <- paste(
 )
 ```
 
- In this blog post, I will show you how to read and transform spatial data hosted in the cloud with [DuckDB](https://duckdb.org/)^[DuckDB preview image: https://archive.org/details/github.com-duckdb-duckdb_-_2022-08-11_05-54-07]. I will use the [nycflights13](https://github.com/tidyverse/nycflights13), a popular dataset for learning [data science](https://r4ds.hadley.nz/). I will also use the [sf](https://github.com/r-spatial/sf/) package to manipulate spatial data. We will first start our journey by using DuckDB to read tabular data from parquet files from an online repository. Then with [dbplyr](https://github.com/tidyverse/dbplyr/) as a backbend, we will query the data. Then, with the help of the [DuckDB spatial extension](https://duckdb.org/docs/extensions/spatial), I will introduce how we can do geospatial processing within DuckDB and sf.
+In this blog post, I will show you how to read and transform spatial data hosted in the cloud with [DuckDB](https://duckdb.org/)^[DuckDB preview image: https://archive.org/details/github.com-duckdb-duckdb_-_2022-08-11_05-54-07]. I will use the [nycflights13](https://github.com/tidyverse/nycflights13), a popular dataset for learning [data science](https://r4ds.hadley.nz/). I will also use the [sf](https://github.com/r-spatial/sf/) package to manipulate spatial data. We will first start our journey by using DuckDB to read tabular data from parquet files from an online repository. Then with [dbplyr](https://github.com/tidyverse/dbplyr/) as a backbend, we will query the data. Then, with the help of the [DuckDB spatial extension](https://duckdb.org/docs/extensions/spatial), I will introduce how we can do geospatial processing within DuckDB and sf.
 
 ## What is DuckDB?
 
-DuckDB is an embeddable SQL OLAP database management system designed for efficient data querying and manipulation. It excels in processing large datasets swiftly and is particularly adept at handling complex analytical tasks while offering the flexibility to seamlessly integrate with various data [sources and formats](https://duckdb.org/docs/archive/0.8.1/data/overview). DuckDB also comes with a set of [extensions](https://duckdb.org/docs/extensions/overview): 
-
+DuckDB is an embeddable SQL OLAP database management system designed for efficient data querying and manipulation. It excels in processing large datasets swiftly and is particularly adept at handling complex analytical tasks while offering the flexibility to seamlessly integrate with various data [sources and formats](https://duckdb.org/docs/archive/0.8.1/data/overview). DuckDB also comes with a set of [extensions](https://duckdb.org/docs/extensions/overview):
 
 ```{r}
 #| echo: false
@@ -52,7 +62,7 @@ DBI::dbSendQuery(conn, "SELECT * FROM duckdb_extensions();") |>
   as_tibble() |>
   select(-install_path) |>
   gt::gt()
-  
+
 DBI::dbDisconnect(conn, disconnect = TRUE)
 ```
 
@@ -60,13 +70,11 @@ DBI::dbDisconnect(conn, disconnect = TRUE)
 
 <center>Photo by <a href="https://unsplash.com/@tchompalov?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Vlad Tchompalov</a> on <a href="https://unsplash.com/photos/wt5Y8VY_0bA?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></center>
 
-
 ## Create a DuckDB remote connection
 
 For the following example, I will work with the nycflights13 data saved in parquet file format and hosted inside S3 buckets. I will use the [httpfs](https://duckdb.org/docs/extensions/httpfs) extension to read the data. The httpfs extension allows DuckDB to read data from remote HTTP(S) sources which is exactly what we need here to read that data from the cloud.
 
 The first thing I need to do is to create a DuckDB connection using `DBI::dbConnect()` and install the httpfs extension and load it.
-
 
 ```{r}
 library(duckdb)
@@ -77,8 +85,8 @@ conn <- DBI::dbConnect(duckdb())
 
 # Install the httpfs extension and load it
 dbExecute(conn, "INSTALL httpfs; LOAD httpfs;")
-
 ```
+
 Now that we have a connection, we can start exploring the data! All tables are stored in [parquet files](https://en.wikipedia.org/wiki/Apache_Parquet) and hosted in s3 buckets. Here are the links to the data:
 
 - [airlines](https://nycflights13.s3.valeria.science/airlines/20230913T174717Z-23aeb/airlines.parquet)
@@ -102,7 +110,6 @@ query <- paste(
 )
 
 dbExecute(conn, query)
-
 ```
 
 We can verify that the table was created by using the `SHOW ALL TABLES` statement.
@@ -140,8 +147,8 @@ df1 <- dbSendQuery(
   conn,
   "SELECT dest, AVG(arr_delay) AS delay, COUNT(*) AS n
   FROM flights GROUP BY dest ORDER BY delay DESC;"
-) |> 
-  dbFetch() |> 
+) |>
+  dbFetch() |>
   as_tibble()
 
 df1
@@ -159,7 +166,7 @@ This gives us something to work with using the `dplyr` syntax. We can now use th
 
 ```{r}
 tbl(conn, "flights") |>
-  group_by(dest) |> 
+  group_by(dest) |>
   summarize(
     n = n(),
     delay = mean(arr_delay, na.rm = TRUE)
@@ -167,11 +174,12 @@ tbl(conn, "flights") |>
   arrange(desc(delay)) |>
   show_query()
 ```
+
 Note that it looks pretty similar to the SQL query we wrote earlier. Now, we can get the results by using the `collect()` function.
 
 ```{r}
 df2 <- tbl(conn, "flights") |>
-  group_by(dest) |> 
+  group_by(dest) |>
   summarize(
     delay = mean(arr_delay, na.rm = TRUE),
     n = n()
@@ -219,6 +227,7 @@ query <- paste(
 
 dbExecute(conn, query)
 ```
+
 We can verify that we now have two tables.
 
 ```{r}
@@ -243,7 +252,8 @@ At this point, this is a simple table with no geometry column. To create the geo
 ```{r}
 dbExecute(conn, "INSTALL 'spatial'; LOAD 'spatial';")
 ```
-This is now the time to let the magic happen. I will create a new table `airports_sf` and use the `ST_asWKB()` function to create the `geometry` column. The `ST_asWKB()` function takes two arguments: the geometry type and the geometry column. In our case, we will use the `ST_Point()` function to create a point geometry from the `lon` and `lat` columns that are present in the `airports` table. 
+
+This is now the time to let the magic happen. I will create a new table `airports_sf` and use the `ST_asWKB()` function to create the `geometry` column. The `ST_asWKB()` function takes two arguments: the geometry type and the geometry column. In our case, we will use the `ST_Point()` function to create a point geometry from the `lon` and `lat` columns that are present in the `airports` table.
 
 ```{r}
 #' Here I am creating the geometry column, looks like it worked.
@@ -266,14 +276,12 @@ dbSendQuery(conn, "SHOW airports_sf;") |>
 With the geometry created, we can now do some geospatial processing. Let's start by calculating the distance between the airports and a point located at longitude -100 and latitude 40. To do so, we will use the `ST_GeomFromWKB()` function to create a geometry from the geometry column. Finally, we will use the `ST_Distance()` function to calculate the distance between the airports and a point located at longitude -100 and latitude 40. We will order the results by decreasing distances. If we look at the [extension](https://duckdb.org/docs/extensions/spatial) documentation, we note that the `ST_Distance` function operates on two geometry. However, the geometry column is of type WKB (well-known binary) and need to be converted to `geom` with `ST_GeomFromWKB()`. Finally, we can use the `ST_Distance()` function to calculate the distance between the airports and a point located at longitude -100 and latitude 40. ^[Note that we are using lat/lon data for the calculation whereas a projected coordinate reference system would be better suited.]
 
 ```{r}
-
-dbSendQuery( conn, "SELECT faa, name,
+dbSendQuery(conn, "SELECT faa, name,
   st_distance(ST_Transform(ST_GeomFromWKB(geometry), 'EPSG:4326', 'EPSG:4326'),
   ST_Transform(ST_Point(-100, 40), 'EPSG:4326', 'EPSG:4326')) as dist from
-  airports_sf ORDER BY dist DESC") |> 
-  dbFetch() |> 
-  as_tibble() 
-
+  airports_sf ORDER BY dist DESC") |>
+  dbFetch() |>
+  as_tibble()
 ```
 
 What is nice, is that it is possible to use `st_read()` from `sf` to read the data directly from DuckDB. To do so, we need to specify the connection the query (which columns from the table we want) and the geometry column.
@@ -288,7 +296,6 @@ airports_sf <- st_read(
 )
 
 airports_sf
-
 ```
 
 Note that if you want to write the data to a local file without using, so we can reuse it later, you can use the `COPY` statement. Here I am writing the `airports_sf` table to a GeoJSON file. Note that I am using the `LAYER_CREATION_OPTIONS` to specify that I want to write the bounding box to the file.
@@ -297,8 +304,6 @@ Note that if you want to write the data to a local file without using, so we can
 #| eval: false
 dbExecute(conn, "COPY  airports_sf TO '~/Desktop/airports_sf.geojson' WITH (FORMAT GDAL, DRIVER 'GeoJSON', LAYER_CREATION_OPTIONS 'WRITE_BBOX=YES')")
 ```
-
-
 
 While I am there, why not visualize the data?
 
@@ -311,10 +316,10 @@ usa <- ne_countries(
   country = "United States of America",
   returnclass = "sf"
 ) |>
-st_transform(dest_proj)
+  st_transform(dest_proj)
 
 
-airports_sf |>  
+airports_sf |>
   st_set_crs(4326) |>
   ggplot() +
   geom_sf(data = usa) +
@@ -330,7 +335,6 @@ Finally, do not forget to close your connection!
 
 ```{r}
 dbDisconnect(conn, disconnect = TRUE)
-
 ```
 
 ## Ressources
@@ -340,7 +344,6 @@ dbDisconnect(conn, disconnect = TRUE)
 - <https://tech.marksblogg.com/duckdb-gis-spatial-extension.html>
 - <https://youtu.be/ZX5FdqzGT1E>
 - <https://youtu.be/ljzpm3Mrw-I?list=PLIYcNkSjh-0ztvwoAp3GeW8HNSUSk_q3K>
-
 
 <details>
   

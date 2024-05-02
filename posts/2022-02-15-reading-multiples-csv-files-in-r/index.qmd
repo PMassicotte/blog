@@ -1,10 +1,21 @@
 ---
-title: "Reading multiples CSV files using readr"
-author: "Philippe Massicotte"
-date: "2022-02-15"
+title: 'Reading multiples CSV files using readr'
+author: 'Philippe Massicotte'
+date: '2022-02-15'
 categories: [R, Data manipulation]
-image: "img/preview.png"
+image: 'img/preview.png'
 ---
+
+```{r}
+#| label: renv
+#| include: false
+# https://www.joelnitta.com/posts/2024-01-11_using_renv_with_blog/
+
+library(quarto)
+library(styler)
+
+renv::use(lockfile = "renv.lock")
+```
 
 ```{r setup, include=FALSE}
 library(tidyverse)
@@ -16,7 +27,6 @@ theme_set(theme_minimal(base_family = "Montserrat"))
 If you are beginning in R, chances are that you have used `read.csv()` to import CSV files into R. While this function works perfectly fine, it can only read one file at a time. Hence, new R programmers often read multiple files successively and combine the data afterward.
 
 ```{r, eval = FALSE}
-
 # Read all the data files
 df1 <- read.csv("file1.csv")
 df2 <- read.csv("file2.csv")

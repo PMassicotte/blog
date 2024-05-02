@@ -1,14 +1,25 @@
 ---
-title: "Extracting raster values using the stars R package"
-author: "Philippe Massicotte"
-date: "2021-03-06"
+title: 'Extracting raster values using the stars R package'
+author: 'Philippe Massicotte'
+date: '2021-03-06'
 categories: [R, Geospatial]
-image: "img/preview.png"
+image: 'img/preview.png'
 ---
+
+```{r}
+#| label: renv
+#| include: false
+# https://www.joelnitta.com/posts/2024-01-11_using_renv_with_blog/
+
+library(quarto)
+library(styler)
+
+renv::use(lockfile = "renv.lock")
+```
 
 ## Introduction
 
-For a long time, I have been using the `raster` package to manipulate raster data in R. Slowly, I am trying to work my way out with the *new* `stars` package. In this post, I am exploring different ways to extract values from a raster at different geographic locations. For this exercise, I am using a Landsat 7 image that is provided within the `stars` package. Each pixel has a resolution of 30 meters.
+For a long time, I have been using the `raster` package to manipulate raster data in R. Slowly, I am trying to work my way out with the _new_ `stars` package. In this post, I am exploring different ways to extract values from a raster at different geographic locations. For this exercise, I am using a Landsat 7 image that is provided within the `stars` package. Each pixel has a resolution of 30 meters.
 
 ```{r setup, include=FALSE}
 library(tidyverse)
@@ -118,8 +129,8 @@ plot(
 We can visualize which pixels fall within each buffer. Looking at the next figure, one can ask why there are not always the same number of pixels in each buffer. The reason is that the arc of the circle must pass through the center of each pixel to be included in the buffer.
 
 ```{r}
-r[poly] %>% 
-  st_as_sf() %>% 
+r[poly] %>%
+  st_as_sf() %>%
   ggplot() +
   geom_sf(aes(fill = factor(V1)), color = "#3c3c3c") +
   geom_sf(data = st_sfc(poly), fill = NA, color = "blue") +
@@ -186,7 +197,7 @@ Now let's calculate the average pixel value in each polygon.
 As previously done with the smaller polygons, we can also use the `aggregate()` function.
 
 ```{r}
-averaged_using_aggregate <- aggregate(r, poly, FUN = mean) %>% 
+averaged_using_aggregate <- aggregate(r, poly, FUN = mean) %>%
   st_as_sf()
 
 averaged_using_aggregate
@@ -197,8 +208,8 @@ averaged_using_aggregate
 First, convert the polygons into a `sf` object and assign a unique id to each polygon.
 
 ```{r}
-poly_sf <- poly %>% 
-  st_as_sf() %>% 
+poly_sf <- poly %>%
+  st_as_sf() %>%
   rowid_to_column(var = "poly_id")
 
 poly_sf
@@ -215,14 +226,14 @@ r_sf
 Join the raster and the polygons together and drop the pixels that were not matched to any buffer.
 
 ```{r}
-df_sf <- st_join(r_sf, poly_sf) %>% 
+df_sf <- st_join(r_sf, poly_sf) %>%
   drop_na(poly_id)
 ```
 
 We can now visualize the pixels in each buffer.
 
 ```{r, fig.height=10, fig.width=10}
-df_sf %>% 
+df_sf %>%
   ggplot(aes(color = factor(poly_id))) +
   geom_sf(fill = NA, color = "black", size = 0.25) +
   geom_sf(data = poly_sf, fill = NA) +
@@ -237,9 +248,9 @@ df_sf %>%
 Finally, we can calculate the average pixel values in each polygon.
 
 ```{r}
-averaged_using_st_join <- df_sf %>% 
-  group_by(poly_id) %>% 
-  summarise(V1 = mean(V1), n = n()) 
+averaged_using_st_join <- df_sf %>%
+  group_by(poly_id) %>%
+  summarise(V1 = mean(V1), n = n())
 
 averaged_using_st_join
 ```

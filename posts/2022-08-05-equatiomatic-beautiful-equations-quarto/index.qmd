@@ -1,12 +1,23 @@
 ---
-title: "Beautiful equations in R Markdown and Quarto"
-author: "Philippe Massicotte"
-date: "2022-08-05"
+title: 'Beautiful equations in R Markdown and Quarto'
+author: 'Philippe Massicotte'
+date: '2022-08-05'
 categories: [R, Package discovery]
-image: "img/preview.png"
-editor_options: 
+image: 'img/preview.png'
+editor_options:
   chunk_output_type: console
 ---
+
+```{r}
+#| label: renv
+#| include: false
+# https://www.joelnitta.com/posts/2024-01-11_using_renv_with_blog/
+
+library(quarto)
+library(styler)
+
+renv::use(lockfile = "renv.lock")
+```
 
 When writing dynamic documents in R (either R Markdown or Quarto), it can be useful to display model equations. I recently discovered [equatiomatic](https://datalorax.github.io/equatiomatic/), a very nice package that can do the job.
 
@@ -27,7 +38,7 @@ mod2 <- lm(mpg ~ ., mtcars)
 broom::tidy(mod2)
 ```
 
-There are different ways to display the model equation. The most basic way is to call the `extract_eq()` function. This will display the equation *without* the fitted coefficients.
+There are different ways to display the model equation. The most basic way is to call the `extract_eq()` function. This will display the equation _without_ the fitted coefficients.
 
 ```{r}
 extract_eq(mod2)

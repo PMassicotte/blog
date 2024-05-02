@@ -1,13 +1,24 @@
 ---
-title: "How to read AMSR2 sea ice data with terra"
-author: "Philippe Massicotte"
-date: "2022-08-11"
+title: 'How to read AMSR2 sea ice data with terra'
+author: 'Philippe Massicotte'
+date: '2022-08-11'
 categories: [R, Geospatial]
 # https://quarto.org/docs/websites/website-tools.html#preview-images
-image: "img/preview.png" 
-editor_options: 
+image: 'img/preview.png'
+editor_options:
   chunk_output_type: console
 ---
+
+```{r}
+#| label: renv
+#| include: false
+# https://www.joelnitta.com/posts/2024-01-11_using_renv_with_blog/
+
+library(quarto)
+library(styler)
+
+renv::use(lockfile = "renv.lock")
+```
 
 Today I was trying to read [AMSR2](https://www.ospo.noaa.gov/Products/atmosphere/gpds/about_amsr2.html) sea ice [data](ftp://ftp-projects.cen.uni-hamburg.de/seaice/AMSR2/3.125km). I was surprised to discover that the files do not include coordinates or projection information. Data and coordinates are contained in different files! Maybe to save some disk space ⁉️ The sea ice data is (for example) in a file named **Arc_20201010_res3.125_pyres.nc.gz** whereas the coordinates are included in a file name **LongitudeLatitudeGrid_3.125km_Arctic.nc**. Furthermore, I found that the provided coordinates are provided in long/lat format whereas the gridded data are projected 😠
 
@@ -26,6 +37,7 @@ knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
 library(terra)
 library(ggplot2)
 library(tidyterra)
+library(magick)
 
 r <- rast(
   "/vsigzip//vsicurl/ftp://ftp-projects.cen.uni-hamburg.de/seaice/AMSR2/3.125km/Arc_20201010_res3.125_pyres.nc.gz",
@@ -39,6 +51,7 @@ r
 Fortunately, I found [this post](https://rstudio-pubs-static.s3.amazonaws.com/271229_1e3acab94bc8470f8e8154bef5cc0a5a.html) by [Michael Sumner](https://twitter.com/mdsumner) which guided me on how to manipulate this data. What we have to do is to set the extent and the proper projection after the file is read. This can be done using the `ext()` and `crs()` function from the `terra` package. Based on the [documentation](https://nsidc.org/data/user-resources/help-center/guide-nsidcs-polar-stereographic-projection), we can manually set the proper values.
 
 ::: {.callout-caution}
+
 ## Erratum
 
 I was wrongly using the following extent: `extent(-3837500, 3762500, -5362500, 5837500)`. [Michael Sumner](https://twitter.com/mdsumner) kindly informed me about the error. The proper extent to use is down below.

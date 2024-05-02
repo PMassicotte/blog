@@ -1,17 +1,28 @@
 ---
-title: "Uptating Ubuntu packages crashed my renv R project"
-author: "Philippe Massicotte"
-date: "2022-08-16"
+title: 'Uptating Ubuntu packages crashed my renv R project'
+author: 'Philippe Massicotte'
+date: '2022-08-16'
 categories: [R, R tips]
 # https://quarto.org/docs/websites/website-tools.html#preview-images
-image: "img/preview.png" 
-editor_options: 
+image: 'img/preview.png'
+editor_options:
   chunk_output_type: console
 ---
 
+```{r}
+#| label: renv
+#| include: false
+# https://www.joelnitta.com/posts/2024-01-11_using_renv_with_blog/
+
+library(quarto)
+library(styler)
+
+renv::use(lockfile = "renv.lock")
+```
+
 I am using `renv` quite a lot. Recently, I had to return to an older project that was using this package to manage package dependencies. When I tried to load `tidyverse`, I got the following message:
 
-``` r
+```r
 > library(tidyverse)
 Error: package or namespace load failed for ‘tidyverse’ in dyn.load(file, DLLpath = DLLpath, ...):
   unable to load shared object '/home/xxx/.local/share/renv/cache/v5/R-4.2/x86_64-pc-linux-gnu/stringi/1.7.6/bba431031d30789535745a9627ac9271/stringi/libs/stringi.so':

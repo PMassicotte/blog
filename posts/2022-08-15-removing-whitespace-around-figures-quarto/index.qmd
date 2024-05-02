@@ -1,13 +1,24 @@
 ---
-title: "Removing white spaces around plots in R Markdown / Quarto"
-author: "Philippe Massicotte"
-date: "2022-08-15"
+title: 'Removing white spaces around plots in R Markdown / Quarto'
+author: 'Philippe Massicotte'
+date: '2022-08-15'
 categories: [R, R tips]
 # https://quarto.org/docs/websites/website-tools.html#preview-images
-image: "img/preview.png" 
-editor_options: 
+image: 'img/preview.png'
+editor_options:
   chunk_output_type: console
 ---
+
+```{r}
+#| label: renv
+#| include: false
+# https://www.joelnitta.com/posts/2024-01-11_using_renv_with_blog/
+
+library(quarto)
+library(styler)
+
+renv::use(lockfile = "renv.lock")
+```
 
 ```{r setup}
 #| include: false
@@ -16,9 +27,9 @@ library(ggplot2)
 library(ggpmthemes)
 library(rnaturalearth)
 library(rnaturalearthdata)
+library(magick)
 
 theme_set(theme_minimal(base_family = "Montserrat"))
-
 ```
 
 When plotting spatial data, such as a geographical map, maintaining a proper aspect ratio is [important](https://www.pmassicotte.com/posts/2019-12-20-removing-borders-around-ggplot2-graphs/). Whereas `knitr::plot_crop()` works fine to crop a file, how can we do the same operation for a figure inside an R Markdown or a Quarto document? Thanks to `knitr`, this can be done with a [hook](https://yihui.org/knitr/hooks/).
@@ -74,9 +85,9 @@ With that, we can use `crop: true` in a code chunk to call it and crop the displ
 ```{r plot-cropped}
 #| echo: fenced
 #| crop: true
-greenland |> 
+greenland |>
   ggplot() +
-  geom_sf(size = 0.25) + 
+  geom_sf(size = 0.25) +
   coord_sf(crs = proj) +
   theme(
     plot.background = element_rect(fill = "#3c3c3c"),
