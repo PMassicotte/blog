@@ -19,6 +19,7 @@ library(dplyr)
 library(httr2)
 library(gt)
 library(glue)
+library(purrr)
 
 key <- Sys.getenv("ZOTERO_KEY")
 
