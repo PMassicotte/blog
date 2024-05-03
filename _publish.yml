@@ -1,4 +1,4 @@
 - source: project
   netlify:
     - id: ad15672e-4769-40a3-975a-9fa6b3442f4f
-      url: 'https://www.pmassicotte.com'
+      url: "https://www.pmassicotte.com"

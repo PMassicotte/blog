@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>Philippe Massicotte</title>
+<link>https://www.pmassicotte.com/</link>
+<atom:link href="https://www.pmassicotte.com/index.xml" rel="self" type="application/rss+xml"/>
+<description>Numerical ecologist | Data visualization | R enthousiast</description>
+<generator>quarto-1.4.545</generator>
+<lastBuildDate>Wed, 01 May 2024 04:00:00 GMT</lastBuildDate>
+<item>
+  <title>{B4F502887207:/posts/2024-05-01-query-s3-duckplyr/index.html}</title>
+  <dc:creator>Philippe Massicotte</dc:creator>
+  <link>https://www.pmassicotte.com/posts/2024-05-01-query-s3-duckplyr/</link>
+  <description>{B4F502887207:/posts/2024-05-01-query-s3-duckplyr/index.html}</description>
+  <category>R</category>
+  <category>DuckDB</category>
+  <category>dplyr</category>
+  <category>duckplyr</category>
+  <category>S3</category>
+  <category>Parquet</category>
+  <guid>https://www.pmassicotte.com/posts/2024-05-01-query-s3-duckplyr/</guid>
+  <pubDate>Wed, 01 May 2024 04:00:00 GMT</pubDate>
+  <media:content url="https://www.pmassicotte.com/posts/2024-05-01-query-s3-duckplyr/img/preview.png" medium="image" type="image/png" height="83" width="144"/>
+</item>
+<item>
+  <title>{B4F502887207:/posts/2023-09-26-segmenting-linestring/index.html}</title>
+  <dc:creator>Philippe Massicotte</dc:creator>
+  <link>https://www.pmassicotte.com/posts/2023-09-26-segmenting-linestring/</link>
+  <description>{B4F502887207:/posts/2023-09-26-segmenting-linestring/index.html}</description>
+  <category>R</category>
+  <category>sf</category>
+  <category>geospatial</category>
+  <category>rspatial</category>
+  <guid>https://www.pmassicotte.com/posts/2023-09-26-segmenting-linestring/</guid>
+  <pubDate>Tue, 26 Sep 2023 04:00:00 GMT</pubDate>
+  <media:content url="https://www.pmassicotte.com/posts/2023-09-26-segmenting-linestring/img/preview.png" medium="image" type="image/png" height="96" width="144"/>
+</item>
+<item>
+  <title>{B4F502887207:/posts/2023-09-14-duckdb-parquet-spatial-s3/index.html}</title>
+  <dc:creator>Philippe Massicotte</dc:creator>
+  <link>https://www.pmassicotte.com/posts/2023-09-14-duckdb-parquet-spatial-s3/</link>
+  <description>{B4F502887207:/posts/2023-09-14-duckdb-parquet-spatial-s3/index.html}</description>
+  <category>R</category>
+  <category>Geospatial</category>
+  <category>DuckDB</category>
+  <category>Spatial</category>
+  <category>Simple Features</category>
+  <category>Parquet</category>
+  <guid>https://www.pmassicotte.com/posts/2023-09-14-duckdb-parquet-spatial-s3/</guid>
+  <pubDate>Thu, 14 Sep 2023 04:00:00 GMT</pubDate>
+  <media:content url="https://repository-images.githubusercontent.com/138754790/fdc92700-357b-11eb-9761-54b3c051137c" medium="image"/>
+</item>
+<item>
+  <title>{B4F502887207:/posts/2023-08-15-map-explode/index.html}</title>
+  <dc:creator>Philippe Massicotte</dc:creator>
+  <link>https://www.pmassicotte.com/posts/2023-08-15-map-explode/</link>
+  <description>{B4F502887207:/posts/2023-08-15-map-explode/index.html}</description>
+  <category>R</category>
+  <category>rspatial</category>
+  <category>Geospatial</category>
+  <guid>https://www.pmassicotte.com/posts/2023-08-15-map-explode/</guid>
+  <pubDate>Tue, 15 Aug 2023 04:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>{B4F502887207:/posts/2023-08-15-map-explode/index.html}</title>
+  <dc:creator>Philippe Massicotte</dc:creator>
+  <link>https://www.pmassicotte.com/posts/2023-08-15-map-explode/</link>
+  <description>{B4F502887207:/posts/2023-08-15-map-explode/index.html}</description>
+  <category>R</category>
+  <category>rspatial</category>
+  <category>Geospatial</category>
+  <guid>https://www.pmassicotte.com/posts/2023-08-15-map-explode/</guid>
+  <pubDate>Tue, 15 Aug 2023 04:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>{B4F502887207:/posts/2022-12-28-hanukkah_of_data/index.html}</title>
+  <dc:creator>Philippe Massicotte</dc:creator>
+  <link>https://www.pmassicotte.com/posts/2022-12-28-hanukkah_of_data/</link>
+  <description>{B4F502887207:/posts/2022-12-28-hanukkah_of_data/index.html}</description>
+  <category>R</category>
+  <category>Puzzles</category>
+  <guid>https://www.pmassicotte.com/posts/2022-12-28-hanukkah_of_data/</guid>
+  <pubDate>Wed, 28 Dec 2022 05:00:00 GMT</pubDate>
+  <media:content url="https://www.pmassicotte.com/posts/2022-12-28-hanukkah_of_data/img/preview.png" medium="image" type="image/png" height="113" width="144"/>
+</item>
+<item>
+  <title>{B4F502887207:/posts/2022-08-16-working-with-renv/index.html}</title>
+  <dc:creator>Philippe Massicotte</dc:creator>
+  <link>https://www.pmassicotte.com/posts/2022-08-16-working-with-renv/</link>
+  <description>{B4F502887207:/posts/2022-08-16-working-with-renv/index.html}</description>
+  <category>R</category>
+  <category>R tips</category>
+  <guid>https://www.pmassicotte.com/posts/2022-08-16-working-with-renv/</guid>
+  <pubDate>Tue, 16 Aug 2022 04:00:00 GMT</pubDate>
+  <media:content url="https://www.pmassicotte.com/posts/2022-08-16-working-with-renv/img/preview.png" medium="image" type="image/png" height="112" width="144"/>
+</item>
+<item>
+  <title>{B4F502887207:/posts/2022-08-15-removing-whitespace-around-figures-quarto/index.html}</title>
+  <dc:creator>Philippe Massicotte</dc:creator>
+  <link>https://www.pmassicotte.com/posts/2022-08-15-removing-whitespace-around-figures-quarto/</link>
+  <description>{B4F502887207:/posts/2022-08-15-removing-whitespace-around-figures-quarto/index.html}</description>
+  <category>R</category>
+  <category>R tips</category>
+  <guid>https://www.pmassicotte.com/posts/2022-08-15-removing-whitespace-around-figures-quarto/</guid>
+  <pubDate>Mon, 15 Aug 2022 04:00:00 GMT</pubDate>
+  <media:content url="https://www.pmassicotte.com/posts/2022-08-15-removing-whitespace-around-figures-quarto/img/preview.png" medium="image" type="image/png" height="81" width="144"/>
+</item>
+<item>
+  <title>{B4F502887207:/posts/2022-08-11-how-to-read-amsr2-seaice-data/index.html}</title>
+  <dc:creator>Philippe Massicotte</dc:creator>
+  <link>https://www.pmassicotte.com/posts/2022-08-11-how-to-read-amsr2-seaice-data/</link>
+  <description>{B4F502887207:/posts/2022-08-11-how-to-read-amsr2-seaice-data/index.html}</description>
+  <category>R</category>
+  <category>Geospatial</category>
+  <guid>https://www.pmassicotte.com/posts/2022-08-11-how-to-read-amsr2-seaice-data/</guid>
+  <pubDate>Thu, 11 Aug 2022 04:00:00 GMT</pubDate>
+  <media:content url="https://www.pmassicotte.com/posts/2022-08-11-how-to-read-amsr2-seaice-data/img/preview.png" medium="image" type="image/png" height="108" width="144"/>
+</item>
+<item>
+  <title>{B4F502887207:/posts/2022-08-05-equatiomatic-beautiful-equations-quarto/index.html}</title>
+  <dc:creator>Philippe Massicotte</dc:creator>
+  <link>https://www.pmassicotte.com/posts/2022-08-05-equatiomatic-beautiful-equations-quarto/</link>
+  <description>{B4F502887207:/posts/2022-08-05-equatiomatic-beautiful-equations-quarto/index.html}</description>
+  <category>R</category>
+  <category>Package discovery</category>
+  <guid>https://www.pmassicotte.com/posts/2022-08-05-equatiomatic-beautiful-equations-quarto/</guid>
+  <pubDate>Fri, 05 Aug 2022 04:00:00 GMT</pubDate>
+  <media:content url="https://www.pmassicotte.com/posts/2022-08-05-equatiomatic-beautiful-equations-quarto/img/preview.png" medium="image" type="image/png" height="108" width="144"/>
+</item>
+<item>
+  <title>{B4F502887207:/posts/2022-04-28-changing-spatial-resolution-of-a-raster-with-terra/index.html}</title>
+  <dc:creator>Philippe Massicotte</dc:creator>
+  <link>https://www.pmassicotte.com/posts/2022-04-28-changing-spatial-resolution-of-a-raster-with-terra/</link>
+  <description>{B4F502887207:/posts/2022-04-28-changing-spatial-resolution-of-a-raster-with-terra/index.html}</description>
+  <category>R</category>
+  <category>Geospatial</category>
+  <guid>https://www.pmassicotte.com/posts/2022-04-28-changing-spatial-resolution-of-a-raster-with-terra/</guid>
+  <pubDate>Thu, 28 Apr 2022 04:00:00 GMT</pubDate>
+  <media:content url="https://www.pmassicotte.com/posts/2022-04-28-changing-spatial-resolution-of-a-raster-with-terra/img/preview.png" medium="image" type="image/png" height="144" width="144"/>
+</item>
+<item>
+  <title>{B4F502887207:/posts/2022-02-15-reading-multiples-csv-files-in-r/index.html}</title>
+  <dc:creator>Philippe Massicotte</dc:creator>
+  <link>https://www.pmassicotte.com/posts/2022-02-15-reading-multiples-csv-files-in-r/</link>
+  <description>{B4F502887207:/posts/2022-02-15-reading-multiples-csv-files-in-r/index.html}</description>
+  <category>R</category>
+  <category>Data manipulation</category>
+  <guid>https://www.pmassicotte.com/posts/2022-02-15-reading-multiples-csv-files-in-r/</guid>
+  <pubDate>Tue, 15 Feb 2022 05:00:00 GMT</pubDate>
+  <media:content url="https://www.pmassicotte.com/posts/2022-02-15-reading-multiples-csv-files-in-r/img/preview.png" medium="image" type="image/png" height="108" width="144"/>
+</item>
+<item>
+  <title>{B4F502887207:/posts/2021-11-12-choosing-the-right-projection/index.html}</title>
+  <dc:creator>Philippe Massicotte</dc:creator>
+  <link>https://www.pmassicotte.com/posts/2021-11-12-choosing-the-right-projection/</link>
+  <description>{B4F502887207:/posts/2021-11-12-choosing-the-right-projection/index.html}</description>
+  <category>R</category>
+  <category>Geospatial</category>
+  <guid>https://www.pmassicotte.com/posts/2021-11-12-choosing-the-right-projection/</guid>
+  <pubDate>Fri, 12 Nov 2021 05:00:00 GMT</pubDate>
+  <media:content url="https://www.pmassicotte.com/posts/2021-11-12-choosing-the-right-projection/img/preview.png" medium="image" type="image/png" height="104" width="144"/>
+</item>
+<item>
+  <title>{B4F502887207:/posts/2021-03-06-extracting-raster-values-using-polygons/index.html}</title>
+  <dc:creator>Philippe Massicotte</dc:creator>
+  <link>https://www.pmassicotte.com/posts/2021-03-06-extracting-raster-values-using-polygons/</link>
+  <description>{B4F502887207:/posts/2021-03-06-extracting-raster-values-using-polygons/index.html}</description>
+  <category>R</category>
+  <category>Geospatial</category>
+  <guid>https://www.pmassicotte.com/posts/2021-03-06-extracting-raster-values-using-polygons/</guid>
+  <pubDate>Sat, 06 Mar 2021 05:00:00 GMT</pubDate>
+  <media:content url="https://www.pmassicotte.com/posts/2021-03-06-extracting-raster-values-using-polygons/img/preview.png" medium="image" type="image/png" height="89" width="144"/>
+</item>
+<item>
+  <title>{B4F502887207:/posts/2021-01-10-how-to-change-the-language-of-date-in-r/index.html}</title>
+  <dc:creator>Philippe Massicotte</dc:creator>
+  <link>https://www.pmassicotte.com/posts/2021-01-10-how-to-change-the-language-of-date-in-r/</link>
+  <description>{B4F502887207:/posts/2021-01-10-how-to-change-the-language-of-date-in-r/index.html}</description>
+  <category>R</category>
+  <category>R tips</category>
+  <guid>https://www.pmassicotte.com/posts/2021-01-10-how-to-change-the-language-of-date-in-r/</guid>
+  <pubDate>Sun, 10 Jan 2021 05:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>{B4F502887207:/posts/2019-12-20-removing-borders-around-ggplot2-graphs/index.html}</title>
+  <dc:creator>Philippe Massicotte</dc:creator>
+  <link>https://www.pmassicotte.com/posts/2019-12-20-removing-borders-around-ggplot2-graphs/</link>
+  <description>{B4F502887207:/posts/2019-12-20-removing-borders-around-ggplot2-graphs/index.html}</description>
+  <category>R</category>
+  <category>ggplot2</category>
+  <guid>https://www.pmassicotte.com/posts/2019-12-20-removing-borders-around-ggplot2-graphs/</guid>
+  <pubDate>Fri, 20 Dec 2019 05:00:00 GMT</pubDate>
+  <media:content url="https://www.pmassicotte.com/posts/2019-12-20-removing-borders-around-ggplot2-graphs/img/preview.png" medium="image" type="image/png" height="82" width="144"/>
+</item>
+<item>
+  <title>{B4F502887207:/posts/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent/index.html}</title>
+  <dc:creator>Philippe Massicotte</dc:creator>
+  <link>https://www.pmassicotte.com/posts/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent/</link>
+  <description>{B4F502887207:/posts/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent/index.html}</description>
+  <category>R</category>
+  <guid>https://www.pmassicotte.com/posts/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent/</guid>
+  <pubDate>Fri, 23 Aug 2019 04:00:00 GMT</pubDate>
+  <media:content url="https://www.pmassicotte.com/posts/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent/img/preview.png" medium="image" type="image/png" height="96" width="144"/>
+</item>
+</channel>
+</rss>

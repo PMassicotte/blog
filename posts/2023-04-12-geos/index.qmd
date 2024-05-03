@@ -1,21 +1,32 @@
 ---
-title: "Speeding up spatial manipulation with geos"
+title: 'Speeding up spatial manipulation with geos'
 author:
-  - name: Philippe Massicotte 
+  - name: Philippe Massicotte
     url: https://example.com/norajones
     affiliation: Spacely Sprockets
     affiliation-url: https://example.com/spacelysprokets
 citation: true
-date: "2023-06-03"
+date: '2023-06-03'
 categories: [R, Geospatial]
 # The preview file needs to be named preview.png
 # mogrify -format png preview.jpg
 # https://quarto.org/docs/websites/website-tools.html#preview-images
-image: "img/preview.png" 
-editor_options: 
+image: 'img/preview.png'
+editor_options:
   chunk_output_type: console
 draft: true
 ---
+
+```{r}
+#| label: renv
+#| include: false
+# https://www.joelnitta.com/posts/2024-01-11_using_renv_with_blog/
+
+renv::use(lockfile = "renv.lock")
+
+library(quarto)
+library(styler)
+```
 
 ```{r}
 #| label: setup
@@ -28,7 +39,7 @@ theme_set(theme_minimal(base_family = "Montserrat"))
 
 <!-- ![Let's crop something! Photo by <a href="https://unsplash.com/@rozetsky?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Ant Rozetsky</a> on <a href="https://unsplash.com/s/photos/crop?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>](img/preview.png){fig-alt="Close up on a grain field" fig-align="center"} -->
 
-As the volume of spatial data continues to increase, it becomes more important than ever to use the right tools to manage, analyze, and visualize geospatial data effectively. I have been using the `sf` [package](https://r-spatial.github.io/sf/) for most of my vector operations. While this is working fine most of the time, I came up in a situation where I needed to determine how many points were intersecting a polygon which can be simply done with the `sf::st_intersects()` function. 
+As the volume of spatial data continues to increase, it becomes more important than ever to use the right tools to manage, analyze, and visualize geospatial data effectively. I have been using the `sf` [package](https://r-spatial.github.io/sf/) for most of my vector operations. While this is working fine most of the time, I came up in a situation where I needed to determine how many points were intersecting a polygon which can be simply done with the `sf::st_intersects()` function.
 
 The problem I had, however, was that I needed to work with a rather large dataset containing approximately 3.5 millions of points and the `sf::st_intersects()` function was taking way too long to do the operation. This is why I started to explore different approaches that could speed up the process. In this blog post, we will rapidly explore the `geos` [package](https://github.com/paleolimbot/geos/) to work with (large) spatial. The `geos` package provides bindings to the GEOS (Geometry Engine - Open Source) library. GEOS is a C++ library that provides functions for performing advanced spatial operations, such as geometry creation, transformation, validation, and analysis.
 
@@ -42,6 +53,7 @@ For this example, I will generate random points and see those that fall over the
 ```{r}
 library(geos)
 library(rnaturalearth)
+library(rnaturalearthdata)
 library(geosphere)
 library(sf)
 library(ggplot2)
@@ -54,10 +66,9 @@ ggplot() +
   geom_sf(data = map)
 ```
 
-Now, we can generate 
+Now, we can generate
 
 ```{r}
-
 bbox <- st_bbox(map)
 
 n <- 1e3
@@ -74,7 +85,6 @@ head(pts)
 ggplot() +
   geom_sf(data = pts, size = 0.2) +
   geom_sf(data = map, alpha = 0.5, fill = "red")
-
 ```
 
 - We can create a geometry column using the `geos_make_point()` function.
@@ -86,7 +96,6 @@ pts_geos <- pts |>
 head(pts_geos)
 
 map_geos <- as_geos_geometry(map)
-
 ```
 
 ```{r}
@@ -101,7 +110,6 @@ microbenchmark::microbenchmark(
 sum(lengths(res_sf) > 0)
 
 length(unlist(res_geos))
-
 ```
 
 ```{r}
@@ -110,8 +118,7 @@ p <- ggplot() +
   geom_sf(data = st_as_sf(pts_geos), size = 0.25) +
   coord_sf(
     xlim = c(-180, 0),
-    ylim = c(40, 90),
-    default_crs = TRUE
+    ylim = c(40, 90)
   )
 
 p
@@ -132,10 +139,8 @@ p +
   geom_sf(data = pts_over, color = "red") +
   coord_sf(
     xlim = c(-180, 0),
-    ylim = c(40, 90),
-    default_crs = TRUE
+    ylim = c(40, 90)
   )
-
 ```
 
 <details>
@@ -149,4 +154,3 @@ devtools::session_info()
 ```
 
 </details>
-

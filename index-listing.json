@@ -1,0 +1,22 @@
+{
+  "listing": "/index.html",
+  "items": [
+    "/posts/2024-05-01-query-s3-duckplyr/index.html",
+    "/posts/2023-09-26-segmenting-linestring/index.html",
+    "/posts/2023-09-14-duckdb-parquet-spatial-s3/index.html",
+    "/posts/2023-08-15-map-explode/index.html",
+    "/posts/2023-08-15-map-explode/index.html",
+    "/posts/2022-12-28-hanukkah_of_data/index.html",
+    "/posts/2022-08-16-working-with-renv/index.html",
+    "/posts/2022-08-15-removing-whitespace-around-figures-quarto/index.html",
+    "/posts/2022-08-11-how-to-read-amsr2-seaice-data/index.html",
+    "/posts/2022-08-05-equatiomatic-beautiful-equations-quarto/index.html",
+    "/posts/2022-04-28-changing-spatial-resolution-of-a-raster-with-terra/index.html",
+    "/posts/2022-02-15-reading-multiples-csv-files-in-r/index.html",
+    "/posts/2021-11-12-choosing-the-right-projection/index.html",
+    "/posts/2021-03-06-extracting-raster-values-using-polygons/index.html",
+    "/posts/2021-01-10-how-to-change-the-language-of-date-in-r/index.html",
+    "/posts/2019-12-20-removing-borders-around-ggplot2-graphs/index.html",
+    "/posts/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent/index.html"
+  ]
+}
