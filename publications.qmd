@@ -6,6 +6,12 @@ execute:
 ---
 
 ```{r lockfile, include=FALSE}
+options(
+  repos = c(
+    CRAN = "https://packagemanager.posit.co/cran/__linux__/jammy/latest"
+  )
+)
+
 renv::use(
   askpass     = "askpass@1.2.0",
   base64enc   = "base64enc@0.1-3",
