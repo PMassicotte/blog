@@ -6,6 +6,7 @@ execute:
 ---
 
 ```{r lockfile, include=FALSE}
+options(repos = c(CRAN = "https://packagemanager.posit.co/cran/__linux__/jammy/latest"))
 renv::use(
   askpass     = "askpass@1.2.0",
   base64enc   = "base64enc@0.1-3",
@@ -55,7 +56,6 @@ renv::use(
   yaml        = "yaml@2.3.8"
 )
 ```
-
 
 ::: {.callout-note}
 This is the list of my academic publications. I try as much as possible to publish in open access journals. However, if you can not find the associated PDF, please contact me. I will glady send it to you!
