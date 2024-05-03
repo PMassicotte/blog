@@ -27,6 +27,7 @@ jobs:
       #     cache-version: 0
       - name: Install R packages
         run: |
+          options(repos = c(CRAN = "https://packagemanager.posit.co/cran/__linux__/jammy/latest"))
           install.packages("renv")
           install.packages("rmarkdown")
           install.packages("quarto")
