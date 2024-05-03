@@ -21,6 +21,8 @@ renv::use(lockfile = "renv.lock")
 
 library(quarto)
 library(styler)
+library(downlit)
+library(xml2)
 ```
 
 ## Introduction
