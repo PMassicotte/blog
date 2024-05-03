@@ -32,7 +32,7 @@ jobs:
           install.packages("rmarkdown")
           install.packages("quarto")
           install.packages("downlit")
-          install.packages("xm2")
+          install.packages("xml2")
         shell: Rscript {0}
 
       - name: Render and Publish
