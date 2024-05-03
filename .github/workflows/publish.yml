@@ -31,6 +31,8 @@ jobs:
           install.packages("renv")
           install.packages("rmarkdown")
           install.packages("quarto")
+          install.packages("downlit")
+          install.packages("xm2")
         shell: Rscript {0}
 
       - name: Render and Publish
