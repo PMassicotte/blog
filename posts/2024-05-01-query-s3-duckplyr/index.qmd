@@ -29,7 +29,7 @@ I like [DuckDB](https://duckdb.org/) &#x1F986;. I am excited to see that it is [
 
 [![When duckdb meets dplyr! Photo by DuckDB](https://duckdb.org/images/blog/duckplyr/duckplyr.png)](https://duckdb.org/2024/04/02/duckplyr.html){fig-alt="Hex logos of dplyr and duckdb" fig-align="center"}
 
-In this short post, I will show you how to use `duckplyr` to query a public dataset of flights stored in a Parquet file on an S3 bucket. I will use the `duckplyr_df_from_parquet()` function to read the data and then use `dplyr` verbs to summarize the data.
+In this short post, I will show how `duckplyr` can be used to query parquet files hosted on an S3 bucket. I will use the `duckplyr_df_from_parquet()` function to read the data and then use `dplyr` verbs to summarize the data.
 
 First, let's install the `duckplyr` package and load the necessary libraries.
 
@@ -71,7 +71,7 @@ DBI::dbSendQuery(
 Note the use of the triple colon (`:::`) to access the internal function.
 :::
 
-Now, we can read the data from the Parquet file stored on the S3 bucket with the `duckplyr_df_from_parquet()` function. We can also specify the class of the output data frame with `class = class(tibble())`. In this case, I will use a `tibble`.
+Now, we can read the data from the parquet file stored on the S3 bucket with the `duckplyr_df_from_parquet()` function. We can also specify the class of the output data frame with `class = class(tibble())`. In this case, I will use `tibble`.
 
 ```{r}
 #| label: read_data
@@ -83,7 +83,7 @@ flights <- duckplyr_df_from_parquet(
 flights
 ```
 
-From what I understand, all the data is pulled into the memory. This could be a problem if the data is too large. What we can do is to summarize the data to know how many rows are in the data.
+From what I understand, all the data is pulled into the memory. This could be a problem if the data is too large. What we can do is to summarize the data to know how many rows are in the table.
 
 ```{r}
 #| label: nrow
@@ -105,7 +105,7 @@ duckplyr_df_from_parquet(
   glimpse()
 ```
 
-Now, let's summarize the data by `carrier`.
+Now, let's summarize the data by calculating the average departure delay by `carrier`.
 
 ```{r}
 #| label: summary
@@ -121,7 +121,7 @@ duckplyr_df_from_parquet(
 
 ## Scaling Up: Analyzing a larger dataset
 
-Let's try with a much larger dataset. I will use the NYC taxi data from 2019. The data is partitioned by month and stored in Parquet partitioning. But before we need to change the endpoint.
+Let's try with a much larger dataset. I will use the NYC taxi data from 2019. The data is partitioned by month and stored in parquet partitioning. But before we can process, we need to change the endpoint.
 
 ```{r}
 #| label: change_endpoint
