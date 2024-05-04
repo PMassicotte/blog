@@ -12,8 +12,6 @@ options(
   )
 )
 
-Sys.setenv("RENV_CONFIG_SANDBOX_ENABLED" = FALSE)
-
 renv::use(
   askpass     = "askpass@1.2.0",
   base64enc   = "base64enc@0.1-3",

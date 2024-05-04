@@ -27,6 +27,7 @@ jobs:
       #     cache-version: 0
       - name: Install R packages
         run: |
+          Sys.setenv("RENV_CONFIG_SANDBOX_ENABLED" = FALSE)
           options(repos = c(CRAN = "https://packagemanager.posit.co/cran/__linux__/jammy/latest"))
           install.packages("renv")
           install.packages("rmarkdown")
