@@ -201,6 +201,72 @@ duckplyr_df_from_file(
 
 By integrating DuckDB with `dplyr` via `duckplyr`, we unlock a powerful toolset for data analysis. Whether it's exploring small datasets or crunching numbers in massive datasets, DuckDB's efficiency and dplyr's versatility make for a winning combination.
 
+## Bonus: comparing the performance with dbplyr
+
+I recently stumbled across [this discussion](https://github.com/duckdblabs/duckplyr/issues/145) addressing the difference between `duckplyr` and `dbplyr`. Intrigued, I decided to compare the performance of `duckplyr` against `dbplyr`.
+
+```{r}
+#| label: dbplyr
+library(dplyr)
+library(dbplyr)
+library(bench)
+
+f_dbplyr <- function() {
+  con <- dbConnect(duckdb())
+
+  dbSendQuery(con, "INSTALL httpfs; LOAD httpfs;")
+  dbSendQuery(con, "SET s3_region='auto';SET s3_endpoint='';")
+
+  df <- tbl(
+    con,
+    "read_parquet('s3://duckplyr-demo-taxi-data/taxi-data-2019-partitioned/*/*.parquet')"
+  )
+
+  df |>
+    filter(total_amount > 0) |>
+    filter(!is.na(passenger_count)) |>
+    mutate(tip_pct = 100 * tip_amount / total_amount) |>
+    summarise(
+      avg_tip_pct = median(tip_pct),
+      n = n(),
+      .by = passenger_count
+    ) |>
+    arrange(desc(passenger_count))
+
+  dbDisconnect(con)
+}
+
+f_duckplyr <- function() {
+  con <- duckplyr:::get_default_duckdb_connection()
+
+  dbSendQuery(con, "INSTALL httpfs; LOAD httpfs;")
+  dbSendQuery(
+    con,
+    "SET s3_region='auto';SET s3_endpoint='';"
+  )
+
+  duckplyr_df_from_file(
+    "s3://duckplyr-demo-taxi-data/taxi-data-2019-partitioned/*/*.parquet",
+    "read_parquet",
+    options = list(hive_partitioning = TRUE),
+    class = class(tibble())
+  ) |>
+    filter(total_amount > 0) |>
+    filter(!is.na(passenger_count)) |>
+    mutate(tip_pct = 100 * tip_amount / total_amount) |>
+    summarise(
+      avg_tip_pct = median(tip_pct),
+      n = n(),
+      .by = passenger_count
+    ) |>
+    arrange(desc(passenger_count))
+}
+
+mark(f_dbplyr(), f_duckplyr(), check = FALSE)
+```
+
+The initial results show that using `dbplyr` is faster than `duckplyr`. This is interesting and I will need to investigate further to understand why.
+
 <details>
   
 <summary>Session info</summary>
