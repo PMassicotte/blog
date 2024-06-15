@@ -1,12 +1,12 @@
 ---
-title: "About"
+title: 'About'
 image: profile.jpg
 comments: false
 about:
   template: marquee
   image-shape: round
   image-width: 20em
-  
+
   links:
     - icon: twitter
       text: Twitter
@@ -16,16 +16,16 @@ about:
       href: https://github.com/pmassicotte
     - icon: stack-overflow
       text: Stackoverflow
-      href: "users/5558188/philippe-massicotte"
+      href: 'users/5558188/philippe-massicotte'
 ---
 
-Hi, my name is Philippe Massicotte. As a *numerical ecologist*, the [R statistical computing language](https://www.r-project.org/) is an important part of my daily workflow. I mainly use R for environmental modelling and data manipulation.
+Hi, my name is Philippe Massicotte. As a _numerical ecologist_, the [R statistical computing language](https://www.r-project.org/) is an important part of my daily workflow. I mainly use R for environmental modelling and data manipulation.
 
 <img src="/img/pmassicotte.jpg" alt="drawing" width="400"/>
 
 ## Current research
 
-I am currently working as a research associate at the [Takuvik Joint International Laboratory](http://www.takuvik.ulaval.ca/) under the supervision of [Dr. Marcel Babin](http://www.takuvik.ulaval.ca/team/babin_marcel.php).
+I am currently working as a research associate at the [Takuvik Joint International Laboratory](http://www.takuvik.ulaval.ca/).
 
 **Some researches I am currently working on:**
 
@@ -56,4 +56,3 @@ I am currently working as a research associate at the [Takuvik Joint Internation
 - Image analysis
 
 - Geomatic
-
