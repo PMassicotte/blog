@@ -1,14 +1,14 @@
 /*-- scss:defaults --*/
 
 /* css styles */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Oleo+Script&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Oleo+Script&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;600&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@500&display=swap");
 
 pre > code.sourceCode {
-	white-space: pre;
-	font-family: JetBrains Mono;
+  white-space: pre;
+  font-family: JetBrains Mono;
 }
 
 .navbar-dark .navbar-brand {
@@ -21,9 +21,10 @@ pre > code.sourceCode {
   font-size: 2em;
 }
 
-h1, h2 {
+h1,
+h2 {
   font-family: "Baloo 2";
-  font-size: 2em;;
+  font-size: 2em;
   font-weight: bold;
 }
 
@@ -37,7 +38,8 @@ code {
   padding: 0 4px 1px;
 }
 
-p code:not(.sourceCode), li code:not(.sourceCode) {
+p code:not(.sourceCode),
+li code:not(.sourceCode) {
   font-size: 90%;
   font-family: "JetBrains Mono", monospace;
   font-weight: 600;
@@ -54,8 +56,10 @@ p code:not(.sourceCode), li code:not(.sourceCode) {
   font-weight: bold;
 }
 
-.panel-caption, .figure-caption, figcaption {
-	text-align: center;
+.panel-caption,
+.figure-caption,
+figcaption {
+  text-align: center;
 }
 
 p {
