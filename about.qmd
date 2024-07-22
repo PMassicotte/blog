@@ -1,6 +1,6 @@
 ---
-title: 'About'
-image: profile.jpg
+title: "About"
+image: profile2.jpg
 comments: false
 about:
   template: marquee
@@ -16,12 +16,10 @@ about:
       href: https://github.com/pmassicotte
     - icon: stack-overflow
       text: Stackoverflow
-      href: 'users/5558188/philippe-massicotte'
+      href: "users/5558188/philippe-massicotte"
 ---
 
 Hi, my name is Philippe Massicotte. As a _numerical ecologist_, the [R statistical computing language](https://www.r-project.org/) is an important part of my daily workflow. I mainly use R for environmental modelling and data manipulation.
-
-<img src="/img/pmassicotte.jpg" alt="drawing" width="400"/>
 
 ## Current research
 
