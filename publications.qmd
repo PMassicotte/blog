@@ -1,5 +1,5 @@
 ---
-title: 'Publications'
+title: "Publications"
 comments: false
 execute:
   freeze: false
