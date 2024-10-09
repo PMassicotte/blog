@@ -10,6 +10,8 @@ image: "img/preview.png"
 editor_options:
   chunk_output_type: console
 citation: true
+# Can use ![](images/tools.png){.preview-image} for the preview image
+# https://quarto.org/docs/websites/website-tools.html#preview-images
 ---
 
 ```{r}
@@ -43,9 +45,8 @@ theme_set(theme_minimal(base_family = "Montserrat"))
 ![Let's crop something! Photo by <a href="https://unsplash.com/@rozetsky?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Ant Rozetsky</a> on <a href="https://unsplash.com/s/photos/crop?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>](img/preview.png){fig-alt="Close up on a grain field" fig-align="center"}
 
 <details>
-  
-<summary>Session info</summary>
-
+  <summary>Session info</summary>
+</details>
 ```{r sessioninfo, echo = FALSE}
 #| label: sessioninfo
 options(width = 120)
