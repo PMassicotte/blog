@@ -4,6 +4,14 @@ subtitle: Presentations of my workshops
 comments: false
 ---
 
+[Data Management Best Practices]{.section-header}
+
+Journée IID des professionnels et professionnelles de recherche affiliés à l'Université Laval sur la gestion et l'usage des données de recherche
+
+![](logos/iid.png){fig-alt="Logo of Sentinel North" fig-align="center" width="400"}
+
+[Data Management Best Practices](https://pmassicotte.github.io/journee_ppr_ulaval_2024)
+
 [Efficient data manipulation with R]{.section-header}
 
 [Efficient data manipulation with R](https://pmassicotte.github.io/efficient_data_manipulation_with_r/)
