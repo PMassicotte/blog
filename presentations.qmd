@@ -16,10 +16,9 @@ comments: false
 
 Presentations given at the Green Edge legacy meeting.
 
- - [Underice Kd](https://pmassicotte.github.io/greenedge_2019_nice_kd/)
+- [Underice Kd](https://pmassicotte.github.io/greenedge_2019_nice_kd/)
 
 - [Ice camp paper](https://pmassicotte.github.io/greenedge_2019_nice_data_paper_ice_camp/)
-
 
 [Green Edge side meeting]{.section-header}
 

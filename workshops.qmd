@@ -6,6 +6,14 @@ comments: false
 
 [Data Management Best Practices]{.section-header}
 
+Conférence Gestion des données pour le [CEISM](https://www.ceism.ca/)
+
+![](logos/ceism.png){fig-alt="Logo of the CEISM" fig-align="center" height="200"}
+
+[Data Management Best Practices](https://pmassicotte.github.io/ceism_2025)
+
+[Data Management Best Practices]{.section-header}
+
 Journée IID des professionnels et professionnelles de recherche affiliés à l'Université Laval sur la gestion et l'usage des données de recherche
 
 ![](logos/iid.png){fig-alt="Logo of Sentinel North" fig-align="center" width="400"}
