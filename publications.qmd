@@ -8,7 +8,7 @@ execute:
 ```{r lockfile, include=FALSE}
 options(
   repos = c(
-    CRAN = "https://packagemanager.posit.co/cran/__linux__/jammy/latest"
+    CRAN = "https://packagemanager.posit.co/cran/__linux__/noble/latest"
   )
 )
 
@@ -20,7 +20,7 @@ renv::use(
   cachem = "cachem@1.0.8",
   cli = "cli@3.6.2",
   curl = "curl@5.2.1",
-  digest = "digest@0.6.35",
+  digest = "digest@0.6.37",
   dplyr = "dplyr@1.1.4",
   evaluate = "evaluate@0.23",
   fansi = "fansi@1.0.6",
@@ -58,7 +58,7 @@ renv::use(
   utf8 = "utf8@1.2.4",
   vctrs = "vctrs@0.6.5",
   withr = "withr@3.0.0",
-  xfun = "xfun@0.51",
+  xfun = "xfun@0.52",
   yaml = "yaml@2.3.8"
 )
 ```
