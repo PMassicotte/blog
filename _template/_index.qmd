@@ -47,7 +47,8 @@ theme_set(theme_minimal(base_family = "Montserrat"))
 <details>
   <summary>Session info</summary>
 </details>
-```{r sessioninfo, echo = FALSE}
+
+```{r, echo = FALSE}
 #| label: sessioninfo
 options(width = 120)
 devtools::session_info()
