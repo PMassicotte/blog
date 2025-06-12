@@ -1,7 +1,7 @@
 ---
-title: 'Separating/exploding spatial features with R'
-author: 'Philippe Massicotte'
-date: '2023-08-15'
+title: "Separating/exploding spatial features with R"
+author: "Philippe Massicotte"
+date: "2023-08-15"
 categories: [R, rspatial, Geospatial]
 # the preview file needs to be named preview.png
 # mogrify -format png preview.jpg
@@ -19,7 +19,6 @@ citation: true
 renv::use(lockfile = "renv.lock")
 
 library(quarto)
-library(styler)
 ```
 
 ```{r}
@@ -27,15 +26,15 @@ library(styler)
 #| include: false
 library(tidyverse)
 library(ggpmthemes)
+library(sf)
+library(rnaturalearthhires)
 theme_set(theme_minimal(base_family = "montserrat"))
 ```
 
 It has been a while since I posted something! But today I wanted to quickly experiment and create a map where I could separate/explode the spatial geometries. Let's first download the polygon data for Canada.
 
 ```{r}
-library(sf)
-library(tidyverse)
-
+#| label: load-data
 canada <- rnaturalearth::ne_states(country = "canada", returnclass = "sf") |>
   st_make_valid()
 ```
@@ -43,6 +42,7 @@ canada <- rnaturalearth::ne_states(country = "canada", returnclass = "sf") |>
 As we can see, there are three different regions.
 
 ```{r}
+#| label: explore-regions
 canada |>
   distinct(region)
 ```
@@ -50,6 +50,7 @@ canada |>
 These regions can be visualized using `ggplot2` and `sf`.
 
 ```{r}
+#| label: plot-original-map
 # Get a good CRS for Canada
 crsuggest::suggest_crs(canada)
 
@@ -64,6 +65,7 @@ canada |>
 With this following code, we can find the centroid of each region and shift the centers of the new polygons.
 
 ```{r}
+#| label: explode-geometries
 canada_exploded <- canada |>
   group_by(region) |>
   mutate(region_centroid = st_centroid(st_union(geometry))) |>
@@ -76,31 +78,13 @@ st_crs(canada_exploded)
 As seen above, for a reason I do not know, we have lost the CRS after the operation, so I have to set it back before visualizing it.
 
 ```{r}
+#| label: plot-exploded-map
 canada_exploded <- canada_exploded |>
   st_set_crs(5931)
 
 canada_exploded |>
   ggplot(aes(fill = region)) +
   geom_sf()
-```
-
-Bonus: if we want to get a little bit more fancy, we can add shadows with `ggfx`:
-
-```{r}
-#| classes: preview-image
-library(ggfx)
-
-canada_exploded |>
-  ggplot(aes(fill = region)) +
-  with_shadow(
-    geom_sf(),
-    sigma = 5,
-    x_offset = 20,
-    y_offset = 20
-  ) +
-  theme(
-    legend.position = "none"
-  )
 ```
 
 <details>
