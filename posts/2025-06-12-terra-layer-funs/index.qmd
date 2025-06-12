@@ -1,0 +1,134 @@
+---
+title: "Using app(), lapp(), and tapp() with SpatRaster in R"
+author: "Philippe Massicotte"
+date: "2025-06-12"
+categories: [R, terra, gis]
+editor_options:
+  chunk_output_type: console
+citation: true
+---
+
+```{r}
+#| label: renv
+#| include: false
+
+renv::use(lockfile = "renv.lock")
+```
+
+```{r}
+#| label: setup
+#| include: false
+
+library(terra)
+```
+
+In this short post, I will show how to use the `app()`, `lapp()`, and `tapp()` functions from the `terra` package to apply functions to `SpatRaster` objects. These functions are useful for performing operations on raster data, such as calculating means or applying custom functions across layers.
+
+![Aerial view of layered rock formations showing natural geological strata, representing the concept of working with raster layers in spatial data analysis. Photo by [Eberhard Gross‑Gasteiger](https://www.pexels.com/@eberhardgross/) on Pexels.](https://images.pexels.com/photos/443446/pexels-photo-443446.jpeg){.preview-image}
+
+## Creating a `SpatRaster`
+
+```{r}
+#| label: create-spatraster
+
+library(terra)
+
+# Create a SpatRaster with 3 layers, 2x2 pixels
+r <- rast(nrows = 2L, ncols = 2L, nlyrs = 3L)
+
+# Fill with numbers 1 to 12
+values(r) <- 1L:12L
+
+# Assign names to the layers
+names(r) <- c("lyr1", "lyr2", "lyr3")
+
+r
+
+r[]
+```
+
+```{r}
+#| label: plot-spatraster
+
+plot(r, main = names(r), col = terrain.colors(12L))
+```
+
+## Applying functions to `SpatRaster` layers
+
+Use `app()` to apply a function across all layers of a `SpatRaster` object. This function operates on each pixel across all layers, allowing you to compute statistics or perform operations on the raster data.
+
+### Using `app()`
+
+```{r}
+#| label: app-mean
+
+# Apply mean across layers for each pixel
+app(r, mean)[]
+```
+
+### Using `lapp()`
+
+Use `lapp()` to apply a custom function that takes multiple layers as input. This is useful for more complex calculations that involve multiple layers.
+
+```{r}
+#| label: lapp-custom
+
+# Apply custom function across layers
+lapp(r, function(a, b, c) a + 2L * b + c)[]
+```
+
+### Using `tapp()`
+
+Use `tapp()` to apply a function over groups of layers, which is useful for temporal data or when you want to summarize layers by groups.
+
+```{r}
+#| label: tapp-groups
+
+# Group layers and apply mean (layers 1 and 2 are grouped, layer 3 separate)
+tapp(r, mean, index = c(1L, 1L, 2L))[]
+```
+
+### Using `global()`
+
+Use the `global()` function to computes a summary statistic for each layer across all pixels. This is useful for obtaining overall statistics like `mean`, `sum`, or standard deviation for each layer.
+
+```{r}
+#| label: global-mean
+
+# Calculate global mean for each layer
+global(r, mean)
+```
+
+## Functions comparison
+
+::: {.column-page}
+
+| Function&nbsp;&nbsp;&nbsp; | Operates Over       | Purpose                                      | Output Type              | Example Usage                          | When to Use                                                        |
+| :------------------------- | ------------------- | -------------------------------------------- | ------------------------ | -------------------------------------- | ------------------------------------------------------------------ |
+| `app()`                    | Layers (per pixel)  | Apply a function across layers at each pixel | `SpatRaster` (1+ layers) | `app(r, mean)`<br>`app(r, sum)`        | Simple summaries across layers (`mean`, `sum`, `min`, etc.)        |
+| `lapp()`                   | Layers (vectorized) | Pixel-wise operations with vectorized inputs | `SpatRaster`             | `lapp(r, function(a,b,c) a + 2*b - c)` | Custom functions, better performance, multi-input, per-layer logic |
+| `tapp()`                   | Time groups         | Aggregate over temporal/index groups         | `SpatRaster`             | `tapp(r, mean, index = c(1,1,2))`      | Temporal summaries like monthly or yearly mean, grouped ops        |
+| `global()`                 | Cells (per layer)   | Summary over all pixels in each layer        | `data.frame`             | `global(r, mean)`                      | Whole-layer stats like `mean`, `min`, `sum`, `sd`, etc.            |
+
+:::
+
+<details>
+<summary>Session info</summary>
+
+```{r}
+#| echo: false
+#| label: sessioninfo
+
+devtools::session_info()
+```
+
+</details>
+
+<details>
+<summary>renv.lock file</summary>
+
+```{.json include="renv.lock"}
+
+```
+
+</details>
