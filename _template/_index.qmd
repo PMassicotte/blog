@@ -3,26 +3,24 @@ title: "title"
 author: "Philippe Massicotte"
 date: "2022-02-15"
 categories: [R, ...]
-# The preview file needs to be named preview.png
-# mogrify -format png preview.jpg
-# https://quarto.org/docs/websites/website-tools.html#preview-images
 image: "img/preview.png"
 editor_options:
   chunk_output_type: console
 citation: true
-# Can use ![](images/tools.png){.preview-image} for the preview image
-# https://quarto.org/docs/websites/website-tools.html#preview-images
 ---
 
 ```{r}
 #| label: renv
 #| include: false
+
 # https://www.joelnitta.com/posts/2024-01-11_using_renv_with_blog/
+# renv::init()
+# do your work, then run the following to create the lockfile
+# renv::snapshot(repos = "https://p3m.dev/cran/__linux__/manylinux_2_28/latest")
 
 renv::use(lockfile = "renv.lock")
 
 library(quarto)
-library(styler)
 ```
 
 ```{r setup, include=FALSE}
@@ -42,7 +40,7 @@ library(ggpmthemes)
 theme_set(theme_minimal(base_family = "Montserrat"))
 ```
 
-![Let's crop something! Photo by <a href="https://unsplash.com/@rozetsky?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Ant Rozetsky</a> on <a href="https://unsplash.com/s/photos/crop?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>](img/preview.png){fig-alt="Close up on a grain field" fig-align="center"}
+![Aerial view of layered rock formations showing natural geological strata, representing the concept of working with raster layers in spatial data analysis. Photo by [Eberhard Gross‑Gasteiger](https://www.pexels.com/@eberhardgross/) on Pexels.](https://images.pexels.com/photos/443446/pexels-photo-443446.jpeg){.preview-image}
 
 <details>
 <summary>Session info</summary>
