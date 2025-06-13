@@ -55,9 +55,9 @@ plot(r, main = names(r), col = terrain.colors(12L))
 
 ## Applying functions to `SpatRaster` layers
 
-Use `app()` to apply a function across all layers of a `SpatRaster` object. This function operates on each pixel across all layers, allowing you to compute statistics or perform operations on the raster data.
-
 ### Using `app()`
+
+Use `app()` to apply a function across all layers of a `SpatRaster` object. This function operates on each pixel across all layers, allowing you to compute statistics or perform operations on the raster data.
 
 ```{r}
 #| label: app-mean
