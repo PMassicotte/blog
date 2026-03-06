@@ -29,6 +29,7 @@ jobs:
         run: |
           Sys.setenv("RENV_CONFIG_SANDBOX_ENABLED" = FALSE)
           options(repos = c(CRAN = "https://packagemanager.posit.co/cran/__linux__/jammy/latest"))
+          install.packages("xfun")
           install.packages("renv")
           install.packages("rmarkdown")
           install.packages("quarto")

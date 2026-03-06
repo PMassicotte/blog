@@ -23,7 +23,7 @@ Hi, my name is Philippe Massicotte. As a _numerical ecologist_, the [R statistic
 
 ## Current research
 
-I am currently working as a research associate at the [Takuvik Joint International Laboratory](http://www.takuvik.ulaval.ca/).
+I am currently working as a research associate at the [Takuvik International Research Laboratory](http://www.takuvik.ulaval.ca/).
 
 **Some researches I am currently working on:**
 
