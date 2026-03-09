@@ -58,7 +58,7 @@ renv::use(
   utf8 = "utf8@1.2.4",
   vctrs = "vctrs@0.6.5",
   withr = "withr@3.0.0",
-  xfun = "xfun@0.52",
+  xfun = "xfun@0.55",
   yaml = "yaml@2.3.8"
 )
 ```
