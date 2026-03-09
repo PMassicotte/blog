@@ -6,6 +6,10 @@ comments: false
 
 [Data Management Best Practices]{.section-header}
 
+Gestion des données pour la recherche en foresterie — [METAFOR](https://www.metafor-ulaval.ca/)
+
+[Data Management Best Practices](https://pmassicotte.github.io/gestion_donnees_recherche_foresterie_2025/#/title-slide)
+
 Conférence Gestion des données pour le [CEISM](https://www.ceism.ca/)
 
 ![](logos/ceism.png){fig-alt="Logo of the CEISM" fig-align="center" height="200"}
